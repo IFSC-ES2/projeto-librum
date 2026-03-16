@@ -1,6 +1,6 @@
 ## Descrição
 
-> O que foi feito e por quê.
+> O que foi feito e por quê:
 
 Closes #
 

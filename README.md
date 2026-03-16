@@ -29,7 +29,7 @@ As mecânicas incluem sistema de progressão narrativa que desbloqueia novos liv
 
 O aprendizado resulta no desenvolvimento efetivo do hábito de leitura, melhora na compreensão textual, expansão de vocabulário, descoberta de novos gêneros e autores, e desenvolvimento de pensamento crítico.
 
-O público-alvo inclui adolescentes e jovens adultos entre 9 e 16 anos, escolas, bibliotecas, educadores e pais.
+O público-alvo inclui adolescentes e jovens adultos entre 9 e 16 anos.
 
 ## Escopo
 

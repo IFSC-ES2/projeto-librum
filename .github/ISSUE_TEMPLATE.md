@@ -1,6 +1,6 @@
 ---
 name: Issue
-absout: Reporte um bug, sugira uma funcionalidade ou descreva uma tarefa
+about: Reporte um bug, sugira uma funcionalidade ou descreva uma tarefa
 title: "[TIPO] Título da issue"
 ---
 

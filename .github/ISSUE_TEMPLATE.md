@@ -1,7 +1,7 @@
 ---
-nome: Issue
-sobre: Reporte um bug, sugira uma funcionalidade ou descreva uma tarefa
-titulo: "[TIPO] Título da issue"
+name: Issue
+absout: Reporte um bug, sugira uma funcionalidade ou descreva uma tarefa
+title: "[TIPO] Título da issue"
 ---
 
 ## Tipo

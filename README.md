@@ -77,3 +77,4 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 - [Visão do produto e Escopo do MVP](./docs/inception.md)
 - [DoD](./docs/dod.md)
 - [ADRs iniciais](./docs/adrs)
+- [Backlog com as issues](https://github.com/orgs/IFSC-ES2/projects/19)

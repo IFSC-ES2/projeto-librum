@@ -93,3 +93,38 @@ Usamos dois critérios:
 2. **Dá para fazer no semestre com o tamanho da equipe?** Se não, fica para depois.
 
 Funcionalidades que são legais mas não são essenciais para a experiência central foram todas deixadas para versões futuras.
+
+# Backlog Inicial
+
+---
+
+## Histórias de usuário
+
+1. Como leitor, quero me cadastrar e fazer login para acessar meu progresso. — **Alta prioridade** · ✅ Essencial
+2. Como leitor, quero ver a tela de seleção de gêneros para escolher por onde começar. — **Alta prioridade** · ✅ Essencial
+3. Como leitor, quero navegar livremente entre gêneros literários. — **Alta prioridade** · ✅ Essencial
+4. Como leitor, quero ler os trechos de um livro organizados em fases. — **Alta prioridade** · ✅ Essencial
+5. Como leitor, quero que a próxima fase só seja liberada depois que eu concluir a atual. — **Alta prioridade** · ✅ Essencial
+6. Como leitor, quero responder um quiz ao final de cada fase para testar minha compreensão. — **Alta prioridade** · ✅ Essencial
+7. Como leitor, quero ganhar XP ao concluir fases e quizzes para ver minha evolução. — **Alta prioridade** · ✅ Essencial
+8. Como leitor, quero ver meu progresso por gênero e fase para saber onde parei. — **Média prioridade** · ✅ Essencial
+9. Como leitor, quero ver um resumo do meu desempenho ao final do quiz. — **Média prioridade** · Complementar
+10. Como leitor, quero poder reiniciar uma fase caso queira reler o conteúdo. — **Baixa prioridade** · Pós-MVP
+
+---
+
+## Como os critérios de aceitação estão escritos?
+
+Cada história no repositório segue esse formato:
+
+**Dado** que [contexto],
+
+**quando** [o leitor faz algo],
+
+**então** [o sistema deve responder assim].
+
+Exemplo para a história 6:
+
+- **Dado** que o leitor concluiu a leitura de uma fase,
+- **quando** ele clica em "Iniciar quiz",
+- **então** o sistema exibe entre 3 e 5 perguntas de múltipla escolha sobre o conteúdo lido.

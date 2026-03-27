@@ -71,3 +71,9 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 - Painel do Educador
 - Sistema Social
 - Integração com APIs de catálogos literários externos (Open Library, Google Books)
+
+## Link de Referência
+
+- [Visão do produto e Escopo do MVP](./docs/inception.md)
+- [DoD](./docs/dod.md)
+- [ADRs iniciais](./docs/adrs)

@@ -4,24 +4,24 @@
 
 ## Qual problema o sistema resolve?
 
-Muita gente - especialmente adolescentes - tem dificuldade de criar o hábito de leitura. Listas de livros obrigatórios da escola não costumam funcionar, e é difícil competir com redes sociais e jogos que prendem a atenção de forma muito mais imediata.
+Atualmente, muitas crianças e adolescentes têm dificuldade em criar o hábito de leitura. No mundo escolar, as listas de livros obrigatórios não funcionar. É difícil competir com redes sociais e jogos que prendem a atenção de forma imediata.
 
-O **Librum** quer mudar isso transformando a leitura em uma experiência mais parecida com um jogo: o leitor escolhe um gênero que gosta, lê trechos de livros reais, responde perguntas e vai desbloqueando novas fases. A ideia é que ler vire algo prazeroso e com progressão visível, não uma obrigação.
+O **Librum** quer mudar isso e transformar a leitura em uma experiência mais divertida e interativa, parecida com um jogo. O leitor escolhe um gênero que gosta, lê trechos de livros reais, responde perguntas e vai desbloqueando novas fases. A ideia é que ler vire algo prazeroso e com progressão visível, não uma obrigação.
 
 ---
 
 ## Quem vai usar?
 
-- **Leitor:** adolescentes e jovens entre 9 e 16 anos que querem criar ou fortalecer o hábito de leitura.
-- **Interessados indiretos:** pais, professores, escolas e bibliotecas que acompanham ou incentivam a leitura.
+- **Leitor:** crianças e adolescentes entre 9 e 16 anos que querem criar ou fortalecer o hábito de leitura.
+- **Interessados indiretos:** pais, professores e bibliotecas que acompanham ou incentivam a leitura.
 
 ---
 
 ## O que o Librum oferece de diferente?
 
-A navegação do app é inspirada no Duolingo: assim como lá você escolhe um idioma para aprender, aqui você escolhe um **gênero literário** - terror, suspense, romance, fantasia, etc. Dentro do gênero, você avança por fases lendo trechos de um livro real, ganha pontos (XP) e responde um quiz ao final de cada fase para ver se absorveu o conteúdo.
+A navegação do app é inspirada no Duolingo: ao invés de escolher um idioma para aprender, o usuário escolhe um **gênero literário** (terror, suspense, romance, fantasia e etc.) Dentro de cada gênero, o usuário avança por fases lendo trechos de livros reais, respondendo perguntas e ganhando pontos ao final de cada fase para fixar o conteúdo.
 
-A proposta é simples: tornar a leitura mais engajante e mostrar que ler pode ser tão envolvente quanto qualquer outro entretenimento digital.
+A proposta é simples: tornar a leitura mais engajante e mostrar que ler pode ser tão divertido quanto qualquer outro entretenimento digital.
 
 ---
 
@@ -49,7 +49,7 @@ A proposta é simples: tornar a leitura mais engajante e mostrar que ler pode se
 
 ## Qual é o objetivo do MVP?
 
-Entregar um ciclo completo e funcional: o usuário escolhe um gênero, lê os trechos de um livro divididos em fases, responde um quiz ao final de cada fase e acumula progresso. Se esse fluxo funcionar bem, o produto tem valor, tudo mais pode ser construído em cima disso.
+Entregar um ciclo completo e funcional da aplicação, ou seja, o usuário escolhe um gênero, lê os trechos de um livro que serão divididos em fases, responde um quiz de múltipla escolha ao final de cada fase e acumula progresso. Se esse fluxo funcionar bem, o produto tem valor e tudo mais pode ser construído em cima disso.
 
 ---
 
@@ -81,7 +81,7 @@ Entregar um ciclo completo e funcional: o usuário escolhe um gênero, lê os tr
 
 ## Por que esse recorte faz sentido?
 
-Com um livro por gênero e um quiz simples por fase, conseguimos entregar algo completo e testável sem precisar de meses a mais de desenvolvimento. O foco é validar se a proposta funciona antes de escalar.
+Com um livro por gênero e um questionário simples por fase, conseguimos entregar algo completo e testável sem precisar de muito tempo de desenvolvimento. O foco é validar se a proposta funciona antes de escalar.
 
 ---
 
@@ -100,16 +100,16 @@ Funcionalidades que são legais mas não são essenciais para a experiência cen
 
 ## Histórias de usuário
 
-1. Como leitor, quero me cadastrar e fazer login para acessar meu progresso. — **Alta prioridade** · ✅ Essencial
-2. Como leitor, quero ver a tela de seleção de gêneros para escolher por onde começar. — **Alta prioridade** · ✅ Essencial
-3. Como leitor, quero navegar livremente entre gêneros literários. — **Alta prioridade** · ✅ Essencial
-4. Como leitor, quero ler os trechos de um livro organizados em fases. — **Alta prioridade** · ✅ Essencial
-5. Como leitor, quero que a próxima fase só seja liberada depois que eu concluir a atual. — **Alta prioridade** · ✅ Essencial
-6. Como leitor, quero responder um quiz ao final de cada fase para testar minha compreensão. — **Alta prioridade** · ✅ Essencial
-7. Como leitor, quero ganhar XP ao concluir fases e quizzes para ver minha evolução. — **Alta prioridade** · ✅ Essencial
-8. Como leitor, quero ver meu progresso por gênero e fase para saber onde parei. — **Média prioridade** · ✅ Essencial
-9. Como leitor, quero ver um resumo do meu desempenho ao final do quiz. — **Média prioridade** · Complementar
-10. Como leitor, quero poder reiniciar uma fase caso queira reler o conteúdo. — **Baixa prioridade** · Pós-MVP
+1. Como leitor, quero me cadastrar e fazer login para que meu progresso seja salvo entre as sessões. (Alta prioridade)
+2. Como leitor, quero ver uma tela com os gêneros disponíveis assim que entrar na aplicação, para poder escolher por onde quero começar. (Alta prioridade)
+3. Como leitor, quero conseguir trocar de gênero quando quiser, sem precisar recomeçar do zero. (Alta prioridade)
+4. Como leitor, quero ler os trechos de um livro divididos em partes menores, para não ter que ler tudo de uma vez. (Alta prioridade)
+5. Como leitor, quero que a fase seguinte só apareça disponível depois que eu terminar a atual, para sentir que estou avançando de verdade. (Alta prioridade)
+6. Como leitor, quero responder perguntas sobre o que li ao final de cada fase, para ver se entendi o conteúdo. (Alta prioridade)
+7. Como leitor, quero acumular pontos conforme termino as fases e os questionários, para acompanhar minha evolução ao longo do tempo. (Alta prioridade)
+8. Como leitor, quero ver onde parei em cada gênero, para retomar de onde fui sem precisar lembrar manualmente. (Média prioridade)
+9. Como leitor, quero ver um resumo do meu resultado logo depois do questionário, para saber quantas perguntas acertei. (Média prioridade)
+10. Como leitor, quero ter a opção de refazer uma fase, caso queira reler o trecho antes de tentar o questionário de novo. (Baixa prioridade)
 
 ---
 
@@ -126,5 +126,5 @@ Cada história no repositório segue esse formato:
 Exemplo para a história 6:
 
 - **Dado** que o leitor concluiu a leitura de uma fase,
-- **quando** ele clica em "Iniciar quiz",
+- **quando** ele clica em "Iniciar questionário",
 - **então** o sistema exibe entre 3 e 5 perguntas de múltipla escolha sobre o conteúdo lido.

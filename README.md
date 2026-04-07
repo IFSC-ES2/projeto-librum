@@ -78,3 +78,9 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 - [DoD](./docs/dod.md)
 - [ADRs iniciais](./docs/adrs)
 - [Backlog com as issues](https://github.com/orgs/IFSC-ES2/projects/19)
+- 
+### Estimativas e métricas
+
+- [Baseline](./docs/baseline.md)
+- [Métricas](./docs/metricas.md)
+- [Estimativas](./docs/estimativas.md)

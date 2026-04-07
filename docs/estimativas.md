@@ -1,6 +1,6 @@
 ## Técnica de estimativa
 
-Nós usamos *Story Points com escala de Fibonacci* (1, 2, 3, 5, 8, 13). O número representa uma combinação de complexidade, esforço e incerteza - não exatamente horas diretas de trabalho.
+Nós usamos *Story Points com escala de Fibonacci* (1, 2, 3, 5, 8, 13). O número representa uma combinação de complexidade, esforço e incerteza, não exatamente horas diretas de trabalho.
 
 Todos os quatro participantes da equipe participaram da estimativa. A história de referência foi a **US01 (cadastro e login)**, que ficou em **5 pontos** por ser a mais equilibrada em termos de camadas (frontend, backend e banco). As demais foram estimadas em relação essa história.
 
@@ -17,3 +17,18 @@ Todos os quatro participantes da equipe participaram da estimativa. A história 
 - **US09 - Resumo do desempenho - 2 SP:** tela de feedback pós-quiz com dados já disponíveis.
 
 **Total: 41 Story Points**
+
+## Incertezas que percebemos
+
+- Estimativa pode precisar de ajuste depois do primeiro sprint.
+- A US04 tem bastante incerteza porque a modelagem do conteúdo literário em fases ainda não está totalmente definida.
+- O banco de questões do quiz (US06) provavelmente vai exigir criação manual de conteúdo, o que não foi estimado separadamente.
+- A integração Frontend e Backend pode gerar atrasos, especialmente no alinhamento entre membros.
+
+## Hipóteses assumidas
+
+- Os quatro integrantes não desistirão até o fim do semestre.
+- O escopo do MVP não muda de forma significativa.
+- As tecnologias definidas não mudam.
+- Disponibilidade individual de aproximadamente 4h por semana.
+- Vamos usar livros de domínio público, sem dependência de APIs externas para conteúdo.

@@ -78,9 +78,16 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 - [DoD](./docs/dod.md)
 - [ADRs iniciais](./docs/adrs)
 - [Backlog com as issues](https://github.com/orgs/IFSC-ES2/projects/19)
-- 
+
 ### Estimativas e métricas
 
 - [Baseline](./docs/baseline.md)
 - [Métricas](./docs/metricas.md)
 - [Estimativas](./docs/estimativas.md)
+
+### Riscos e Consolidação (Entrega 4)
+
+- [Registro de Riscos](./docs/riscos.md) — identificação, análise, priorização e plano de resposta aos riscos do projeto
+- [Fluxo de Trabalho](./docs/fluxo-de-trabalho.md) — branches, pull requests, template de PR e ciclo completo de uma história
+- [Critérios Iniciais de Qualidade](./docs/qualidade.md) — atributos de qualidade priorizados, relação com riscos e métricas preliminares
+- [Template de Pull Request](./.github/PULL_REQUEST_TEMPLATE.md) — template com checklist mínimo de revisão

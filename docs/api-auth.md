@@ -1,4 +1,4 @@
-# API de Autenticacao
+# API de Autenticação
 
 Endpoints usados no cadastro e login da US01.
 
@@ -8,9 +8,9 @@ URL base: `http://localhost:8080`
 
 ## POST /auth/register
 
-Cria uma nova conta de usuario.
+Cria uma nova conta de usuário.
 
-**Corpo da requisicao:**
+**Corpo da requisição:**
 
 ```json
 {
@@ -20,9 +20,9 @@ Cria uma nova conta de usuario.
 }
 ```
 
-- `name`: obrigatorio
-- `email`: obrigatorio, formato valido
-- `password`: obrigatorio, minimo 8 caracteres
+- `name`: obrigatório
+- `email`: obrigatório, formato válido
+- `password`: obrigatório, mínimo 8 caracteres
 
 **Respostas:**
 
@@ -35,25 +35,25 @@ Cria uma nova conta de usuario.
 }
 ```
 
-- `409` - e-mail ja cadastrado
+- `409` - e-mail já cadastrado
 
 ```json
 { "message": "Este e-mail já está em uso" }
 ```
 
-- `400` - campos invalidos
+- `400` - campos inválidos
 
 ```json
-{ "message": "Campos obrigatorios invalidos" }
+{ "message": "Campos obrigatórios inválidos" }
 ```
 
 ---
 
 ## POST /auth/login
 
-Autentica um usuario existente e retorna um token JWT.
+Autentica um usuário existente e retorna um token JWT.
 
-**Corpo da requisicao:**
+**Corpo da requisição:**
 
 ```json
 {
@@ -79,12 +79,12 @@ Autentica um usuario existente e retorna um token JWT.
 { "message": "E-mail ou senha incorretos" }
 ```
 
-> A mensagem nao especifica qual dos dois esta errado, por seguranca.
+> A mensagem não especifica qual dos dois está errado, por segurança.
 
-- `400` - campos invalidos
+- `400` - campos inválidos
 
 ```json
-{ "message": "Campos obrigatorios invalidos" }
+{ "message": "Campos obrigatórios inválidos" }
 ```
 
 ---

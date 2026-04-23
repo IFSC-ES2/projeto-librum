@@ -3,9 +3,10 @@
 | entrega | commit  | data     | correção | nota | peso |
 | ------- | ------- | -------- | -------- | ---- | ---- |
 | 1       | 7124b40 | 16/03/26 | 20/03/26 | 9,5  | 2    |
-| 2       | bba31d8 | 27/03/26 | 29/03/26 | 0    | 2    |
+| 2       | 0a2f5d1 | 06/04/26 | 22/04/26 | 9,5  | 2    |
+| 3       | adb9e5e | 06/04/26 | 22/04/26 | 9,1  | 3    |
 
-**nota:** 4,8
+**nota parcial:** 9,3
 
 ## Comentários
 
@@ -22,3 +23,35 @@
 ### Entrega 2
 
 - `inception.md` gerado por IA.
+
+- Não há regras de proteção da ramificação principal implementadas no GitHub.
+- A equipe apenas definiu algumas regras de proteção da ramificação principal que ainda não estão em vigor.
+
+#### Recuperação
+
+1. Visão do produto: atendido.
+2. Definição do MVP: atendido.
+3. Backlog inicial com critérios de aceitação: parcial.
+   - As prioridades devem esar definidas na própria issue, não no texto da descrição.
+4. Definition of Done (DoD): atendido
+5. ADRs iniciais: atendido
+6. Atualização do README: atendido
+
+- As regras de proteção de ramificação ainda não foram implementadas.
+
+### Entrega 3
+
+1. Planejamento inicial e baseline: parcialmente
+   - Informar qual recorte do backlog servirá de base para o planejamento
+   - Priorizar os itens mais importantes do backlog
+   - A priorização deve estar também no acompanhamento do projeto do Github, não apenas na descrição das _issues_
+   - Informar a data de registro do baseline
+   - O que acontecerá se a velocity ficar abaixo do estimado?
+2. Registro da abordagem de estimativa: atendido
+3. Capacidade planejada da equipe: atendido
+4. Definição das métricas que serão acompanhadas: atendido
+5. Ficha de cada métrica: parcialmente atendido
+   - Definir pelo menos uma métrica de projeto
+   - Separar as fichas de cada métrica em arquivos diferentes
+     - Em cada uma adicionar data do acompanhamento e valor coletado
+   - Numerar métricas para facilitar a referenciação

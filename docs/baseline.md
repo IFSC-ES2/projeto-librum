@@ -1,36 +1,83 @@
-## Baseline
+# Baseline
 
-### Capacidade da equipe
+**Data de registro:** 06 de abril de 2026
+
+---
+
+## Recorte do backlog
+
+O planejamento cobre as **9 histórias de usuário do backlog inicial** (US01 a US09), conforme definidas no [inception.md](./inception.md). Essas histórias compõem o MVP completo do projeto.
+
+| ID   | História                                 | SP | Prioridade |
+|------|------------------------------------------|----|------------|
+| US01 | Cadastro e login                         | 5  | Alta       |
+| US02 | Seleção de gêneros literários            | 3  | Alta       |
+| US03 | Navegação entre gêneros                  | 2  | Alta       |
+| US04 | Leitura em fases                         | 8  | Alta       |
+| US05 | Desbloqueio progressivo de fases         | 5  | Alta       |
+| US06 | Quiz ao final de cada fase               | 8  | Alta       |
+| US07 | Sistema de XP                            | 5  | Alta       |
+| US08 | Progresso por gênero/fase                | 3  | Média      |
+| US09 | Resumo do desempenho pós-quiz            | 2  | Média      |
+| **Total** |                                    | **41 SP** | |
+
+O planejamento **não inclui** US10 (refazer fase) nem funcionalidades fora do escopo definidas no inception.md (painel do educador, funcionalidades sociais, badges, modo offline, app mobile).
+
+---
+
+## Capacidade da equipe
 
 Somos 4 integrantes ativos, cada um com disponibilidade de aproximadamente 4h por semana, totalizando cerca de 16h semanais de equipe.
 
-- Antonio Marcos - Arquiteto de Software
-- Bernardo Silva Bombazaro - DevOps / Infra
-- Giuliano Marcus Bianco - Quality Engineer
-- Maria Carolina Hammes - Scrum Master
+| Integrante              | Papel              |
+|-------------------------|--------------------|
+| Antonio Marcos          | Arquiteto de Software |
+| Bernardo Silva Bombazaro| DevOps / Infra     |
+| Giuliano Marcus Bianco  | Quality Engineer   |
+| Maria Carolina Hammes   | Scrum Master       |
 
-### Restrições conhecidas
+---
+
+## Restrições conhecidas
 
 - Todo mundo tem outras disciplinas no mesmo período, então a disponibilidade pode variar por semana.
-- Ainda não temos histórico de velocity, a velocidade real só vai aparecer depois do Sprint 1.
+- Ainda não temos histórico de velocity; a velocidade real só vai aparecer depois do Sprint 1.
 - Curva de aprendizado com algumas tecnologias do projeto.
 
-### Linha de base
+---
 
-O MVP tem 41 Story Points no total: 36 SP nas histórias essenciais (US01-US07) e 5 SP nas complementares (US08–US09).
+## Linha de base
 
-A velocidade inicial estimada é de 8 SP por sprint (ciclos de 2 semanas). Esse número é conservador, parte do pressuposto de que cada membro entrega em média 2 SP por sprint, considerando a carga acadêmica paralela e a ausência de histórico.
+A velocity inicial estimada é de **8 SP por sprint** (ciclos de 2 semanas). Esse número é conservador: parte do pressuposto de que cada membro entrega em média 2 SP por sprint, considerando a carga acadêmica paralela e a ausência de histórico.
 
 ### Previsão de conclusão
 
-- **Sprint 1:** US01 + US02 - autenticação e navegação básica - 8 SP acumulados
-- **Sprint 2:** US04 + US05 - leitura em fases e desbloqueio progressivo - 16 SP acumulados
-- **Sprint 3:** US06 + US07 - quiz e sistema de XP - 26 SP acumulados
-- **Sprint 4:** US03 + US08 + US09 + hardening - 36-41 SP acumulados
+| Sprint   | Histórias planejadas                          | SP do sprint | SP acumulados |
+|----------|-----------------------------------------------|-------------|---------------|
+| Sprint 1 | US01 + US02 — autenticação e seleção de gênero| 8           | 8             |
+| Sprint 2 | US04 + US05 — leitura em fases e desbloqueio  | 13          | 21            |
+| Sprint 3 | US06 + US07 — quiz e sistema de XP            | 13          | 34            |
+| Sprint 4 | US03 + US08 + US09 + hardening               | 7–12        | 41            |
 
 Se a velocity real ficar próxima da estimada, o MVP pode ser concluído dentro do Sprint 4, no prazo da Entrega 8.
 
-### Fatores que Podem Afetar a Previsibilidade
+---
+
+## Plano de contingência para velocity abaixo do estimado
+
+Se a velocity real ficar abaixo de 8 SP por sprint, as ações serão aplicadas em ordem, conforme a gravidade do desvio:
+
+| Desvio observado | Ação |
+|---|---|
+| Velocity entre 6–7 SP (desvio leve) | Revisar estimativas na Sprint Retrospective e verificar se há impedimentos pontuais (prova, feriado). Nenhum corte de escopo ainda. |
+| Velocity entre 4–5 SP (desvio moderado) | Repriorizar o backlog: garantir que as histórias de alta prioridade (US01–US07) sejam concluídas antes das de média prioridade. US08 e US09 podem ser postergadas para o Sprint 4. |
+| Velocity abaixo de 4 SP (desvio crítico) | Acionar o Scrum Master para redefinição formal do escopo do MVP. US08 e US09 são removidas do MVP e tratadas como extensão. Se necessário, reduzir critérios de aceitação de histórias menos críticas (ex: US03). |
+
+O desvio será calculado ao final de cada sprint com base nas issues movidas para "Done" no board do GitHub Projects.
+
+---
+
+## Fatores que podem afetar a previsibilidade
 
 - Provas e entregas de outras disciplinas no mesmo período.
 - Curva de aprendizado com tecnologias do projeto.

@@ -82,7 +82,7 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 ### Estimativas e métricas
 
 - [Baseline](./docs/baseline.md)
-- [Métricas](./docs/metricas.md)
+- [Métricas](./docs/metricas/) — M1 a M5, com fichas individuais por métrica
 - [Estimativas](./docs/estimativas.md)
 
 ### Riscos e Consolidação (Entrega 4)

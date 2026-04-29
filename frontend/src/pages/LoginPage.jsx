@@ -1,38 +1,38 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/authService';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import './auth.css';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { loginUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
     try {
-      const data = await login(email, password);
-      loginUser(data); 
-      navigate('/generos'); 
+      await login(email, password);
+      navigate('/genres'); // Rota corrigida conforme plano
     } catch (err) {
-      setError(err.message);
+      setError('E-mail ou senha incorretos');
     }
   };
 
   return (
     <div className="auth-container">
-      <h1>Login - Librum</h1>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <input type="email" placeholder="E-mail" required 
-          onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Senha" required 
-          onChange={(e) => setPassword(e.target.value)} />
-        {error && <p className="error-message">{error}</p>}
+      <h2>Acessar Librum</h2>
+      {error && <p className="error-msg" style={{color: 'red'}}>{error}</p>}
+      <form onSubmit={handleLogin}>
+        <input type="email" placeholder="E-mail" value={email} 
+          onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Senha" value={password} 
+          onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Entrar</button>
       </form>
+      <p>Novo por aqui? <Link to="/register">Crie sua conta</Link></p>
     </div>
   );
 };
+
+export default LoginPage;

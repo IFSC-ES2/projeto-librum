@@ -7,11 +7,9 @@ export const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rotas Públicas */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* Rota Privada com componente Inline para evitar erro de importação */}
         <Route 
           path="/genres" 
           element={
@@ -25,7 +23,6 @@ export const AppRoutes = () => {
           } 
         />
 
-        {/* Redireciona qualquer outra rota para o login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

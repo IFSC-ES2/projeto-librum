@@ -1,21 +1,33 @@
-// src/services/authService.js
-import axios from 'axios';
+const API_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
-const API_URL = 'http://localhost:5000/api/auth'; 
+export const register = async (name, email, password) => {
+  const response = await fetch(`${API_URL}/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password }),
+  });
 
-export const register = async (userData) => {
-  const response = await axios.post(`${API_URL}/register`, userData);
-  return response.data;
-};
+  const data = await response.json();
 
-export const login = async (credentials) => {
-  const response = await axios.post(`${API_URL}/login`, credentials);
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  if (!response.ok) {
+    throw new Error(data.message || 'Erro ao cadastrar');
   }
-  return response.data;
+
+  return data;
 };
 
-export const logout = () => {
-  localStorage.removeItem('user');
+export const login = async (email, password) => {
+  const response = await fetch(`${API_URL}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Erro ao fazer login');
+  }
+
+  return data;
 };

@@ -11,8 +11,8 @@ const RegisterForm = () => {
     e.preventDefault();
     setError('');
     
-    if (data.password < 8) {
-      setError ('A senha deve ter no mpinimo 8 caracteres');
+    if (data.password.length < 8) {
+      setError('A senha deve ter no minimo 8 caracteres');
       return
     }
 

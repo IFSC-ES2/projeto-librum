@@ -119,10 +119,12 @@ Nesta sprint, os atributos de qualidade foram validados através das seguintes a
 ### 1. Evidências de Manutenibilidade
 * **Revisão por Pares (Peer Review):** O código do frontend passou por inspeção rigorosa. Foram identificados débitos técnicos iniciais (falta de componentes de formulário e caminhos de rota inconsistentes), que foram corrigidos antes do merge final para garantir a modularidade.
 * **Padronização de Código:** Implementação da camada de `services/authService.js` para isolar as chamadas de API, facilitando futuras manutenções conforme o padrão ADR-0005.
+* **Cobertura de Testes Automatizados (Backend):** Foram implementados e aprovados 8 testes de unidade com o framework JUnit 5 e Mockito, com foco nas lógicas de negócio e segurança (classes `AuthService` e `JwtUtil`).
 
 ### 2. Evidências de Confiabilidade
 * **Tratamento de Erros:** Foram implementadas mensagens de erro específicas para falhas de rede ("Network Error") e credenciais inválidas (Erro 401/409), garantindo que o sistema não falhe silenciosamente perante o usuário.
 * **Gestão de Dependências:** Identificada e corrigida a ausência da biblioteca `axios` no ambiente de desenvolvimento, estabelecendo a necessidade de execução de `npm install` como pré-requisito de build estável.
+* **Integração Contínua (CI):** O pipeline do GitHub Actions foi configurado com sucesso e exige que todos os testes automatizados passem antes de permitir merge na branch principal.
 
 ### 3. Evidências de Capacidade de Interação
 * **Feedback Visual:** Implementação de alertas de sucesso e redirecionamento automático (Timer de 2s) após o cadastro, melhorando a operacionalidade para o público jovem.
@@ -130,3 +132,4 @@ Nesta sprint, os atributos de qualidade foram validados através das seguintes a
 
 ### 4. Evidências de Desempenho
 * **Build Otimizado:** O projeto passou com sucesso pelo teste de build (`npm run build`), gerando artefatos leves e validados pelo compilador do Vite, garantindo o comportamento temporal esperado para o primeiro vertical slice.
+

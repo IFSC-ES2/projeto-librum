@@ -82,3 +82,28 @@ O desvio será calculado ao final de cada sprint com base nas issues movidas par
 - Provas e entregas de outras disciplinas no mesmo período.
 - Curva de aprendizado com tecnologias do projeto.
 - Decisões de design de dados para o conteúdo literário ainda pendentes.
+
+## Acompanhamento de Velocity
+
+### Sprint 1 (Finalizada em: 30/04/2026)
+
+| História | SP Estimado | Status | SP Real |
+|----------|-------------|--------|---------|
+| US01 - Cadastro e Login | 5 | ✅ Concluída | 5 |
+| US02 - Seleção de Gêneros | 3 | ⚠️ Em andamento | 0 |
+| **Total do Sprint** | **8 SP** | | **5 SP** |
+
+**Velocity Real do Sprint 1:** 5 SP
+
+#### Análise do Desvio
+A velocity real (5 SP) ficou abaixo da estimativa inicial (8 SP). Conforme o **Plano de Contingência**, o desvio é classificado como **Moderado (entre 4-5 SP)**. 
+
+**Causas do desvio:**
+1. **Curva de Aprendizado e Ambiente:** Foram encontrados impedimentos técnicos significativos na configuração do ambiente React (Vite) e na gestão de dependências (ausência do Axios), o que demandou tempo extra de depuração do Scrum Master.
+2. **Integração Backend/Frontend:** O Bloco 3-A do backend teve um tempo de execução maior que o previsto, postergando o início dos testes de integração de ponta a ponta.
+3. **Atraso na US02:** Devido aos ajustes estruturais necessários na US01 (solicitados em Peer Review), a US02 foi iniciada, mas não movida para "Done", acumulando para a Sprint 2.
+
+#### Ações para a Sprint 2
+- **Repriorização:** Manter o foco total na conclusão da US02 no início da próxima sprint.
+- **Mitigação de Riscos:** Documentar no README os pré-requisitos de instalação (`npm install`) para evitar que novos membros ou revisores enfrentem os mesmos erros de ambiente.
+- **Ajuste de Expectativa:** A velocity média da equipe será monitorada na Sprint 2 antes de uma redefinição formal do escopo do MVP, visando recuperar o ritmo nas histórias US04 e US05.

@@ -111,3 +111,22 @@ Clareza do fluxo de navegação avaliada informalmente com usuários do público
 ## Observações
 
 Os atributos definidos aqui são um ponto de partida, não uma lista exaustiva. À medida que o projeto avança e a equipe acumula dados reais, cobertura e uso, esses critérios serão revisados e expandidos nas próximas entregas.
+
+## Sprint 1 - Resultados e Evidências (Atualização: 28/04/2026)
+
+Nesta sprint, os atributos de qualidade foram validados através das seguintes ações práticas durante o desenvolvimento da US01 (Autenticação):
+
+### 1. Evidências de Manutenibilidade
+* **Revisão por Pares (Peer Review):** O código do frontend passou por inspeção rigorosa. Foram identificados débitos técnicos iniciais (falta de componentes de formulário e caminhos de rota inconsistentes), que foram corrigidos antes do merge final para garantir a modularidade.
+* **Padronização de Código:** Implementação da camada de `services/authService.js` para isolar as chamadas de API, facilitando futuras manutenções conforme o padrão ADR-0005.
+
+### 2. Evidências de Confiabilidade
+* **Tratamento de Erros:** Foram implementadas mensagens de erro específicas para falhas de rede ("Network Error") e credenciais inválidas (Erro 401/409), garantindo que o sistema não falhe silenciosamente perante o usuário.
+* **Gestão de Dependências:** Identificada e corrigida a ausência da biblioteca `axios` no ambiente de desenvolvimento, estabelecendo a necessidade de execução de `npm install` como pré-requisito de build estável.
+
+### 3. Evidências de Capacidade de Interação
+* **Feedback Visual:** Implementação de alertas de sucesso e redirecionamento automático (Timer de 2s) após o cadastro, melhorando a operacionalidade para o público jovem.
+* **Proteção contra Erros do Usuário:** Adição de validações no frontend para senhas com menos de 8 caracteres e divergência entre campos de "Confirmação de Senha" antes do envio para o servidor.
+
+### 4. Evidências de Desempenho
+* **Build Otimizado:** O projeto passou com sucesso pelo teste de build (`npm run build`), gerando artefatos leves e validados pelo compilador do Vite, garantindo o comportamento temporal esperado para o primeiro vertical slice.

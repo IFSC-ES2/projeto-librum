@@ -23,14 +23,35 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" placeholder="Email" onChange={e => setCredentials({...credentials, email: e.target.value})} required />
-      <input type="password" placeholder="Senha" onChange={e => setCredentials({...credentials, password: e.target.value})} required />
-      <button type="submit">Entrar</button>
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <div className="auth-field">
+        <label className="auth-label">E-MAIL</label>
+        <input
+          className="auth-input"
+          type="email"
+          placeholder="seu@email.com"
+          onChange={e => setCredentials({ ...credentials, email: e.target.value })}
+          required
+        />
+      </div>
 
-      {error && <p style={{ color: 'red'  }}>{error}</p>}
+      <div className="auth-field">
+        <label className="auth-label">SENHA</label>
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="••••••••"
+          onChange={e => setCredentials({ ...credentials, password: e.target.value })}
+          required
+        />
+      </div>
 
-      <p>Não tem conta? <Link to="/register">Cadastre-se</Link></p>
+      {error && <p className="auth-error">{error}</p>}
+
+      <button className="auth-btn-primary" type="submit">Entrar</button>
+      <Link to="/register">
+        <button className="auth-btn-secondary" type="button">Criar conta</button>
+      </Link>
     </form>
   );
 };

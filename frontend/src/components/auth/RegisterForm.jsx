@@ -30,16 +30,54 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Nome" onChange={e => setData({...data, name: e.target.value})} required />
-      <input type="email" placeholder="Email" onChange={e => setData({...data, email: e.target.value})} required />
-      <input type="password" placeholder="Senha" onChange={e => setData({...data, password: e.target.value})} required />
-      <input type="password" placeholder="Confirmar Senha" onChange={e => setData({...data, confirmPassword: e.target.value})} required />
-      <button type="submit">Cadastrar</button>
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <div className="auth-field">
+        <label className="auth-label">NOME</label>
+        <input
+          className="auth-input"
+          type="text"
+          placeholder="Seu nome completo"
+          onChange={e => setData({ ...data, name: e.target.value })}
+          required
+        />
+      </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="auth-field">
+        <label className="auth-label">E-MAIL</label>
+        <input
+          className="auth-input"
+          type="email"
+          placeholder="seu@email.com"
+          onChange={e => setData({ ...data, email: e.target.value })}
+          required
+        />
+      </div>
 
-      <p>Já tem conta? <Link to="/login">Faça Login</Link></p>
+      <div className="auth-field">
+        <label className="auth-label">SENHA</label>
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="Mínimo 8 caracteres"
+          onChange={e => setData({ ...data, password: e.target.value })}
+          required
+        />
+      </div>
+
+      <div className="auth-field">
+        <label className="auth-label">CONFIRMAR SENHA</label>
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="Repita a senha"
+          onChange={e => setData({ ...data, confirmPassword: e.target.value })}
+          required
+        />
+      </div>
+
+      {error && <p className="auth-error">{error}</p>}
+
+      <button className="auth-btn-primary" type="submit">Criar conta</button>
     </form>
   );
 };

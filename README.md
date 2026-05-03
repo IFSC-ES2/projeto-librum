@@ -90,4 +90,32 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 - [Registro de Riscos](./docs/riscos.md) — identificação, análise, priorização e plano de resposta aos riscos do projeto
 - [Fluxo de Trabalho](./docs/fluxo-de-trabalho.md) — branches, pull requests, template de PR e ciclo completo de uma história
 - [Critérios Iniciais de Qualidade](./docs/qualidade.md) — atributos de qualidade priorizados, relação com riscos e métricas preliminares
-- [Template de Pull Request](./.github/PULL_REQUEST_TEMPLATE.md) — template com checklist mínimo de revisão
+- [Template de Pull Request](./.github/PULL_REQUEST_TEMPLATE.md) - template com checklist mínimo de revisão
+
+## Como executar localmente
+
+### Requisitos
+- Docker e Docker Compose
+- Java 17
+- Node.js 20
+
+### Backend
+```bash
+docker-compose up -d
+cd backend && ./mvnw spring-boot:run
+```
+
+### Frontend
+```bash
+cd frontend && npm install && npm run dev
+```
+
+## Como rodar os testes
+```bash
+cd backend && ./mvnw test
+```
+
+## O que já funciona (v0.1.0)
+- Cadastro de usuário com validação e hash bcrypt
+- Login com autenticação JWT
+- Redirecionamento automático baseado em estado de autenticação

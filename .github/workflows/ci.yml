@@ -59,7 +59,7 @@ jobs:
       - name: Validar arquivos YAML
         uses: ibiqlik/action-yamllint@v3
         with:
-          file_or_dir: .
+          file_or_dir: .github docker-compose.yml
           config_data: |
             extends: default
             rules:

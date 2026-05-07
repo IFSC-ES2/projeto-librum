@@ -51,3 +51,41 @@ jobs:
       - name: Verificar build
         working-directory: ./frontend
         run: npm run build
+        
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar arquivos YAML
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: .
+          config_data: |
+            extends: default
+            rules:
+              line-length:
+                max: 120
+
+  check-required-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar arquivos obrigatórios
+        run: |
+          FILES=(
+            "README.md"
+            ".github/workflows/ci.yml"
+            "docs/riscos.md"
+            ".github/PULL_REQUEST_TEMPLATE.md"
+          )
+          MISSING=0
+          for f in "${FILES[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "ERRO: arquivo obrigatório não encontrado: $f"
+              MISSING=1
+            fi
+          done
+          if [ $MISSING -eq 1 ]; then
+            exit 1
+          fi
+          echo "Todos os arquivos obrigatórios estão presentes."

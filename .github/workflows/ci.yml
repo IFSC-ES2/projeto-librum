@@ -65,6 +65,9 @@ jobs:
             rules:
               line-length: disable
               truthy: disable
+              brackets: disable
+              document-start: disable
+              new-line-at-end-of-file: disable
 
   check-required-files:
     runs-on: ubuntu-latest

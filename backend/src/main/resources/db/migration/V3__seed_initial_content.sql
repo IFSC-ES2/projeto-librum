@@ -1,9 +1,9 @@
 INSERT INTO genres (name, slug, icon_emoji, description) VALUES
-  ('Aventura', 'aventura', 'Histórias de ação, exploração e coragem'),
-  ('Terror', 'terror', 'Narrativas de suspense e medo'),
-  ('Romance', 'romance', 'Histórias de amor e relacionamentos'),
-  ('Fantasia', 'fantasia', 'Mundos mágicos e criaturas fantásticas'),
-  ('Suspense', 'suspense', 'Mistérios e reviravoltas inesperadas');
+  ('Aventura', 'aventura', NULL, 'Histórias de ação, exploração e coragem'),
+  ('Terror', 'terror', NULL, 'Narrativas de suspense e medo'),
+  ('Romance', 'romance', NULL, 'Histórias de amor e relacionamentos'),
+  ('Fantasia', 'fantasia', NULL, 'Mundos mágicos e criaturas fantásticas'),
+  ('Suspense', 'suspense', NULL, 'Mistérios e reviravoltas inesperadas');
 
 INSERT INTO books (genre_id, title, author)
 SELECT id, 'A Ilha do Tesouro', 'Robert Louis Stevenson'

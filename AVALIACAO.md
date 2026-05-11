@@ -5,8 +5,9 @@
 | 1       | 7124b40 | 16/03/26 | 20/03/26 | 9,5  | 2    |
 | 2       | 0a2f5d1 | 06/04/26 | 22/04/26 | 9,5  | 2    |
 | 3       | adb9e5e | 06/04/26 | 22/04/26 | 9,1  | 3    |
+| 4       | 56dee4e | 13/04/26 | 09/05/26 | 9,6  | 3    |
 
-**nota parcial:** 9,3
+**nota parcial:** 9,4
 
 ## Comentários
 
@@ -55,3 +56,16 @@
    - Separar as fichas de cada métrica em arquivos diferentes
      - Em cada uma adicionar data do acompanhamento e valor coletado
    - Numerar métricas para facilitar a referenciação
+
+### Entrega 4
+
+1. Registro inicial de riscos do projeto: atendido
+2. Análise e priorização dos riscos: parcial
+   - A matriz de riscos deve ter como eixos probabilidade x impacto para apresentar visualmente os riscos
+3. Plano de resposta aos riscos: atendido
+4. Consolidação do fluxo de trabalho no repositório: atendido
+5. Definição inicial de critérios de qualidade do projeto: atendido
+6. Relação entre riscos e qualidade: atendido
+7. Definição preliminar de avaliação da qualidade: atendido
+8. Atualização da documentação do projeto: atendido
+

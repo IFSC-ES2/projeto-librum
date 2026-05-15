@@ -19,3 +19,4 @@
 | Data       | Valor coletado | Observação                        |
 |------------|---------------|-----------------------------------|
 | 06/04/2026 | n/d           | Sprint 1 ainda não iniciado. Coleta começa a partir do primeiro PR com código de produção. |
+| 15/05/2026 | ~70% (backend) | Sprint 2 concluída. 12 testes implementados: 5 em ReadingServiceTest, 4 em ProgressServiceTest, 3 em ReadingControllerIntegrationTest. Cobertura de frontend não iniciada, prioridade para Sprint 3. |

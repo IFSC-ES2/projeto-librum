@@ -1,9 +1,16 @@
 const API_BASE_URL = 'http://localhost:8080/api';
 
+const authHeader = () => {
+  const token = localStorage.getItem('token');
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+};
+
 export const ReadingService = {
   getPhases: async (genreId) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/genres/${genreId}/phases`);
+      const response = await fetch(`${API_BASE_URL}/genres/${genreId}/phases`, {
+        headers: { ...authHeader() }
+      });
       if (!response.ok) throw new Error('Failed to fetch phases');
       return await response.json();
     } catch (error) {
@@ -23,7 +30,9 @@ export const ReadingService = {
 
   getSegmentContent: async (phaseId, segmentNumber) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/reading/${phaseId}/${segmentNumber}`);
+      const response = await fetch(`${API_BASE_URL}/reading/${phaseId}/${segmentNumber}`, {
+        headers: { ...authHeader() }
+      });
       if (!response.ok) throw new Error('Failed to fetch segment content');
       return await response.json();
     } catch (error) {
@@ -34,7 +43,7 @@ export const ReadingService = {
         totalSegments: 4,
         title: 'A Ilha do Tesouro, Cap. III',
         content: `O sol havia mergulhado além do horizonte quando Jim avistou, pela primeira vez, a silhueta recortada das montanhas da ilha. Uma névoa fina cobria o ancoradouro, e o cheiro de maresia misturava-se ao carvão da fumaça que saía da chaminé do Hispaniola.
-        
+
 — Esta é a ilha? — perguntou ele ao capitão Smollett, tentando disfarçar o tremor na voz. O capitão assentiu sem tirar os olhos da bússola, e Jim sentiu o coração bater mais forte dentro do peito.
 
 Havia segredos escondidos naquela terra. Segredos enterrados fundo, marcados com uma cruz vermelha num mapa manchado de sal e sangue. Jim apertou o papel dentro do casaco e respirou fundo, tentando se lembrar por que havia embarcado nessa aventura.
@@ -44,14 +53,15 @@ Ao longe, entre as palmeiras, algo se movia. Uma sombra que não deveria estar a
     }
   },
 
-  markProgress: async (userId, phaseId, segmentNumber) => {
+  markProgress: async (phaseId, segmentNumber) => {
     try {
       const response = await fetch(`${API_BASE_URL}/progress/mark-read`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...authHeader()
         },
-        body: JSON.stringify({ userId, phaseId, segmentNumber }),
+        body: JSON.stringify({ phaseId, segmentNumber }),
       });
       if (!response.ok) throw new Error('Failed to mark progress');
       return await response.json();

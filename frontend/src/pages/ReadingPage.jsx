@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
 import { applyTheme } from '../utils/readingThemes';
 import './ReadingPage.css';
@@ -12,17 +12,18 @@ export default function ReadingPage() {
 
   const [theme, setTheme] = useState('padrao');
   const [fontSize, setFontSize] = useState(17);
-  const [lineHeight, setLineHeight] = useState(1.9);
+  const [lineSpacing, setLineSpacing] = useState(1.9);
+  const [contentStyle, setContentStyle] = useState(() => applyTheme('padrao', 17, 1.9));
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('librum_theme') || 'padrao';
     const savedFontSize = Number(localStorage.getItem('librum_fontSize')) || 17;
-    const savedLineHeight = Number(localStorage.getItem('librum_lineHeight')) || 1.9;
+    const savedLineSpacing = Number(localStorage.getItem('librum_lineSpacing')) || 1.9;
 
     setTheme(savedTheme);
     setFontSize(savedFontSize);
-    setLineHeight(savedLineHeight);
-    applyTheme(savedTheme);
+    setLineSpacing(savedLineSpacing);
+    setContentStyle(applyTheme(savedTheme, savedFontSize, savedLineSpacing));
   }, []);
 
   useEffect(() => {
@@ -38,23 +39,25 @@ export default function ReadingPage() {
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem('librum_theme', newTheme);
-    applyTheme(newTheme);
+    setContentStyle(applyTheme(newTheme, fontSize, lineSpacing));
   };
 
   const handleFontSizeChange = (e) => {
     const size = Number(e.target.value);
     setFontSize(size);
     localStorage.setItem('librum_fontSize', size);
+    setContentStyle(applyTheme(theme, size, lineSpacing));
   };
 
-  const handleLineHeightChange = (e) => {
-    const height = Number(e.target.value);
-    setLineHeight(height);
-    localStorage.setItem('librum_lineHeight', height);
+  const handleLineSpacingChange = (e) => {
+    const spacing = Number(e.target.value);
+    setLineSpacing(spacing);
+    localStorage.setItem('librum_lineSpacing', spacing);
+    setContentStyle(applyTheme(theme, fontSize, spacing));
   };
 
   const handleNext = async () => {
-    await ReadingService.markProgress('currentUser', phaseId, segmentNumber);
+    await ReadingService.markProgress(phaseId, segmentNumber);
 
     if (Number(segmentNumber) >= content.totalSegments) {
       navigate('/quiz-placeholder');
@@ -106,7 +109,7 @@ export default function ReadingPage() {
           </div>
         </aside>
 
-        <main className="reading-content" style={{ fontSize: `${fontSize}px`, lineHeight: lineHeight }}>
+        <main className="reading-content" style={contentStyle}>
           <div className="content-meta">
             TEXTO LITERÁRIO · DOMÍNIO PÚBLICO · {content.title.toUpperCase()}
           </div>
@@ -149,7 +152,7 @@ export default function ReadingPage() {
 
             <div className="slider-group">
               <label>
-                Espaço <input type="range" min="1.0" max="3.0" step="0.1" value={lineHeight} onChange={handleLineHeightChange} /> {lineHeight}
+                Espaço <input type="range" min="1.0" max="3.0" step="0.1" value={lineSpacing} onChange={handleLineSpacingChange} /> {lineSpacing}
               </label>
             </div>
 

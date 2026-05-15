@@ -11,7 +11,6 @@ const genres = [
     phases: 8,
     active: true,
     emoji: '⛵',
-    mascotImg: '/assets/mascots/aventura.png'
   },
   {
     id: 'terror',
@@ -21,7 +20,6 @@ const genres = [
     phases: 8,
     active: false,
     emoji: '🕷️',
-    mascotImg: '/assets/mascots/terror.png'
   },
   {
     id: 'fantasia',
@@ -31,7 +29,6 @@ const genres = [
     phases: 6,
     active: false,
     emoji: '✨',
-    mascotImg: '/assets/mascots/fantasia.png'
   },
   {
     id: 'romance',
@@ -41,7 +38,6 @@ const genres = [
     phases: 8,
     active: false,
     emoji: '🌸',
-    mascotImg: '/assets/mascots/romance.png'
   },
   {
     id: 'suspense',
@@ -51,7 +47,6 @@ const genres = [
     phases: 0,
     active: false,
     emoji: '🕵️',
-    mascotImg: '/assets/mascots/pensativo.png'
   }
 ];
 
@@ -86,7 +81,7 @@ export default function GenresPage() {
 
             <div className="genre-info">
               <h2>{genre.title}</h2>
-              <p>{genre.bookTitle}<br />{genre.author} · {genre.phases} fases</p>
+              <p>{genre.bookTitle}<br />{genre.author}{genre.phases > 0 ? ` · ${genre.phases} fases` : ''}</p>
             </div>
 
             <div className="genre-action">
@@ -95,7 +90,7 @@ export default function GenresPage() {
                 onClick={() => handleGenreClick(genre)}
                 disabled={!genre.active}
               >
-                {genre.active ? 'Continuar ▶' : 'Começar'}
+                {genre.active ? 'Continuar ▶' : 'Em breve'}
               </button>
             </div>
           </div>

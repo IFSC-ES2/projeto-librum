@@ -24,15 +24,6 @@ export const AppRoutes = () => {
         />
 
         <Route
-          path="/genres/:genreId"
-          element={
-            <PrivateRoute>
-              <PhaseListPage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
           path="/reading/:phaseId/:segmentNumber"
           element={
             <PrivateRoute>
@@ -46,6 +37,15 @@ export const AppRoutes = () => {
           element={
             <PrivateRoute>
               <QuizPlaceholder />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/genres/:genreId"
+          element={
+            <PrivateRoute>
+              <PhaseListPage />
             </PrivateRoute>
           }
         />

@@ -107,3 +107,20 @@ A velocity real (5 SP) ficou abaixo da estimativa inicial (8 SP). Conforme o **P
 - **Repriorização:** Manter o foco total na conclusão da US02 no início da próxima sprint.
 - **Mitigação de Riscos:** Documentar no README os pré-requisitos de instalação (`npm install`) para evitar que novos membros ou revisores enfrentem os mesmos erros de ambiente.
 - **Ajuste de Expectativa:** A velocity média da equipe será monitorada na Sprint 2 antes de uma redefinição formal do escopo do MVP, visando recuperar o ritmo nas histórias US04 e US05.
+
+### Sprint 2 (Finalizada em: 15/05/2026)
+
+| História | SP Estimado | Status | SP Real |
+|----------|-------------|--------|---------|
+| US02 - Seleção de Gêneros (Carry-over) | 3 | ✅ Concluída | 3 |
+| US04 - Leitura em Fases | 8 | ✅ Concluída | 8 |
+| US05 - Desbloqueio Progressivo | 5 | ✅ Concluída | 5 |
+| **Total do Sprint** | **16 SP** | | **16 SP** |
+
+**Velocity Real do Sprint 2:** 16 SP
+
+#### Análise do Desvio
+A velocity real (16 SP) superou significativamente a estimativa inicial (8 SP) e a velocity do Sprint 1 (5 SP). Isso se deve à resolução dos impedimentos técnicos iniciais e ao ganho de fluidez na integração entre frontend e backend. O uso de padrões como Strategy e Facade ajudou a organizar o código e acelerar o desenvolvimento.
+
+**Velocity Média (S1+S2):** 10.5 SP/sprint.
+A equipe agora está alinhada com a meta original de concluir o MVP no Sprint 4.

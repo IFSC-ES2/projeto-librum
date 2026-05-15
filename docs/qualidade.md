@@ -132,4 +132,40 @@ Nesta sprint, os atributos de qualidade foram validados através das seguintes a
 
 ### 4. Evidências de Desempenho
 * **Build Otimizado:** O projeto passou com sucesso pelo teste de build (`npm run build`), gerando artefatos leves e validados pelo compilador do Vite, garantindo o comportamento temporal esperado para o primeiro vertical slice.
+
+---
+
+## Sprint 2 - Resultados e Evidências (Atualização: 15/05/2026)
+
+Nesta sprint, os atributos de qualidade foram validados durante o desenvolvimento das histórias US02, US04 e US05.
+
+### 1. Evidências de Manutenibilidade
+
+Aplicação de dois padrões de projeto documentados em `docs/pradroes-de-projeto.md`:
+
+O padrão Facade foi aplicado no `ReadingService.java` para isolar a lógica de orquestração dos repositories do controller. Isso mantém o `ReadingController` simples e focado em receber requisições e devolver respostas, sem conter regras de negócio.
+
+O padrão Strategy foi aplicado em `readingThemes.js` para separar os temas de leitura do componente `ReadingPage.jsx`. Cada tema é um objeto independente com a mesma interface, eliminando condicionais no componente.
+
+Ambos os padrões foram registrados em ADRs (ADR-0006 e ADR-0007) para rastreabilidade das decisões.
+
+### 2. Evidências de Confiabilidade
+
+Foram implementados 12 testes automatizados no backend, todos passando no CI:
+
+- `ReadingServiceTest.java`: 5 casos cobrindo fase destravada, fase travada (403), segmento inexistente (404), lista de fases com desbloqueio correto e estado inicial sem progresso.
+- `ProgressServiceTest.java`: 4 casos cobrindo criação de progresso, atualização sem regressão, marcação de fase concluída e desbloqueio da fase seguinte.
+- `ReadingControllerIntegrationTest.java`: 3 casos cobrindo acesso público a `/genres`, bloqueio sem token em `/reading` e acesso autenticado com sucesso.
+
+O endpoint `GET /genres` foi configurado como público no `SecurityConfig.java` para não exigir autenticação na tela inicial de seleção. Os demais endpoints exigem token JWT válido.
+
+### 3. Evidências de Capacidade de Interação
+
+A tela de seleção de gêneros (`GenresPage.jsx`) exibe claramente quais gêneros estão disponíveis com o badge "Em andamento" e quais estão indisponíveis com o badge "Em breve". O botão dos gêneros inativo é visualmente desabilitado e não pode ser clicado.
+
+A `PhaseListPage.jsx` exibe o progresso do leitor como barra percentual calculada dinamicamente a partir dos dados da API, com indicação visual das fases concluídas e da próxima fase disponível.
+
+### 4. Evidências de Desempenho
+
+Todos os merges da Sprint 2 foram realizados com CI verde. O job `frontend-build` valida que o bundle gerado pelo Vite compila sem erros. Nenhum endpoint essencial da sprint depende de chamadas encadeadas desnecessárias: a lógica de orquestração está centralizada no `ReadingService` e retorna tudo em uma única resposta por requisição.
 

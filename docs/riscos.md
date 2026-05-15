@@ -192,3 +192,44 @@ Os riscos **R01**, **R02**, **R03**, **R05** e **R07** são os mais críticos ne
 ### Acompanhamento
 
 Os riscos serão revisitados ao final de cada sprint na retrospectiva. Maria é responsável por atualizar este documento a cada entrega com o status atual de cada risco (ativo, mitigado, concretizado ou encerrado).
+
+---
+
+## Status da Sprint 2 (15/05/2026)
+
+**R03 (Dificuldade técnica modelagem): Encerrado.** A modelagem foi concluída com sucesso e implementada via migration V2 e ADR-0006.
+
+**R04 (Integração FE/BE): Mitigado.** O uso de contratos de API claros e do padrão Facade no backend reduziu os erros de integração nesta sprint.
+
+**R07 (Testes automatizados): Ativo.** Foram criados 12 testes para o backend. A cobertura do frontend ainda não foi iniciada e é prioridade para a Sprint 3.
+
+**R01 (Sobrecarga acadêmica): Monitorado.** A equipe manteve o ritmo nesta sprint, mas o risco permanece para o final do semestre.
+
+**R05 (Falta de questões de quiz): Ativo.** O sistema de quiz (US06) foi postergado para a Sprint 3. As questões precisam ser criadas antes do início do desenvolvimento.
+
+### Novos riscos identificados
+
+**R08: Integração do quiz com o progresso de leitura**
+
+A US06 precisa se integrar ao sistema de progresso da US05. O endpoint `POST /progress/mark-read` já existe, mas a lógica de aprovação no quiz (acertar X questões para liberar a próxima fase) ainda não foi definida. Se essa regra for decidida tarde, pode gerar retrabalho no backend e no frontend.
+
+- Probabilidade: Média
+- Impacto: Alto
+- Prioridade: Alto
+- Responsável: Antonio
+
+**R09: Cobertura de testes no frontend**
+
+Nenhum teste de componente foi implementado no frontend até o final da Sprint 2. Com a ReadingPage, PhaseListPage e GenresPage prontas, o risco de regressão em funcionalidades já entregues aumenta a cada sprint.
+
+- Probabilidade: Alta
+- Impacto: Médio
+- Prioridade: Alto
+- Responsável: Giuliano
+
+### Ações de mitigação para a Sprint 3
+
+- R07 e R09: Giuliano implementa ReadingPage.test.jsx no início da sprint, antes de começar as histórias novas. Os testes entram como critério de DoD do PR.
+- R08: Antonio define a regra de aprovação do quiz e registra em ADR antes do desenvolvimento da US06 começar.
+- R05: Maria inicia a criação das questões de quiz assim que o livro e o formato de perguntas forem validados.
+- R01: Maria alinha com a equipe as semanas de maior carga acadêmica no início da sprint e ajusta o planejamento.

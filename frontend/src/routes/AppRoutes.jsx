@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import GenresPage from '../pages/GenresPage';
+import PhaseListPage from '../pages/PhaseListPage';
+import ReadingPage from '../pages/ReadingPage';
+import QuizPlaceholder from '../pages/QuizPlaceholder';
 import PrivateRoute from "./PrivateRoute";
 
 export const AppRoutes = () => {
@@ -16,6 +19,33 @@ export const AppRoutes = () => {
           element={
             <PrivateRoute>
               <GenresPage />
+            </PrivateRoute>
+          } 
+        />
+
+        <Route 
+          path="/genres/:genreId" 
+          element={
+            <PrivateRoute>
+              <PhaseListPage />
+            </PrivateRoute>
+          } 
+        />
+
+        <Route 
+          path="/reading/:phaseId/:segmentNumber" 
+          element={
+            <PrivateRoute>
+              <ReadingPage />
+            </PrivateRoute>
+          } 
+        />
+
+        <Route 
+          path="/quiz-placeholder" 
+          element={
+            <PrivateRoute>
+              <QuizPlaceholder />
             </PrivateRoute>
           } 
         />

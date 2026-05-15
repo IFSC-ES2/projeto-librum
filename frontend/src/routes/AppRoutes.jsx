@@ -14,40 +14,40 @@ export const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route 
-          path="/genres" 
+        <Route
+          path="/genres"
           element={
             <PrivateRoute>
               <GenresPage />
             </PrivateRoute>
-          } 
+          }
         />
 
-        <Route 
-          path="/genres/:genreId" 
+        <Route
+          path="/genres/:genreId"
           element={
             <PrivateRoute>
               <PhaseListPage />
             </PrivateRoute>
-          } 
+          }
         />
 
-        <Route 
-          path="/reading/:phaseId/:segmentNumber" 
+        <Route
+          path="/reading/:phaseId/:segmentNumber"
           element={
             <PrivateRoute>
               <ReadingPage />
             </PrivateRoute>
-          } 
+          }
         />
 
-        <Route 
-          path="/quiz-placeholder" 
+        <Route
+          path="/quiz-placeholder"
           element={
             <PrivateRoute>
               <QuizPlaceholder />
             </PrivateRoute>
-          } 
+          }
         />
 
         <Route path="*" element={<Navigate to="/login" />} />

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
+import GenresPage from '../pages/GenresPage';
+import PhaseListPage from '../pages/PhaseListPage';
 import PrivateRoute from "./PrivateRoute";
 
 export const AppRoutes = () => {
@@ -14,13 +16,18 @@ export const AppRoutes = () => {
           path="/genres" 
           element={
             <PrivateRoute>
-              <div style={{ padding: '40px', textAlign: 'center' }}>
-                <h1>Login realizado com sucesso!</h1>
-                <p>Você está na área restrita do Librum.</p>
-                <p>A seleção de gêneros será implementada na próxima Sprint.</p>
-              </div>
+              <GenresPage />
             </PrivateRoute>
           } 
+        />
+
+        <Route
+          path="/genres/:genreSlug"
+          element={
+            <PrivateRoute>
+              <PhaseListPage />
+            </PrivateRoute>
+          }
         />
 
         <Route path="*" element={<Navigate to="/login" />} />

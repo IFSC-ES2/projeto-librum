@@ -192,3 +192,12 @@ Os riscos **R01**, **R02**, **R03**, **R05** e **R07** são os mais críticos ne
 ### Acompanhamento
 
 Os riscos serão revisitados ao final de cada sprint na retrospectiva. Maria é responsável por atualizar este documento a cada entrega com o status atual de cada risco (ativo, mitigado, concretizado ou encerrado).
+
+---
+
+## Status da Sprint 2 (15/05/2026)
+
+- **R03 (Dificuldade técnica modelagem):** **Encerrado.** A modelagem foi concluída com sucesso e implementada via migration V2 e ADR-0006.
+- **R04 (Integração FE/BE):** **Mitigado.** O uso de contratos de API claros e do padrão Facade no backend reduziu drasticamente os erros de integração nesta sprint.
+- **R07 (Testes automatizados):** **Ativo.** Embora tenham sido criados testes para o backend (ReadingService e Controllers), a cobertura do frontend ainda precisa ser iniciada no Sprint 3.
+- **R01 (Sobrecarga acadêmica):** **Monitorado.** A equipe conseguiu manter o ritmo apesar das provas, mas o risco permanece para o final do semestre.

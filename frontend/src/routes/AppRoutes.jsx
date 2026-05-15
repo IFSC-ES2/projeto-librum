@@ -3,6 +3,8 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import GenresPage from '../pages/GenresPage';
 import PhaseListPage from '../pages/PhaseListPage';
+import ReadingPage from '../pages/ReadingPage';
+import QuizPlaceholder from '../pages/QuizPlaceholder';
 import PrivateRoute from "./PrivateRoute";
 
 export const AppRoutes = () => {
@@ -12,17 +14,35 @@ export const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route 
-          path="/genres" 
+        <Route
+          path="/genres"
           element={
             <PrivateRoute>
               <GenresPage />
             </PrivateRoute>
-          } 
+          }
         />
 
         <Route
-          path="/genres/:genreSlug"
+          path="/reading/:phaseId/:segmentNumber"
+          element={
+            <PrivateRoute>
+              <ReadingPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/quiz-placeholder"
+          element={
+            <PrivateRoute>
+              <QuizPlaceholder />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/genres/:genreId"
           element={
             <PrivateRoute>
               <PhaseListPage />

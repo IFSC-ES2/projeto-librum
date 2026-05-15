@@ -26,6 +26,11 @@ export default function PhaseListPage() {
 
   if (loading) return <div>Carregando fases...</div>;
 
+  const completedCount = phases.filter(p => p.isCompleted).length;
+  const totalCount = phases.length;
+  const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+  const nextPhase = phases.find(p => !p.isCompleted && p.isUnlocked) || phases[0];
+
   return (
     <div className="phase-list-container">
       <div className="phase-list-sidebar">
@@ -44,13 +49,13 @@ export default function PhaseListPage() {
         <div className="progress-section">
           <h3>PROGRESSO GERAL</h3>
           <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: '37%' }}></div>
+            <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
           </div>
-          <p className="progress-text">Fase 3 de 8 concluída - 37% do livro lido</p>
+          <p className="progress-text">Fase {completedCount} de {totalCount} concluída - {progressPercent}% do livro lido</p>
         </div>
 
-        <button className="btn-continue" onClick={() => handlePhaseClick(phases.find(p => !p.isCompleted && p.isUnlocked) || phases[0])}>
-          ▶ Continuar — Fase 3
+        <button className="btn-continue" onClick={() => handlePhaseClick(nextPhase)}>
+          ▶ Continuar — Fase {nextPhase?.id}
         </button>
       </div>
 

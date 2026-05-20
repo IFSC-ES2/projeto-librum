@@ -4,7 +4,8 @@ import RegisterPage from '../pages/RegisterPage';
 import GenresPage from '../pages/GenresPage';
 import PhaseListPage from '../pages/PhaseListPage';
 import ReadingPage from '../pages/ReadingPage';
-import QuizPlaceholder from '../pages/QuizPlaceholder';
+import QuizPage from '../pages/QuizPage';
+import QuizResultPage from '../pages/QuizResultPage';
 import PrivateRoute from "./PrivateRoute";
 
 export const AppRoutes = () => {
@@ -33,10 +34,19 @@ export const AppRoutes = () => {
         />
 
         <Route
-          path="/quiz-placeholder"
+          path="/quiz/:phaseId"
           element={
             <PrivateRoute>
-              <QuizPlaceholder />
+              <QuizPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/quiz/:phaseId/resultado"
+          element={
+            <PrivateRoute>
+              <QuizResultPage />
             </PrivateRoute>
           }
         />

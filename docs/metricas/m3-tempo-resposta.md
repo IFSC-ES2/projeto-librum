@@ -18,4 +18,7 @@
 
 | Data       | Valor coletado | Observação                        |
 |------------|---------------|-----------------------------------|
-| 06/04/2026 | n/d           | Nenhum endpoint implementado ainda. Coleta começa após o scaffolding do Sprint 1. |
+| 06/04/2026 | n/d                               | Nenhum endpoint implementado ainda.                               |
+| 20/05/2026 | POST /auth/login: ~511ms          | Medido localmente com curl. Abaixo do limite de 2000ms (RNF02).   |
+| 20/05/2026 | POST /quiz/1/submit: ~11ms        | Medido localmente com curl. Bem abaixo do limite.                 |
+| 20/05/2026 | GET /quiz/1: a medir              | Retornou 403 — SecurityConfig ainda não atualizado no branch de backend. Medir após merge. |

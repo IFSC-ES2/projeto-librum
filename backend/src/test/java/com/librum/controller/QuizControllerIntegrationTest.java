@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -46,10 +48,11 @@ public class QuizControllerIntegrationTest {
     private JwtUtil jwtUtil;
 
     @Test
-    void getQuiz_semAutenticacao_retorna401() throws Exception {
+    void getQuiz_semAutenticacao_retorna403() throws Exception {
+        // Spring Security sem AuthenticationEntryPoint retorna 403 por padrão
         mockMvc.perform(get("/quiz/1")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -78,14 +81,16 @@ public class QuizControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "giuliano@librum.com")
     void submitQuiz_comRespostasValidas_retornaXpEarned() throws Exception {
+        // Usa .with(user(...)) para garantir que o principal seja resolvido como String
+        // pelo @AuthenticationPrincipal no QuizController
+        String email = "giuliano@librum.com";
         UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
-        user.setEmail("giuliano@librum.com");
+        user.setEmail(email);
 
-        when(userRepository.findByEmail("giuliano@librum.com"))
+        when(userRepository.findByEmail(email))
                 .thenReturn(Optional.of(user));
 
         QuizResultResponse resposta = new QuizResultResponse(1, 1, 5, 5, 1, false);
@@ -99,6 +104,9 @@ public class QuizControllerIntegrationTest {
         body.setAnswers(List.of(item));
 
         mockMvc.perform(post("/quiz/1/submit")
+                        // Replica o comportamento do JwtAuthenticationFilter:
+                        // principal é a String do email (não UserDetails)
+                        .with(authentication(new UsernamePasswordAuthenticationToken(email, null, List.of())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(body)))
                 .andExpect(status().isOk())

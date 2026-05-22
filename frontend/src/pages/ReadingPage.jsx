@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
 import { applyTheme } from '../utils/readingThemes';
 import './ReadingPage.css';
+import mascote from '../assets/librum-mascote-principal.png';
+import XpBadge from '../components/XpBadge';
+import '../components/XpBadge.css';
 
 export default function ReadingPage() {
   const { phaseId, segmentNumber } = useParams();
@@ -60,7 +63,7 @@ export default function ReadingPage() {
     await ReadingService.markProgress(phaseId, segmentNumber);
 
     if (Number(segmentNumber) >= content.totalSegments) {
-      navigate('/quiz-placeholder');
+      navigate(`/quiz/${phaseId}`);
     } else {
       navigate(`/reading/${phaseId}/${Number(segmentNumber) + 1}`);
     }
@@ -82,9 +85,10 @@ export default function ReadingPage() {
         </div>
         <div className="header-right">
           <div className="progress-bar-small">
-            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>
+            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>          
           </div>
           <span className="progress-text">{Math.round((segmentNumber / content.totalSegments) * 100)}%</span>
+          <XpBadge />        
         </div>
       </header>
 
@@ -104,7 +108,7 @@ export default function ReadingPage() {
           </div>
 
           <div className="mascot-container">
-            <img src="/assets/mascots/aventura.png" alt="Mascote" className="reading-mascot" />
+            <img src={mascote} alt="Mascote" className="reading-mascot" />
             <p className="mascot-quote">"Prove que entendeu este trecho!"</p>
           </div>
         </aside>

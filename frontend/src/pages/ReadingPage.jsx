@@ -100,11 +100,11 @@ export default function ReadingPage() {
           </div>
           <div className="sidebar-section">
             <div className="label">GÊNERO</div>
-            <div className="value highlight">⛵ Aventura</div>
+            <div className="value highlight">⛵ {content.genreName}</div>
           </div>
           <div className="sidebar-section">
             <div className="label">TEMPO ESTIMADO</div>
-            <div className="value">~3 min</div>
+            <div className="value">~{content.estimatedMinutes} min</div>
           </div>
 
           <div className="mascot-container">
@@ -135,7 +135,7 @@ export default function ReadingPage() {
           </div>
 
           <div className="content-footer">
-            <span>~3 min · Trecho {segmentNumber}/{content.totalSegments}</span>
+            <span>~{content.estimatedMinutes} min · Trecho {segmentNumber}/{content.totalSegments}</span>
             <button className="btn-next" onClick={handleNext}>Ir ao quiz →</button>
           </div>
         </main>

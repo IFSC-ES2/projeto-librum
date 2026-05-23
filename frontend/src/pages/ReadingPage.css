@@ -17,8 +17,8 @@
 }
 
 .reading-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 270px 1fr 250px;
   align-items: center;
   padding: 15px 30px;
   background-color: #3B2A63;
@@ -53,8 +53,12 @@
 }
 
 .header-center {
+  flex: 1;
+  max-width: 800px;
   font-size: 0.875rem;
   color: #D1C4E9;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .header-right {
@@ -136,6 +140,7 @@
   padding: 40px 80px;
   max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .content-meta {

@@ -1,0 +1,25 @@
+.xp-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 6px 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.xp-badge--loading {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.xp-badge__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.xp-badge__info {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}

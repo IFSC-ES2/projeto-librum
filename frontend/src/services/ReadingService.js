@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8080';
 
 const authHeader = () => {
   const token = localStorage.getItem('token');
@@ -42,6 +42,8 @@ export const ReadingService = {
         segmentNumber,
         totalSegments: 4,
         title: 'A Ilha do Tesouro, Cap. III',
+        genreName: 'Aventura',
+        estimatedMinutes: 3,
         content: `O sol havia mergulhado além do horizonte quando Jim avistou, pela primeira vez, a silhueta recortada das montanhas da ilha. Uma névoa fina cobria o ancoradouro, e o cheiro de maresia misturava-se ao carvão da fumaça que saía da chaminé do Hispaniola.
 
 — Esta é a ilha? — perguntou ele ao capitão Smollett, tentando disfarçar o tremor na voz. O capitão assentiu sem tirar os olhos da bússola, e Jim sentiu o coração bater mais forte dentro do peito.

@@ -22,4 +22,6 @@
 
 | Sprint   | Data de coleta | Velocity (SP entregues) | Observação                          |
 |----------|---------------|------------------------|-------------------------------------|
-| Sprint 1 | n/d           | n/d                    | Sprint ainda não concluído. Coleta ao final do ciclo. |
+| Sprint 1 | 23/04/2026     | 8 SP                   | US01 entregue completa.                          |
+| Sprint 2 | 07/05/2026     | 13 SP                  | US02 (3SP) + US04 (5SP) + US05 (5SP) entregues. |
+| Sprint 3 | 28/05/2026     | A coletar              | US06 (8SP) + US07 (5SP) planejados = 13 SP.      |

@@ -13,6 +13,12 @@
   border-right: 1px solid #EAEAEA;
 }
 
+.phase-list-sidebar h2 {
+  font-size: 1.5rem;
+  color: #D9530F;
+  margin-bottom: 10px;
+}
+
 .btn-back {
   background: none;
   border: none;
@@ -120,7 +126,7 @@
 
 .phase-path {
   position: relative;
-  height: 600px;
+  min-height: 600px;
 }
 
 .phase-node {

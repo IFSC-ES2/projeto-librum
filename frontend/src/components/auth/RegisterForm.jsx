@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { register } from '../../services/authService';
+import { useAuth } from '../../context/AuthContext';
 
 const RegisterForm = () => {
   const [data, setData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { loginUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (data.password.length < 8) {
-      setError('A senha deve ter no minimo 8 caracteres');
-      return
+      setError('A senha deve ter no mínimo 8 caracteres');
+      return;
     }
 
     if (data.password !== data.confirmPassword) {
       setError('As senhas não coincidem');
       return;
     }
-    
+
     try {
-      await register (data.name, data.email, data.password);
-      navigate('/login');
+      const response = await register(data.name, data.email, data.password);
+      loginUser({ userId: response.userId, token: response.token });
+      navigate('/genres');
     } catch (err) {
       setError(err.message || 'Erro no cadastro');
     }

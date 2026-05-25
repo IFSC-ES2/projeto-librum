@@ -4,6 +4,7 @@ import { ReadingService } from '../services/ReadingService';
 import { applyTheme } from '../utils/readingThemes';
 import './ReadingPage.css';
 import mascote from '../assets/librum-mascote-principal.png';
+import logoLivro from '../assets/logo-livro.png';
 import XpBadge from '../components/XpBadge';
 import '../components/XpBadge.css';
 
@@ -77,7 +78,9 @@ export default function ReadingPage() {
     <div className="reading-container">
       <header className="reading-header">
         <div className="header-left">
-          <button onClick={() => navigate('/genres/aventura')} className="btn-icon">L</button>
+          <button onClick={() => navigate('/genres/aventura')} className="btn-logo">
+            <img src={logoLivro} alt="Logo Librum" style={{ width: '56px', height: '56px', objectFit: 'contain', padding: '0px' }} />
+          </button>
           <span className="breadcrumb">← <span className="highlight">A Ilha do Tesouro</span> · Fase {phaseId}</span>
         </div>
         <div className="header-center">
@@ -85,10 +88,10 @@ export default function ReadingPage() {
         </div>
         <div className="header-right">
           <div className="progress-bar-small">
-            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>          
+            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>
           </div>
           <span className="progress-text">{Math.round((segmentNumber / content.totalSegments) * 100)}%</span>
-          <XpBadge />        
+          <XpBadge />
         </div>
       </header>
 
@@ -115,7 +118,7 @@ export default function ReadingPage() {
 
         <main className="reading-content" style={contentStyle}>
           <div className="content-meta">
-            TEXTO LITERÁRIO · DOMÍNIO PÚBLICO · {content.title.toUpperCase()}
+            TEXTO LITERÁRIO · DOMÍNIO PÚBLICO · {content.phaseTitle?.toUpperCase()}
           </div>
 
           <div className="text-body">

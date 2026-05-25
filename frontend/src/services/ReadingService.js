@@ -41,7 +41,7 @@ export const ReadingService = {
         phaseId,
         segmentNumber,
         totalSegments: 4,
-        title: 'A Ilha do Tesouro, Cap. III',
+        phaseTitle: 'A Ilha do Tesouro, Cap. III',
         genreName: 'Aventura',
         estimatedMinutes: 3,
         content: `O sol havia mergulhado além do horizonte quando Jim avistou, pela primeira vez, a silhueta recortada das montanhas da ilha. Uma névoa fina cobria o ancoradouro, e o cheiro de maresia misturava-se ao carvão da fumaça que saía da chaminé do Hispaniola.

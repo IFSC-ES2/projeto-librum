@@ -1,9 +1,6 @@
-const API_BASE_URL = 'http://localhost:8080';
+import { authHeader } from '../utils/auth';
 
-const authHeader = () => {
-  const token = localStorage.getItem('token');
-  return token ? { 'Authorization': `Bearer ${token}` } : {};
-};
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 export const ReadingService = {
   getPhases: async (genreId) => {

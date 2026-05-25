@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './XpBadge.css';
+import { getAuthToken } from '../utils/auth';
 
 const XpBadge = () => {
   const [profile, setProfile] = useState(null);
@@ -7,7 +8,7 @@ const XpBadge = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = getAuthToken();
         const response = await fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });

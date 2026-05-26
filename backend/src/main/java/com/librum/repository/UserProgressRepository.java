@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface UserProgressRepository extends JpaRepository<UserProgress, Long> {
     Optional<UserProgress> findByUserIdAndPhaseId(UUID userId, Long phaseId);
     boolean existsByUserIdAndPhaseIdAndIsCompletedTrue(UUID userId, Long phaseId);
+    boolean existsByUserIdAndPhaseIdAndQuizCompletedTrue(UUID userId, Long phaseId);
 }

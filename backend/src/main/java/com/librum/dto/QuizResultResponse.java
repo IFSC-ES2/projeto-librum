@@ -6,5 +6,7 @@ public record QuizResultResponse(
         int xpEarned,
         int newTotalXp,
         int newLevel,
-        boolean leveledUp
+        boolean leveledUp,
+        Long nextPhaseId,
+        boolean passed
 ) {}

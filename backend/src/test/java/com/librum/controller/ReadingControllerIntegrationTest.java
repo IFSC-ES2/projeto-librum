@@ -76,7 +76,7 @@ public class ReadingControllerIntegrationTest {
         PhaseSegmentResponse segmentoResponse = new PhaseSegmentResponse(
                 1, 4, "Era uma vez um jovem chamado Jim Hawkins...",
                 3, "Fase 1: O Inicio da Aventura", 1,
-                "A Ilha do Tesouro", "Robert Louis Stevenson", "Aventura"
+                "A Ilha do Tesouro", "Robert Louis Stevenson", "Aventura", "aventura"
         );
 
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(user));

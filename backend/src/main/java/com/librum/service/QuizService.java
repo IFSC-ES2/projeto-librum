@@ -49,7 +49,9 @@ public class QuizService {
                     q.getOptionA(),
                     q.getOptionB(),
                     q.getOptionC(),
-                    q.getOptionD()
+                    q.getOptionD(),
+                    String.valueOf(q.getCorrectOption()),
+                    q.getExplanation()
                 )
             )
             .toList();
@@ -106,7 +108,9 @@ public class QuizService {
             xpEarned,
             updatedUser.getXp(),
             updatedUser.getLevel(),
-            updatedUser.getLevel() > oldLevel
+            updatedUser.getLevel() > oldLevel,
+            null,
+            false
         );
     }
 }

@@ -9,5 +9,6 @@ public record PhaseSegmentResponse(
         int phaseNumber,
         String bookTitle,
         String bookAuthor,
-        String genreName
+        String genreName,
+        String genreSlug
 ) {}

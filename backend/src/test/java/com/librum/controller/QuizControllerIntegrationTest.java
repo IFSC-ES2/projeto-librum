@@ -56,7 +56,7 @@ public class QuizControllerIntegrationTest {
 
     @Test
     @WithMockUser(username = "giuliano@librum.com")
-    void getQuiz_comAutenticacao_retornaListaSemCorrectOption() throws Exception {
+    void getQuiz_comAutenticacao_retornaListaComCorrectOptionEExplanation() throws Exception {
         UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
@@ -67,7 +67,8 @@ public class QuizControllerIntegrationTest {
 
         List<QuizQuestionResponse> questoes = List.of(
             new QuizQuestionResponse(1L, 1L, "Qual o nome do protagonista?",
-                "Jim Hawkins", "Long John Silver", "Capitão Smollett", "Billy Bones")
+                "Jim Hawkins", "Long John Silver", "Capitão Smollett", "Billy Bones",
+                "A", "Jim Hawkins é o jovem protagonista da história.")
         );
         when(quizService.getQuestions(1L)).thenReturn(questoes);
 
@@ -75,8 +76,8 @@ public class QuizControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].questionText").value("Qual o nome do protagonista?"))
-                // correctOption NÃO deve estar presente na resposta JSON
-                .andExpect(jsonPath("$[0].correctOption").doesNotExist());
+                .andExpect(jsonPath("$[0].correctOption").value("A"))
+                .andExpect(jsonPath("$[0].explanation").value("Jim Hawkins é o jovem protagonista da história."));
     }
 
     @Test
@@ -92,7 +93,7 @@ public class QuizControllerIntegrationTest {
         when(userRepository.findByEmail(email))
                 .thenReturn(Optional.of(user));
 
-        QuizResultResponse resposta = new QuizResultResponse(1, 1, 5, 5, 1, false);
+        QuizResultResponse resposta = new QuizResultResponse(1, 1, 5, 5, 1, false, null, false);
         when(quizService.submitQuiz(any(UUID.class), eq(1L), anyList()))
                 .thenReturn(resposta);
 

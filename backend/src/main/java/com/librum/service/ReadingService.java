@@ -58,7 +58,8 @@ public class ReadingService {
                 phase.getPhaseNumber(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getGenre().getName()
+                book.getGenre().getName(),
+                book.getGenre().getSlug()
         );
     }
 

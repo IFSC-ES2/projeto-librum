@@ -35,6 +35,9 @@ public class QuizQuestion {
     @Column(name = "order_index", nullable = false)
     private int orderIndex;
 
+    @Column(name = "explanation", columnDefinition = "TEXT")
+    private String explanation;
+
     public QuizQuestion() {}
 
     public Long getId() { return id; }
@@ -55,4 +58,6 @@ public class QuizQuestion {
     public void setCorrectOption(char correctOption) { this.correctOption = correctOption; }
     public int getOrderIndex() { return orderIndex; }
     public void setOrderIndex(int orderIndex) { this.orderIndex = orderIndex; }
+    public String getExplanation() { return explanation; }
+    public void setExplanation(String explanation) { this.explanation = explanation; }
 }

@@ -1,6 +1,6 @@
-# Contrato de API — Leitura e Progresso
+# Contrato de API - Leitura e Progresso
 
-Endpoints implementados na Sprint 2 para as US04 e US05.
+Endpoints implementados na Sprint 2 (US04 e US05) e ajustados na Sprint 3-2 (US08 e US09).
 
 URL base: `http://localhost:8080`
 
@@ -65,8 +65,8 @@ Lista as fases do livro disponível para um gênero, com o status de desbloqueio
 ]
 ```
 
-- `isUnlocked`: `true` para a Fase 1 sempre; `true` para a Fase N se a Fase N-1 está com `isCompleted = true`.
-- `isCompleted`: `true` se o usuário leu todos os segmentos da fase.
+- `isUnlocked`: `true` para a Fase 1 sempre; `true` para a Fase N quando o quiz da Fase N-1 foi concluído (`quiz_completed = true` em `user_progress`).
+- `isCompleted`: `true` se o usuário leu todos os segmentos da fase. Por si só não desbloqueia a próxima fase: o desbloqueio depende da conclusão do quiz.
 
 **Resposta 401:** token ausente ou inválido.
 
@@ -95,13 +95,16 @@ Retorna o conteúdo de um segmento de texto de uma fase.
   "phaseNumber": 1,
   "bookTitle": "A Ilha do Tesouro",
   "bookAuthor": "Robert Louis Stevenson",
-  "genreName": "Aventura"
+  "genreName": "Aventura",
+  "genreSlug": "aventura"
 }
 ```
 
+- `genreSlug`: slug do gênero da fase. O frontend usa esse valor para construir links de navegação (breadcrumb e botão de voltar) sem fixar a string `"aventura"` no código.
+
 **Resposta 401:** token ausente ou inválido.
 
-**Resposta 403:** fase bloqueada para o usuário (fase anterior não concluída).
+**Resposta 403:** fase bloqueada para o usuário (quiz da fase anterior não concluído).
 
 **Resposta 404:** segmento não existe na fase.
 

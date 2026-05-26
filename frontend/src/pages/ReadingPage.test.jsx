@@ -12,6 +12,15 @@ vi.mock('../services/ReadingService', () => ({
   },
 }));
 
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
+
 // Mock do localStorage
 const localStorageMock = (() => {
   let store = {};
@@ -56,11 +65,14 @@ describe('ReadingPage', () => {
     expect(texto).toBeInTheDocument();
   });
 
-  it('caso 2: botão "Ir ao quiz" aparece no rodapé', async () => {
+  it('caso 2: botão "Ir ao quiz" aparece no rodapé e navega para /quiz/:phaseId', async () => {
     renderReadingPage('1', '1');
 
     const botao = await screen.findByText(/Ir ao quiz/i);
     expect(botao).toBeInTheDocument();
+
+    fireEvent.click(botao);
+    expect(mockNavigate).toHaveBeenCalledWith('/quiz/1');
   });
 
   it('caso 3: clicar em "Noturno" aplica o tema noturno na área de conteúdo', async () => {

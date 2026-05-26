@@ -3,10 +3,13 @@ package com.librum.service;
 import com.librum.dto.QuizQuestionResponse;
 import com.librum.dto.QuizResultRequest;
 import com.librum.dto.QuizResultResponse;
+import com.librum.model.Book;
 import com.librum.model.Phase;
 import com.librum.model.QuizQuestion;
 import com.librum.model.User;
+import com.librum.repository.PhaseRepository;
 import com.librum.repository.QuizQuestionRepository;
+import com.librum.repository.UserProgressRepository;
 import com.librum.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +40,12 @@ public class QuizServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UserProgressRepository userProgressRepository;
+
+    @Mock
+    private PhaseRepository phaseRepository;
+
     @InjectMocks
     private QuizService quizService;
 
@@ -55,10 +64,14 @@ public class QuizServiceTest {
         user.setXp(0);
         user.setLevel(1);
 
+        Book livro = mock(Book.class);
+        lenient().when(livro.getId()).thenReturn(1L);
+
         fase1 = new Phase();
         fase1.setId(1L);
         fase1.setPhaseNumber(1);
         fase1.setTitle("Fase 1");
+        fase1.setBook(livro);
 
         questao1 = new QuizQuestion();
         questao1.setId(1L);

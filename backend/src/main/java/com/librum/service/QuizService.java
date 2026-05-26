@@ -3,11 +3,16 @@ package com.librum.service;
 import com.librum.dto.QuizQuestionResponse;
 import com.librum.dto.QuizResultRequest;
 import com.librum.dto.QuizResultResponse;
+import com.librum.model.Phase;
 import com.librum.model.QuizQuestion;
 import com.librum.model.User;
+import com.librum.model.UserProgress;
+import com.librum.repository.PhaseRepository;
 import com.librum.repository.QuizQuestionRepository;
+import com.librum.repository.UserProgressRepository;
 import com.librum.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -20,15 +25,21 @@ public class QuizService {
     private final QuizQuestionRepository quizQuestionRepository;
     private final XpService xpService;
     private final UserRepository userRepository;
+    private final UserProgressRepository userProgressRepository;
+    private final PhaseRepository phaseRepository;
 
     public QuizService(
         QuizQuestionRepository quizQuestionRepository,
         XpService xpService,
-        UserRepository userRepository
+        UserRepository userRepository,
+        UserProgressRepository userProgressRepository,
+        PhaseRepository phaseRepository
     ) {
         this.quizQuestionRepository = quizQuestionRepository;
         this.xpService = xpService;
         this.userRepository = userRepository;
+        this.userProgressRepository = userProgressRepository;
+        this.phaseRepository = phaseRepository;
     }
 
     public List<QuizQuestionResponse> getQuestions(Long phaseId) {
@@ -102,6 +113,32 @@ public class QuizService {
         int xpEarned = correctAnswers * 5;
         User updatedUser = xpService.addXp(userId, xpEarned);
 
+        boolean passed = (questions.size() - correctAnswers) <= 2;
+        Long nextPhaseId = null;
+
+        if (passed) {
+            Phase phase = questions.get(0).getPhase();
+            UserProgress progress = userProgressRepository
+                .findByUserIdAndPhaseId(userId, phaseId)
+                .orElseGet(() -> {
+                    UserProgress np = new UserProgress();
+                    np.setUser(user);
+                    np.setPhase(phase);
+                    return np;
+                });
+            progress.setQuizCompleted(true);
+            progress.setCompleted(true);
+            if (progress.getCompletedAt() == null) {
+                progress.setCompletedAt(LocalDateTime.now());
+            }
+            userProgressRepository.save(progress);
+
+            nextPhaseId = phaseRepository
+                .findByBookIdAndPhaseNumber(phase.getBook().getId(), phase.getPhaseNumber() + 1)
+                .map(Phase::getId)
+                .orElse(null);
+        }
+
         return new QuizResultResponse(
             questions.size(),
             correctAnswers,
@@ -109,8 +146,8 @@ public class QuizService {
             updatedUser.getXp(),
             updatedUser.getLevel(),
             updatedUser.getLevel() > oldLevel,
-            null,
-            false
+            nextPhaseId,
+            passed
         );
     }
 }

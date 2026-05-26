@@ -139,9 +139,9 @@ public class ReadingServiceTest {
         when(phaseRepository.findByBookIdOrderByPhaseNumber(any())).thenReturn(List.of(fase1, fase2, fase3));
         when(phaseSegmentRepository.countByPhaseId(anyLong())).thenReturn(4);
 
-        // fase 1 concluída → fase 2 destravada; fase 2 não concluída → fase 3 travada
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 1L)).thenReturn(true);
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 2L)).thenReturn(false);
+        // quiz da fase 1 concluído → fase 2 destravada; quiz da fase 2 não concluído → fase 3 travada
+        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 1L)).thenReturn(true);
+        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 2L)).thenReturn(false);
 
         List<PhaseReadingResponse> fases = readingService.getPhasesForGenre(userId, 10L);
 

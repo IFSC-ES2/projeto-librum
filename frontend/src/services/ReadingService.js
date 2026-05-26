@@ -1,9 +1,6 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+import { authHeader } from '../utils/auth';
 
-const authHeader = () => {
-  const token = localStorage.getItem('token');
-  return token ? { 'Authorization': `Bearer ${token}` } : {};
-};
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 export const ReadingService = {
   getPhases: async (genreId) => {
@@ -16,14 +13,14 @@ export const ReadingService = {
     } catch (error) {
       console.error(error);
       return [
-        { id: 1, name: 'Fase 1', isUnlocked: true, isCompleted: true },
-        { id: 2, name: 'Fase 2', isUnlocked: true, isCompleted: true },
-        { id: 3, name: 'Fase 3', isUnlocked: true, isCompleted: false },
-        { id: 4, name: 'Fase 4', isUnlocked: false, isCompleted: false },
-        { id: 5, name: 'Fase 5', isUnlocked: false, isCompleted: false },
-        { id: 6, name: 'Fase 6', isUnlocked: false, isCompleted: false },
-        { id: 7, name: 'Fase 7', isUnlocked: false, isCompleted: false },
-        { id: 8, name: 'Fase 8', isUnlocked: false, isCompleted: false },
+        { id: 1, phaseNumber: 1, name: 'Fase 1', isUnlocked: true, isCompleted: true },
+        { id: 2, phaseNumber: 2, name: 'Fase 2', isUnlocked: true, isCompleted: true },
+        { id: 3, phaseNumber: 3, name: 'Fase 3', isUnlocked: true, isCompleted: false },
+        { id: 4, phaseNumber: 4, name: 'Fase 4', isUnlocked: false, isCompleted: false },
+        { id: 5, phaseNumber: 5, name: 'Fase 5', isUnlocked: false, isCompleted: false },
+        { id: 6, phaseNumber: 6, name: 'Fase 6', isUnlocked: false, isCompleted: false },
+        { id: 7, phaseNumber: 7, name: 'Fase 7', isUnlocked: false, isCompleted: false },
+        { id: 8, phaseNumber: 8, name: 'Fase 8', isUnlocked: false, isCompleted: false },
       ];
     }
   },
@@ -41,7 +38,9 @@ export const ReadingService = {
         phaseId,
         segmentNumber,
         totalSegments: 4,
-        title: 'A Ilha do Tesouro, Cap. III',
+        bookTitle: 'A Ilha do Tesouro, Cap. III',
+        genreName: 'Aventura',
+        estimatedMinutes: 3,
         content: `O sol havia mergulhado além do horizonte quando Jim avistou, pela primeira vez, a silhueta recortada das montanhas da ilha. Uma névoa fina cobria o ancoradouro, e o cheiro de maresia misturava-se ao carvão da fumaça que saía da chaminé do Hispaniola.
 
 — Esta é a ilha? — perguntou ele ao capitão Smollett, tentando disfarçar o tremor na voz. O capitão assentiu sem tirar os olhos da bússola, e Jim sentiu o coração bater mais forte dentro do peito.

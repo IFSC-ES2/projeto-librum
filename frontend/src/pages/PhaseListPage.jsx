@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
 import './PhaseListPage.css';
+import mascote from '../assets/librum-mascote-principal.png';
+import livro from '../assets/books/ilha-do-tesouro.png';
+
 
 export default function PhaseListPage() {
   const { genreId } = useParams();
@@ -30,6 +33,7 @@ export default function PhaseListPage() {
   const totalCount = phases.length;
   const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
   const nextPhase = phases.find(p => !p.isCompleted && p.isUnlocked) || phases[0];
+  const pathHeight = Math.max(phases.length * 80 + 120, 600);
 
   return (
     <div className="phase-list-container">
@@ -38,8 +42,8 @@ export default function PhaseListPage() {
 
         <div className="book-cover-card">
           <div className="book-cover-image">
-            <img src="/assets/books/ilha-do-tesouro.jpg" alt="A Ilha do Tesouro" />
-            <img src="/assets/mascots/aventura.png" alt="Aventura" className="book-mascot" />
+            <img src={livro} alt="A Ilha do Tesouro" width="100%" />
+            <img src={mascote} alt="Mascote" className="book-mascot" />
           </div>
         </div>
 
@@ -55,7 +59,7 @@ export default function PhaseListPage() {
         </div>
 
         <button className="btn-continue" onClick={() => handlePhaseClick(nextPhase)}>
-          ▶ Continuar — Fase {nextPhase?.id}
+          ▶ Continuar - Fase {nextPhase?.phaseNumber}
         </button>
       </div>
 
@@ -65,7 +69,7 @@ export default function PhaseListPage() {
           <p>Complete cada fase para desbloquear a próxima</p>
         </div>
 
-        <div className="phase-path">
+        <div className="phase-path" style={{ height: `${pathHeight}px` }}>
           {phases.map((phase, index) => (
             <div
               key={phase.id}
@@ -74,9 +78,9 @@ export default function PhaseListPage() {
               style={{ top: `${index * 80}px`, left: `${(index % 2 === 0 ? 20 : 60)}%` }}
             >
               <div className="phase-circle">
-                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.id : '🔒'}
+                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
               </div>
-              <span className="phase-label">Fase {phase.id}</span>
+              <span className="phase-label">Fase {phase.phaseNumber}</span>
             </div>
           ))}
         </div>

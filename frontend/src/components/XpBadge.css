@@ -1,0 +1,82 @@
+.xp-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  cursor: default;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.xp-badge:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(249, 115, 22, 0.5);
+}
+
+/* Avatar circular com inicial do nome */
+.xp-badge__avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F97316, #f59e0b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.xp-badge__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.xp-badge__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+
+.xp-badge__level {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1;
+}
+
+.xp-badge__xp {
+  color: #F97316;
+  font-weight: 600;
+}
+
+/* Estado de carregamento com pulso */
+.xp-badge--loading {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+  animation: xp-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes xp-pulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}

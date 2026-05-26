@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
 import './XpBadge.css';
+import { getAuthToken } from '../utils/auth';
 
 const XpBadge = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('user');
-    const token = saved ? JSON.parse(saved)?.token : null;
-    if (!token) return; // sem token → não faz fetch
+    const token = getAuthToken();
+    if (!token) return;
 
     const fetchProfile = async () => {
       setLoading(true);
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);

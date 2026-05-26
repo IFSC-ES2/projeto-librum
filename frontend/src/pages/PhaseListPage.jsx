@@ -59,7 +59,7 @@ export default function PhaseListPage() {
         </div>
 
         <button className="btn-continue" onClick={() => handlePhaseClick(nextPhase)}>
-          ▶ Continuar - Fase {nextPhase?.id}
+          ▶ Continuar - Fase {nextPhase?.phaseNumber}
         </button>
       </div>
 
@@ -78,9 +78,9 @@ export default function PhaseListPage() {
               style={{ top: `${index * 80}px`, left: `${(index % 2 === 0 ? 20 : 60)}%` }}
             >
               <div className="phase-circle">
-                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.id : '🔒'}
+                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
               </div>
-              <span className="phase-label">Fase {phase.id}</span>
+              <span className="phase-label">Fase {phase.phaseNumber}</span>
             </div>
           ))}
         </div>

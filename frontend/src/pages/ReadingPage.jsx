@@ -118,7 +118,7 @@ export default function ReadingPage() {
 
         <main className="reading-content" style={contentStyle}>
           <div className="content-meta">
-            TEXTO LITERÁRIO · DOMÍNIO PÚBLICO · {content.phaseTitle?.toUpperCase()}
+            TEXTO LITERÁRIO · DOMÍNIO PÚBLICO · {content.bookTitle?.toUpperCase()}
           </div>
 
           <div className="text-body">

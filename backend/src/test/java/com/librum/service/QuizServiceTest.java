@@ -22,7 +22,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -93,7 +92,7 @@ public class QuizServiceTest {
         User userAtualizado = new User();
         userAtualizado.setXp(10);
         userAtualizado.setLevel(1);
-        when(xpService.addXp(any(), anyInt())).thenReturn(userAtualizado);
+        when(xpService.addXp(any(), eq(10))).thenReturn(userAtualizado);
 
         List<QuizResultRequest.AnswerItem> respostas = List.of(
             criarResposta(1L, "A"),
@@ -105,6 +104,7 @@ public class QuizServiceTest {
         assertEquals(2, resultado.totalQuestions());
         assertEquals(2, resultado.correctAnswers());
         assertEquals(10, resultado.xpEarned()); // 2 acertos × 5 XP
+        verify(xpService).addXp(userId, 10);
     }
 
     @Test

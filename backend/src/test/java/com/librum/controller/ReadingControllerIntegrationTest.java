@@ -57,10 +57,10 @@ public class ReadingControllerIntegrationTest {
     }
 
     @Test
-    void getSegment_semAutenticacao_retorna403() throws Exception {
+    void getSegment_semAutenticacao_retorna401() throws Exception {
         mockMvc.perform(get("/reading/1/1")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

@@ -48,11 +48,10 @@ public class QuizControllerIntegrationTest {
     private JwtUtil jwtUtil;
 
     @Test
-    void getQuiz_semAutenticacao_retorna403() throws Exception {
-        // Spring Security sem AuthenticationEntryPoint retorna 403 por padrão
+    void getQuiz_semAutenticacao_retorna401() throws Exception {
         mockMvc.perform(get("/quiz/1")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

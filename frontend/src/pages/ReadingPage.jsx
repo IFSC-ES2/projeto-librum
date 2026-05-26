@@ -88,10 +88,10 @@ export default function ReadingPage() {
         </div>
         <div className="header-right">
           <div className="progress-bar-small">
-            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>          
+            <div className="progress-fill" style={{ width: `${(segmentNumber / content.totalSegments) * 100}%` }}></div>
           </div>
           <span className="progress-text">{Math.round((segmentNumber / content.totalSegments) * 100)}%</span>
-          <XpBadge />        
+          <XpBadge />
         </div>
       </header>
 

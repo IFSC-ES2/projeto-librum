@@ -1,6 +1,6 @@
 # Contrato de API - Quiz e Perfil do Usuário
 
-Endpoints implementados na Sprint 3 para as US06 e US07.
+Endpoints implementados na Sprint 3 (US06 e US07) e estendidos na Sprint 3-2 (US08 e US09).
 
 URL base: `http://localhost:8080`
 
@@ -8,7 +8,7 @@ URL base: `http://localhost:8080`
 
 ## GET /quiz/{phaseId}
 
-Retorna as questões do quiz para uma fase, sem expor a resposta correta.
+Retorna as questões do quiz para uma fase, incluindo a letra da opção correta e o texto de explicação. A validação da submissão continua sendo feita no backend em `POST /quiz/{phaseId}/submit`; expor a letra aqui serve apenas para o frontend destacar a opção certa quando o usuário erra.
 
 **Autenticação:** `Authorization: Bearer <token>` (obrigatório).
 
@@ -27,7 +27,9 @@ Retorna as questões do quiz para uma fase, sem expor a resposta correta.
     "optionA": "Um pirata lendário",
     "optionB": "O pai de Jim",
     "optionC": "Um marinheiro aposentado",
-    "optionD": "O dono da Estalagem do Almirante Benbow"
+    "optionD": "O dono da Estalagem do Almirante Benbow",
+    "correctOption": "A",
+    "explanation": "Capitão Flint era o pirata lendário que enterrou o tesouro procurado na história."
   },
   {
     "id": 2,
@@ -36,10 +38,15 @@ Retorna as questões do quiz para uma fase, sem expor a resposta correta.
     "optionA": "O Tesouro Perdido",
     "optionB": "O Tesouro do Flint",
     "optionC": "O Tesouro Enterrado",
-    "optionD": "O Tesouro de Silver"
+    "optionD": "O Tesouro de Silver",
+    "correctOption": "B",
+    "explanation": "O tesouro procurado pertencia ao Capitão Flint, daí o nome usado pelos personagens."
   }
 ]
 ```
+
+- `correctOption`: letra da opção correta (`"A"`, `"B"`, `"C"` ou `"D"`).
+- `explanation`: texto curto exibido após o usuário confirmar a resposta de cada questão.
 
 **Resposta 401:** token ausente ou inválido.
 
@@ -49,7 +56,7 @@ Retorna as questões do quiz para uma fase, sem expor a resposta correta.
 
 ## POST /quiz/{phaseId}/submit
 
-Valida as respostas do usuário, calcula o XP ganho e retorna o resultado.
+Valida as respostas do usuário, calcula o XP ganho e marca a fase como concluída quando o usuário acerta o suficiente. A conclusão do quiz é o que desbloqueia a próxima fase na trilha.
 
 **Autenticação:** `Authorization: Bearer <token>` (obrigatório).
 
@@ -72,22 +79,43 @@ Valida as respostas do usuário, calcula o XP ganho e retorna o resultado.
 - `questionId`: ID da questão.
 - `selectedOption`: aceita somente `"A"`, `"B"`, `"C"` ou `"D"` (maiúsculo).
 
-**Resposta 200:**
+**Resposta 200 quando aprovado:**
 
 ```json
 {
-  "totalQuestions": 2,
+  "totalQuestions": 4,
+  "correctAnswers": 3,
+  "xpEarned": 15,
+  "newTotalXp": 60,
+  "newLevel": 2,
+  "leveledUp": true,
+  "nextPhaseId": 2,
+  "passed": true
+}
+```
+
+**Resposta 200 quando reprovado (mais de 2 erros):**
+
+```json
+{
+  "totalQuestions": 4,
   "correctAnswers": 1,
   "xpEarned": 5,
   "newTotalXp": 45,
   "newLevel": 1,
-  "leveledUp": false
+  "leveledUp": false,
+  "nextPhaseId": null,
+  "passed": false
 }
 ```
 
-- `xpEarned`: +5 XP por resposta correta.
+- `xpEarned`: +5 XP por resposta correta, independente de aprovado ou reprovado.
 - `newTotalXp`: XP acumulado do usuário após esta submissão.
 - `leveledUp`: `true` se o usuário atingiu um novo nível (a cada 50 XP).
+- `passed`: `true` quando `totalQuestions - correctAnswers <= 2`.
+- `nextPhaseId`: ID da próxima fase quando `passed = true` e existe próxima fase no livro. `null` se reprovado ou se for a última fase.
+
+**Efeito colateral:** quando `passed = true`, o registro em `user_progress` recebe `quiz_completed = true` e `is_completed = true` para o par (usuário, fase). Quando `passed = false`, nada é alterado em `user_progress` e a próxima fase permanece bloqueada.
 
 **Resposta 400:** payload inválido ou questões/respostas inconsistentes.
 

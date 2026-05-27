@@ -6,7 +6,9 @@ import PhaseListPage from '../pages/PhaseListPage';
 import ReadingPage from '../pages/ReadingPage';
 import QuizPage from '../pages/QuizPage';
 import QuizResultPage from '../pages/QuizResultPage';
+import PhaseCompletedPage from '../pages/PhaseCompletedPage';
 import PrivateRoute from "./PrivateRoute";
+import Layout from '../components/Layout';
 
 export const AppRoutes = () => {
   return (
@@ -19,7 +21,9 @@ export const AppRoutes = () => {
           path="/genres"
           element={
             <PrivateRoute>
-              <GenresPage />
+              <Layout>
+                <GenresPage />
+              </Layout>
             </PrivateRoute>
           }
         />
@@ -52,10 +56,21 @@ export const AppRoutes = () => {
         />
 
         <Route
+          path="/quiz/:phaseId/fase-concluida"
+          element={
+            <PrivateRoute>
+              <PhaseCompletedPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           path="/genres/:genreId"
           element={
             <PrivateRoute>
-              <PhaseListPage />
+              <Layout>
+                <PhaseListPage />
+              </Layout>
             </PrivateRoute>
           }
         />

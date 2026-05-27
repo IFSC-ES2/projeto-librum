@@ -1,0 +1,182 @@
+.phase-completed-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #3A2F80 0%, #4B3FA0 100%);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.phase-completed-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.phase-completed-badge {
+  background: #F97316;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.phase-completed-badge.error {
+  background: #dc2626;
+}
+
+.phase-completed-title-error {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+}
+
+.phase-completed-text-error {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.phase-completed-text-error-sub {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.phase-completed-xp {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #F97316;
+  line-height: 1;
+}
+
+.phase-completed-levelup {
+  background: #ecfdf5;
+  border: 1px solid #10b981;
+  color: #047857;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.phase-completed-stats {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.stat-box {
+  background: #FAF8F5;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.phase-completed-progress {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.phase-completed-progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.phase-completed-progress-bar {
+  height: 10px;
+  background: #eaeaea;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.phase-completed-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #F97316, #ea580c);
+  border-radius: 9999px;
+  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.phase-completed-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.btn-phase-continue {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ea580c, #F97316);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.32);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-phase-continue:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.44);
+}
+
+.btn-phase-secondary {
+  width: 100%;
+  padding: 0.875rem;
+  background: transparent;
+  color: #666;
+  border: 1.5px solid #eaeaea;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-phase-secondary:hover {
+  border-color: #666;
+  color: #333;
+}

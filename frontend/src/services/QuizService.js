@@ -64,15 +64,18 @@ export const QuizService = {
       return await response.json();
     } catch (error) {
       console.error(error);
-      const correctAnswers = Math.floor(Math.random() * 4);
+      const totalQuestions = answers.length || 3;
+      const correctAnswers = totalQuestions;
       const xpEarned = correctAnswers * 5;
       return {
-        totalQuestions: 3,
+        totalQuestions: totalQuestions,
         correctAnswers: correctAnswers,
         xpEarned: xpEarned,
         newTotalXp: 45 + xpEarned,
         newLevel: 1 + Math.floor((45 + xpEarned) / 50),
-        leveledUp: (45 + xpEarned) >= 50
+        leveledUp: (45 + xpEarned) >= 50,
+        nextPhaseId: parseInt(phaseId) + 1,
+        passed: true
       };
     }
   }

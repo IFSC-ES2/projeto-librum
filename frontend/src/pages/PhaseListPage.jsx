@@ -5,7 +5,6 @@ import './PhaseListPage.css';
 import mascote from '../assets/librum-mascote-principal.png';
 import livro from '../assets/books/ilha-do-tesouro.png';
 
-
 export default function PhaseListPage() {
   const { genreId } = useParams();
   const navigate = useNavigate();
@@ -32,7 +31,8 @@ export default function PhaseListPage() {
   const completedCount = phases.filter(p => p.isCompleted).length;
   const totalCount = phases.length;
   const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-  const nextPhase = phases.find(p => !p.isCompleted && p.isUnlocked) || phases[0];
+  const nextPhase = phases.find(p => p.isUnlocked && !p.isCompleted);
+  const continueTarget = nextPhase || phases[0];
   const pathHeight = Math.max(phases.length * 80 + 120, 600);
 
   return (
@@ -58,8 +58,8 @@ export default function PhaseListPage() {
           <p className="progress-text">Fase {completedCount} de {totalCount} concluída - {progressPercent}% do livro lido</p>
         </div>
 
-        <button className="btn-continue" onClick={() => handlePhaseClick(nextPhase)}>
-          ▶ Continuar - Fase {nextPhase?.phaseNumber}
+        <button className="btn-continue" onClick={() => handlePhaseClick(continueTarget)}>
+          ▶ Continuar - Fase {continueTarget?.phaseNumber}
         </button>
       </div>
 
@@ -71,17 +71,31 @@ export default function PhaseListPage() {
 
         <div className="phase-path" style={{ height: `${pathHeight}px` }}>
           {phases.map((phase, index) => (
-            <div
-              key={phase.id}
-              className={`phase-node ${phase.isCompleted ? 'completed' : ''} ${phase.isUnlocked && !phase.isCompleted ? 'active' : ''} ${!phase.isUnlocked ? 'locked' : ''}`}
-              onClick={() => handlePhaseClick(phase)}
-              style={{ top: `${index * 80}px`, left: `${(index % 2 === 0 ? 20 : 60)}%` }}
-            >
-              <div className="phase-circle">
-                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
+            <React.Fragment key={phase.id}>
+              <div
+                className={`phase-node ${phase.isCompleted ? 'completed' : ''} ${phase.isUnlocked && !phase.isCompleted ? 'active' : ''} ${!phase.isUnlocked ? 'locked' : ''}`}
+                onClick={() => handlePhaseClick(phase)}
+                style={{ top: `${index * 80}px`, left: `${(index % 2 === 0 ? 20 : 60)}%` }}
+              >
+                <div className="phase-circle">
+                  {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
+                </div>
+                <span className="phase-label">Fase {phase.phaseNumber}</span>
               </div>
-              <span className="phase-label">Fase {phase.phaseNumber}</span>
-            </div>
+              {index < phases.length - 1 && (
+                <div
+                  className="phase-connector"
+                  style={{
+                    position: 'absolute',
+                    top: `${index * 80 + 55}px`,
+                    left: `${(index % 2 === 0 ? 20 : 60) + 2.5}%`,
+                    width: '60px'
+                  }}
+                >
+                  <span className="phase-connector-arrow">↓</span>
+                </div>
+              )}
+            </React.Fragment>
           ))}
         </div>
       </div>

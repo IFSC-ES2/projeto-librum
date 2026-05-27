@@ -78,10 +78,10 @@ export default function ReadingPage() {
     <div className="reading-container">
       <header className="reading-header">
         <div className="header-left">
-          <button onClick={() => navigate('/genres/aventura')} className="btn-logo">
+          <button onClick={() => navigate(`/genres/${content?.genreSlug || 'aventura'}`)} className="btn-logo">
             <img src={logoLivro} alt="Logo Librum" style={{ width: '56px', height: '56px', objectFit: 'contain', padding: '0px' }} />
           </button>
-          <span className="breadcrumb">← <span className="highlight">A Ilha do Tesouro</span> · Fase {phaseId}</span>
+          <span className="breadcrumb">← <span className="highlight">{content?.bookTitle || 'A Ilha do Tesouro'}</span> · Fase {phaseId}</span>
         </div>
         <div className="header-center">
           Trecho {segmentNumber} de {content.totalSegments}
@@ -139,7 +139,9 @@ export default function ReadingPage() {
 
           <div className="content-footer">
             <span>~{content.estimatedMinutes} min · Trecho {segmentNumber}/{content.totalSegments}</span>
-            <button className="btn-next" onClick={handleNext}>Ir ao quiz →</button>
+            <button className="btn-next" onClick={handleNext}>
+              {Number(segmentNumber) >= content.totalSegments ? 'Ir ao quiz →' : 'Próximo trecho →'}
+            </button>
           </div>
         </main>
 

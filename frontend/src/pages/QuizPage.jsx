@@ -6,7 +6,6 @@ import './QuizPage.css';
 const QuizPage = () => {
   const { phaseId } = useParams();
   const navigate = useNavigate();
-  const [questions, setQuestions] = null;
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -48,33 +47,31 @@ const QuizPage = () => {
   const handleConfirm = () => {
     if (!selectedOption) return;
 
-    const isCorrectMock = selectedOption === 'A' || selectedOption === 'B';
-    setFeedback(isCorrectMock ? 'correct' : 'incorrect');
+    const isCorrect = selectedOption === currentQuestion.correctOption;
+    setFeedback(isCorrect ? 'correct' : 'incorrect');
 
     const newAnswer = {
       questionId: currentQuestion.id,
       selectedOption: selectedOption
     };
+    setAnswers([...answers, newAnswer]);
+  };
 
-    const newAnswersList = [...answers, newAnswer];
-    setAnswers(newAnswersList);
-
-    setTimeout(() => {
-      if (currentQuestionIndex < questionsData.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedOption('');
-        setFeedback(null);
-      } else {
-        submitFinalQuiz(newAnswersList);
-      }
-    }, 1500);
+  const handleNext = () => {
+    if (currentQuestionIndex < questionsData.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedOption('');
+      setFeedback(null);
+    } else {
+      submitFinalQuiz(answers);
+    }
   };
 
   const submitFinalQuiz = async (finalAnswers) => {
     try {
       setSubmitting(true);
       const result = await QuizService.submitQuiz(phaseId, finalAnswers);
-      navigate(`/quiz/${phaseId}/resultado`, { state: result });
+      navigate(`/quiz/${phaseId}/fase-concluida`, { state: result });
     } catch (error) {
       console.error("Erro ao enviar quiz:", error);
       alert("Houve um erro ao enviar suas respostas.");
@@ -91,32 +88,64 @@ const QuizPage = () => {
           <h3 className="quiz-question-text">{currentQuestion.questionText}</h3>
 
           <div className="quiz-options">
-            {['A', 'B', 'C', 'D'].map((opt) => (
-              <label
-                key={opt}
-                className={`quiz-option ${selectedOption === opt ? 'selected' : ''} ${feedback && selectedOption === opt ? feedback : ''}`}
-              >
-                <input
-                  type="radio"
-                  name="quiz-option"
-                  value={opt}
-                  checked={selectedOption === opt}
-                  onChange={handleOptionChange}
-                  disabled={feedback !== null}
-                />
-                <span className="quiz-option-letter">{opt}</span>
-                <span className="quiz-option-text">{currentQuestion[`option${opt}`]}</span>
-              </label>
-            ))}
+            {['A', 'B', 'C', 'D'].map((opt) => {
+              const isSelected = selectedOption === opt;
+              const isCorrect = currentQuestion.correctOption === opt;
+              let optionClass = '';
+              if (isSelected) optionClass += ' selected';
+              if (feedback) {
+                if (isCorrect) {
+                  optionClass += ' correct';
+                } else if (isSelected) {
+                  optionClass += ' incorrect';
+                }
+              }
+              return (
+                <label
+                  key={opt}
+                  className={`quiz-option${optionClass}`}
+                >
+                  <input
+                    type="radio"
+                    name="quiz-option"
+                    value={opt}
+                    checked={isSelected}
+                    onChange={handleOptionChange}
+                    disabled={feedback !== null}
+                  />
+                  <span className="quiz-option-letter">{opt}</span>
+                  <span className="quiz-option-text">{currentQuestion[`option${opt}`]}</span>
+                </label>
+              );
+            })}
           </div>
 
-          <button
-            className="quiz-confirm-btn"
-            onClick={handleConfirm}
-            disabled={!selectedOption || feedback !== null || submitting}
-          >
-            {submitting ? 'Enviando...' : 'Confirmar'}
-          </button>
+          {feedback && (
+            <div className={`quiz-explanation ${feedback}`}>
+              <div className="quiz-explanation-label">
+                {feedback === 'correct' ? 'Correto!' : 'Errado.'}
+              </div>
+              <p>{currentQuestion.explanation || 'Sem explicação disponível.'}</p>
+            </div>
+          )}
+
+          {feedback === null ? (
+            <button
+              className="quiz-confirm-btn"
+              onClick={handleConfirm}
+              disabled={!selectedOption || submitting}
+            >
+              {submitting ? 'Enviando...' : 'Confirmar'}
+            </button>
+          ) : (
+            <button
+              className="quiz-confirm-btn"
+              onClick={handleNext}
+              disabled={submitting}
+            >
+              {currentQuestionIndex < questionsData.length - 1 ? 'Próxima questão →' : 'Ver resultado →'}
+            </button>
+          )}
         </div>
       </div>
     </div>

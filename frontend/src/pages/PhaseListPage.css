@@ -178,3 +178,17 @@
   color: #666;
   font-weight: 500;
 }
+
+.phase-connector {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  color: #EAEAEA;
+}
+
+.phase-connector-arrow {
+  font-size: 1.4rem;
+  line-height: 1;
+}

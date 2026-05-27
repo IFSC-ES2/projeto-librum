@@ -27,6 +27,9 @@ public class UserProgress {
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted = false;
 
+    @Column(name = "quiz_completed", nullable = false)
+    private boolean quizCompleted = false;
+
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
 
@@ -42,6 +45,8 @@ public class UserProgress {
     public void setLastSegmentRead(int lastSegmentRead) { this.lastSegmentRead = lastSegmentRead; }
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
+    public boolean isQuizCompleted() { return quizCompleted; }
+    public void setQuizCompleted(boolean quizCompleted) { this.quizCompleted = quizCompleted; }
     public LocalDateTime getCompletedAt() { return completedAt; }
     public void setCompletedAt(LocalDateTime completedAt) { this.completedAt = completedAt; }
 }

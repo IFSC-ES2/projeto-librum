@@ -7,5 +7,7 @@ public record QuizQuestionResponse(
         String optionA,
         String optionB,
         String optionC,
-        String optionD
+        String optionD,
+        String correctOption,
+        String explanation
 ) {}

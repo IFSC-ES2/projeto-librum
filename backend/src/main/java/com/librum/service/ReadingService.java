@@ -58,7 +58,8 @@ public class ReadingService {
                 phase.getPhaseNumber(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getGenre().getName()
+                book.getGenre().getName(),
+                book.getGenre().getSlug()
         );
     }
 
@@ -102,6 +103,6 @@ public class ReadingService {
             return false;
         }
 
-        return userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, previousPhase.getId());
+        return userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, previousPhase.getId());
     }
 }

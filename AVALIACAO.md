@@ -10,15 +10,19 @@
 | 5       | Bernardo Silva Bombazaro | b3c2151 | 04/05/26 | 24/05/26 | 8,2  | 10   |
 | 5       | Giuliano Marcus Bianco   | b3c2151 | 04/05/26 | 24/05/26 | 8,5  | 10   |
 | 5       | Maria Carolina Hammes    | b3c2151 | 04/05/26 | 24/05/26 | 8,0  | 10   |
+| 6       | Antonio Marcos da Silva  | ba0013e | 15/05/26 | 27/05/26 | 7,6  | 10   |
+| 6       | Bernardo Silva Bombazaro | ba0013e | 15/05/26 | 27/05/26 | 7,2  | 10   |
+| 6       | Giuliano Marcus Bianco   | ba0013e | 15/05/26 | 27/05/26 | 7,4  | 10   |
+| 6       | Maria Carolina Hammes    | ba0013e | 15/05/26 | 27/05/26 | 6,4  | 10   |
 
 ## Nota parcial
 
 | aluno                    | nota parcial |
 | ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8,9          |
-| Bernardo Silva Bombazaro | 8,8          |
-| Giuliano Marcus Bianco   | 9            |
-| Maria Carolina Hammes    | 8,7          |
+| Antonio Marcos da Silva  | 8,5          |
+| Bernardo Silva Bombazaro | 8,3          |
+| Giuliano Marcus Bianco   | 8,4          |
+| Maria Carolina Hammes    | 7,9          |
 
 ## Comentários
 
@@ -114,5 +118,49 @@
    - Faltam instruções explícitas no README para criar o `.env`/configurar `VITE_API_URL`, apesar de existir `.env.example`.
    - A documentação não concentra em um único relatório da sprint todas as evidências obrigatórias da Entrega 5.
 8. Release do marco: atendido com atraso.
-   - A tag `v0.1.0` existe e aponta para `b3c2151`.
-   - A release `v0.1.0 - Sprint 1: Cadastro e Login` foi publicada no GitHub.
+    - A tag `v0.1.0` existe e aponta para `b3c2151`.
+    - A release `v0.1.0 - Sprint 1: Cadastro e Login` foi publicada no GitHub.
+
+### Entrega 6
+
+1. Incremento funcional do MVP: parcial.
+   - Funcionalidade declaradas para entrega na Sprint 2:
+      - US02 - Seleção de gêneros literários 
+      - US04 - Leitura em fases 
+      - US05 - Desbloqueio progressivo de fases
+   - O backend evoluiu de forma relevante: migrations `V2` e `V3`, entidades/repositories de gêneros, livros, fases, segmentos e progresso, endpoints `GET /genres`, `GET /genres/{genreId}/phases`, `GET /reading/{phaseId}/{segmentNumber}` e `POST /progress/mark-read`, com controle de desbloqueio por usuário.
+   - O backend iniciou com PostgreSQL via Docker Compose e `./mvnw test` passou com 21 testes após recriar o container com a porta publicada corretamente.
+   - O frontend tem telas para seleção de gêneros, lista de fases e leitura, mas a integração final está incompleta: `ReadingService.js` chama `http://localhost:8080/api/...`, enquanto o backend não usa prefixo `/api`; `GenresPage.jsx` usa dados hardcoded e navega por slug (`aventura`), enquanto o backend espera `genreId` numérico.
+   - Como o serviço frontend possui fallbacks com dados fictícios quando a API falha, a interface pode aparentar funcionamento mesmo sem integração real com o backend. 
+   - As issues principais têm critérios de aceitação, mas vários checkboxes permaneceram desmarcados mesmo após o fechamento.
+2. Testes automatizados: atendido.
+   - A cobertura é concentrada no backend; não há testes automatizados de frontend, mas documentação registra essa pendência para a Sprint 3.
+3. Integração contínua mínima: parcial.
+   - O CI não executa `npm run lint`, que falha com 3 erros em `AuthContext.jsx` e `ReadingPage.jsx`.
+   - O CI também não detecta a quebra de integração frontend/backend causada por prefixo `/api`, uso de slug no frontend e endpoint numérico no backend.
+4. Pull requests com revisão: atendido.
+   - Algumas descrições/checklists ficaram inconsistentes, por exemplo checklist de branch atualizada com `develop` e itens de teste/lint não marcados em PRs de frontend.
+5. Aplicação justificada de padrões OO: parcial.
+   - Facade documentado em `ADR-0007` e aplicado em `ReadingService`.
+   - A documentação declara Strategy em `readingThemes.js`, mas o arquivo `pradroes-de-projeto.md` não existe e não há ADR específica para esse padrão.
+6. Atualização das métricas: parcial.
+   - `baseline.md` foi atualizado com a velocity da Sprint 2: 16 SP entregues, incluindo carry-over da US02.
+   - `metricas/m1-cobertura-testes.md` registra aproximadamente 70% de cobertura no backend e os 12 testes da sprint.
+   - As demais fichas de métricas (`m2`, `m3`, `m4`) não registram valores observados da Sprint 2, e `m5-velocity.md` ainda mantém a Sprint 1 como `n/d`, apesar de a velocity estar no `baseline.md`.
+   - Não há evidência objetiva do relatório de cobertura que sustente o valor de ~70% dentro da tag.
+7. Atualização dos riscos: atendido.
+   - `riscos.md` registra o status da Sprint 2, encerra/mitiga riscos relacionados à modelagem e integração, mantém riscos ativos, cria R08 e R09 e define ações de mitigação para a Sprint 3.
+8. Release do marco: parcial.
+   - A tag `v0.2.0` aponta para o commit `ba0013e`.
+   - A release `v0.2.0 - Sprint 2: Leitura Gamificada` foi publicada com descrição objetiva, testes, CI e instruções de execução.
+   - O README usa o comando legado `docker-compose up -d`; no ambiente avaliado esse comando falhou por problema do Compose v1, mas `docker compose up -d` funcionou. A documentação poderia adotar o comando moderno ou citar ambas as opções.
+9. Registro das contribuições individuais: parcial.
+   - O registro das contribuições apresenta divergências: o documento atribui a Maria a criação das issues US02, US04 e US05, mas no GitHub as issues centrais verificadas são `#15`, `#16`, `#17` e `#18`; também atribui a Giuliano a criação de `pradroes-de-projeto.md`, arquivo ausente na entrega.
+   - Contribuições individuais:
+      - Antonio: contribuiu de forma central nos contratos, ADRs, entidades de fase/segmento/progresso, `ReadingService`, controllers, segurança e correções de integração. Protagonismo no backend e arquitetura, mas limitado pela integração frontend/backend ainda quebrada e documentação de padrões incompleta.
+      - Bernardo: contribuiu com migrations, seed de dados, entidades de gênero/livro, CI e publicação da tag. A contribuição é relevante para infraestrutura e persistência, mas parte do backend central foi de Antonio e o CI não cobre lint nem integração real do frontend.
+      - Giuliano: contribuiu com os testes unitários e de integração do backend, coerente com o papel de qualidade. A participação é forte na qualidade backend, mas não houve testes frontend e algumas métricas sob sua responsabilidade não foram atualizadas com valores da Sprint 2.
+      - Maria: contribuiu com as telas e documentação da sprint, mas o frontend entregue é o ponto mais frágil: dados hardcoded, chamadas para rotas com prefixo `/api` inexistente, navegação por slug incompatível com o backend e fallback que mascara falhas de API. 
+10. Documentação atualizada: parcial.
+    - A documentação superestima a integração do frontend e cita arquivo de padrões inexistente na tag.
+    - O README não foi atualizado para resumir o que funciona na `v0.2.0`, mantendo a seção “O que já funciona” apenas para `v0.1.0`.

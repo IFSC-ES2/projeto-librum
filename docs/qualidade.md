@@ -168,4 +168,61 @@ A `PhaseListPage.jsx` exibe o progresso do leitor como barra percentual calculad
 ### 4. Evidências de Desempenho
 
 Todos os merges da Sprint 2 foram realizados com CI verde. O job `frontend-build` valida que o bundle gerado pelo Vite compila sem erros. Nenhum endpoint essencial da sprint depende de chamadas encadeadas desnecessárias: a lógica de orquestração está centralizada no `ReadingService` e retorna tudo em uma única resposta por requisição.
-
+
+---
+
+## Sprint 3: Resultados e Evidências (Atualização: 28/05/2026)
+
+Nesta sprint, os atributos de qualidade foram validados durante o desenvolvimento das histórias US06, US07, US08 e US09, e na correção dos bugs BUG-02 a BUG-08 identificados no frontend.
+
+### 1. Evidências de Manutenibilidade
+
+Aplicação de mais dois padrões de projeto, documentados em `docs/pradroes-de-projeto.md`:
+
+O padrão Command foi aplicado no `QuizService.java` para encapsular toda a lógica de submissão de quiz — validação de respostas, cálculo de XP, atualização de nível e persistência de progresso — em um único método `submitQuiz()`. O controller chama apenas esse método sem conhecer nenhuma regra de negócio interna. Registrado em ADR-0008.
+
+O padrão Template Method foi aplicado em `ReadingService.isPhaseUnlocked()` para trocar o critério de desbloqueio de fase (de "leitura concluída" para "quiz concluído") sem modificar o esqueleto do algoritmo de verificação. O passo variável foi delegado ao `UserProgressRepository` via `existsByUserIdAndPhaseIdAndQuizCompletedTrue`. Registrado em ADR-0009.
+
+A troca do critério de desbloqueio exigiu alterar apenas uma linha no método `isPhaseUnlocked()` — evidência direta de que o Template Method atingiu seu objetivo de isolar a variação.
+
+### 2. Evidências de Confiabilidade
+
+Foram corrigidos 8 bugs críticos do frontend identificados durante a pré-sprint:
+
+- BUG-02: crash do `QuizPage` por desestruturação de `null` na linha 8.
+- BUG-03: feedback do quiz não mostrava acerto ou erro (mock sempre retornava A/B como correto).
+- BUG-04: breadcrumb e botão "← Livros" hardcoded em `ReadingPage`.
+- BUG-05: `QuizResultPage` navegava para `/genres/aventura` hardcoded.
+- BUG-06: botão "Ir ao quiz →" aparecia em todos os segmentos, inclusive nos intermediários.
+- BUG-07: `Navbar` criada mas não integrada em nenhuma página autenticada.
+- BUG-08: novo usuário começava na Fase 3 em vez da Fase 1.
+- BUG-09: compilação falhava ao adicionar campos novos a records Java nos testes de integração.
+
+Foram implementados 11 novos testes automatizados no backend, todos passando no CI:
+
+- `QuizServiceUnlockTest.java`: 5 casos cobrindo `quizCompleted = true` quando aprovado, não marcação quando reprovado, `passed = true` com até 2 erros, `passed = false` com 3+ erros e desbloqueio de fase somente quando aprovado.
+- `ReadingServiceUnlockTest.java`: 3 casos cobrindo retorno `false` se quiz anterior não concluído, retorno `true` se quiz concluído e retorno `true` para a Fase 1 sempre.
+- `XpServiceTest.java`: 3 casos cobrindo cálculo de XP por acertos, incremento de nível ao atingir limiar e acúmulo correto de XP total.
+
+O CI foi reconfigurado para usar perfil H2 em memória nos testes de integração (`application-test.properties`), eliminando a dependência do PostgreSQL nos runners do GitHub Actions e tornando o pipeline mais estável.
+
+### 3. Evidências de Capacidade de Interação
+
+A `PhaseListPage.jsx` passou a exibir as fases conectadas por setas verticais (`.phase-connector`), formando uma trilha visual que comunica claramente a progressão sequencial do conteúdo.
+
+A `PhaseCompletedPage.jsx` foi criada para exibir, ao término de cada quiz, o resultado de aprovação ou reprovação com: badge "FASE X CONCLUÍDA!", XP ganho em destaque, contagem de acertos, barra de progresso de nível e botão de navegação para a próxima fase (ou "Reler a Fase" em caso de reprovação).
+
+O `QuizPage.jsx` passou a exibir feedback imediato por questão após o usuário confirmar cada resposta: a opção correta fica verde, a incorreta fica vermelha, e o painel de explicação (`explanation`) exibe o raciocínio da resposta correta — tornando o quiz uma ferramenta de aprendizado, não apenas de avaliação.
+
+A integração da `Navbar` via `Layout.jsx` garantiu que o menu de navegação e o botão de logout estejam disponíveis em todas as páginas autenticadas, sem redundância de código.
+
+### 4. Evidências de Desempenho
+
+Todos os merges desta sprint (PR #110, #117, #118) foram realizados com CI verde. Os novos endpoints introduzidos na sprint foram medidos localmente:
+
+- `GET /reading/{phaseId}/{segmentNumber}` com o campo `genreSlug` adicionado: nenhuma query adicional ao banco, campo já disponível via relacionamento JPA existente.
+- `POST /quiz/{phaseId}/submit` com lógica de `quizCompleted` e `nextPhaseId`: medido abaixo de 50ms em ambiente local, bem dentro do RNF02 (< 2000ms).
+- `GET /quiz/{phaseId}` com os campos `correctOption` e `explanation`: campos adicionados à query JPA existente sem join extra; tempo de resposta mantido abaixo de 150ms.
+
+As migrations V6, V7 e V8 foram aplicadas sem recriar dados existentes, garantindo que o progresso de usuários de sprints anteriores fosse preservado.
+

@@ -24,4 +24,4 @@
 |----------|---------------|------------------------|-------------------------------------|
 | Sprint 1 | 23/04/2026     | 8 SP                   | US01 entregue completa.                          |
 | Sprint 2 | 07/05/2026     | 13 SP                  | US02 (3SP) + US04 (5SP) + US05 (5SP) entregues. |
-| Sprint 3 | 28/05/2026     | A coletar              | US06 (8SP) + US07 (5SP) planejados = 13 SP.      |
+| Sprint 3 | 28/05/2026     | 18 SP                  | US06 (8SP) + US07 (5SP) + US08 (3SP) + US09 (2SP) entregues. Maior velocity do projeto. |

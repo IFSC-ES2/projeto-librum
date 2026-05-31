@@ -1,0 +1,37 @@
+:root {
+  --color-primary: #3A2F80;
+  --color-primary-700: #2E2566;
+  --color-primary-300: #6B5FB5;
+
+  --color-bg: #F7F3EA;
+  --color-surface: #FFFDF8;
+  --color-border: #E7E2D6;
+
+  --color-accent: #E8742A;
+  --color-accent-600: #CF5E1C;
+  --color-success: #2E9E5B;
+  --color-success-bg: #ECF8F0;
+  --color-danger: #C2483D;
+
+  --color-text: #2A2533;
+  --color-text-muted: #6B6375;
+
+  --genre-aventura: #E8742A;
+  --genre-terror: #B5443A;
+  --genre-fantasia: #7C5CD6;
+  --genre-romance: #E0689A;
+  --genre-suspense: #3E6F8E;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 3px rgba(42, 37, 51, 0.08);
+  --shadow-md: 0 6px 18px rgba(42, 37, 51, 0.10);
+  --shadow-lg: 0 16px 40px rgba(58, 47, 128, 0.18);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Mulish', system-ui, sans-serif;
+  --font-reading: 'Spectral', Georgia, serif;
+}

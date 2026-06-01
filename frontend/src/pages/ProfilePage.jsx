@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authHeader } from '../utils/auth';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
 import './ProfilePage.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
@@ -24,11 +26,17 @@ export default function ProfilePage() {
   useEffect(() => {
     const carregar = async () => {
       try {
-        const respPerfil = await fetch(`${API_BASE_URL}/users/me`, { headers: { ...authHeader() } });
-        const respProgresso = await fetch(`${API_BASE_URL}/users/me/progress`, { headers: { ...authHeader() } });
+        const [respPerfil, respProgresso] = await Promise.all([
+          fetch(`${API_BASE_URL}/users/me`, { headers: { ...authHeader() } }),
+          fetch(`${API_BASE_URL}/users/me/progress`, { headers: { ...authHeader() } }),
+        ]);
         if (!respPerfil.ok || !respProgresso.ok) throw new Error('Falha ao carregar perfil');
-        setPerfil(await respPerfil.json());
-        setProgresso(await respProgresso.json());
+        const [dadosPerfil, dadosProgresso] = await Promise.all([
+          respPerfil.json(),
+          respProgresso.json(),
+        ]);
+        setPerfil(dadosPerfil);
+        setProgresso(dadosProgresso);
       } catch (e) {
         console.error(e);
         setErro(true);
@@ -44,8 +52,8 @@ export default function ProfilePage() {
     navigate('/login');
   };
 
-  if (loading) return <div className="profile-state">Carregando perfil...</div>;
-  if (erro || !perfil) return <div className="profile-state">Não foi possível carregar o perfil.</div>;
+  if (loading) return <LoadingState message="Carregando perfil..." />;
+  if (erro || !perfil) return <ErrorState message="Não foi possível carregar o perfil." />;
 
   const titulo = niveis[perfil.level] || 'Leitor';
   const xpNoNivel = perfil.xp % 50;

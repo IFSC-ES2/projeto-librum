@@ -63,8 +63,8 @@ class ProgressSummaryServiceTest {
         when(fase2.getId()).thenReturn(2L);
         when(phaseRepository.findByBookIdOrderByPhaseNumber(10L)).thenReturn(List.of(fase1, fase2));
 
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 1L)).thenReturn(true);
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 2L)).thenReturn(false);
+        when(userProgressRepository.findPhaseIdsByUserIdAndQuizCompletedTrue(userId))
+                .thenReturn(List.of(1L));
 
         UserProgressSummaryResponse resposta = progressSummaryService.getSummary(userId);
 
@@ -93,6 +93,8 @@ class ProgressSummaryServiceTest {
         when(genreRepository.findAll()).thenReturn(List.of(romance));
 
         when(bookRepository.findByGenreId(2L)).thenReturn(Optional.empty());
+        when(userProgressRepository.findPhaseIdsByUserIdAndQuizCompletedTrue(userId))
+                .thenReturn(List.of());
 
         UserProgressSummaryResponse resposta = progressSummaryService.getSummary(userId);
 

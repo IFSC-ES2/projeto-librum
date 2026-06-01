@@ -14,7 +14,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -42,6 +44,10 @@ public class ProgressSummaryService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
 
+        Set<Long> phasesConcluidasIds = new HashSet<>(
+                userProgressRepository.findPhaseIdsByUserIdAndQuizCompletedTrue(userId)
+        );
+
         List<UserProgressSummaryResponse.GenreProgress> byGenre = new ArrayList<>();
         int totalCompleted = 0;
 
@@ -54,7 +60,7 @@ public class ProgressSummaryService {
                 List<Phase> phases = phaseRepository.findByBookIdOrderByPhaseNumber(book.getId());
                 total = phases.size();
                 for (Phase phase : phases) {
-                    if (userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, phase.getId())) {
+                    if (phasesConcluidasIds.contains(phase.getId())) {
                         completed++;
                     }
                 }

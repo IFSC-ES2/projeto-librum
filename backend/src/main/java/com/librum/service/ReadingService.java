@@ -23,22 +23,25 @@ public class ReadingService {
     private final PhaseRepository phaseRepository;
     private final PhaseSegmentRepository phaseSegmentRepository;
     private final UserProgressRepository userProgressRepository;
+    private final PhaseUnlockService phaseUnlockService;
 
     public ReadingService(BookRepository bookRepository,
                           PhaseRepository phaseRepository,
                           PhaseSegmentRepository phaseSegmentRepository,
-                          UserProgressRepository userProgressRepository) {
+                          UserProgressRepository userProgressRepository,
+                          PhaseUnlockService phaseUnlockService) {
         this.bookRepository = bookRepository;
         this.phaseRepository = phaseRepository;
         this.phaseSegmentRepository = phaseSegmentRepository;
         this.userProgressRepository = userProgressRepository;
+        this.phaseUnlockService = phaseUnlockService;
     }
 
     public PhaseSegmentResponse getPhaseSegment(UUID userId, Long phaseId, int segmentNumber) {
         Phase phase = phaseRepository.findById(phaseId)
                 .orElseThrow(() -> new EntityNotFoundException("Fase nao encontrada"));
 
-        if (!isPhaseUnlocked(userId, phase)) {
+        if (!phaseUnlockService.isPhaseUnlocked(userId, phase)) {
             throw new AccessDeniedException("Fase bloqueada para este usuario");
         }
 
@@ -70,7 +73,7 @@ public class ReadingService {
         List<Phase> phases = phaseRepository.findByBookIdOrderByPhaseNumber(book.getId());
 
         return phases.stream().map(phase -> {
-            boolean unlocked = isPhaseUnlocked(userId, phase);
+            boolean unlocked = phaseUnlockService.isPhaseUnlocked(userId, phase);
             boolean completed = userProgressRepository
                     .existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, phase.getId());
             int totalSegments = phaseSegmentRepository.countByPhaseId(phase.getId());
@@ -86,23 +89,5 @@ public class ReadingService {
                     completed
             );
         }).toList();
-    }
-
-    private boolean isPhaseUnlocked(UUID userId, Phase phase) {
-        if (phase.getPhaseNumber() == 1) {
-            return true;
-        }
-
-        List<Phase> phases = phaseRepository.findByBookIdOrderByPhaseNumber(phase.getBook().getId());
-        Phase previousPhase = phases.stream()
-                .filter(p -> p.getPhaseNumber() == phase.getPhaseNumber() - 1)
-                .findFirst()
-                .orElse(null);
-
-        if (previousPhase == null) {
-            return false;
-        }
-
-        return userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, previousPhase.getId());
     }
 }

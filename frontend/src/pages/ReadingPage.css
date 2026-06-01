@@ -261,3 +261,7 @@
   font-size: 0.75rem;
   color: #999;
 }
+
+.reading-content .text-body {
+  font-family: var(--font-reading);
+}

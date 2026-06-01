@@ -13,29 +13,33 @@ export default function ReadingPage() {
   const navigate = useNavigate();
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(false);
 
-  const [theme, setTheme] = useState('padrao');
-  const [fontSize, setFontSize] = useState(17);
-  const [lineSpacing, setLineSpacing] = useState(1.9);
-  const [contentStyle, setContentStyle] = useState(() => applyTheme('padrao', 17, 1.9));
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('librum_theme') || 'padrao';
-    const savedFontSize = Number(localStorage.getItem('librum_fontSize')) || 17;
-    const savedLineSpacing = Number(localStorage.getItem('librum_lineSpacing')) || 1.9;
-
-    setTheme(savedTheme);
-    setFontSize(savedFontSize);
-    setLineSpacing(savedLineSpacing);
-    setContentStyle(applyTheme(savedTheme, savedFontSize, savedLineSpacing));
-  }, []);
+  // Fix lint: inicializa a partir do localStorage diretamente no useState (sem useEffect)
+  const [theme, setTheme] = useState(() => localStorage.getItem('librum_theme') || 'padrao');
+  const [fontSize, setFontSize] = useState(() => Number(localStorage.getItem('librum_fontSize')) || 17);
+  const [lineSpacing, setLineSpacing] = useState(() => Number(localStorage.getItem('librum_lineSpacing')) || 1.9);
+  const [contentStyle, setContentStyle] = useState(() =>
+    applyTheme(
+      localStorage.getItem('librum_theme') || 'padrao',
+      Number(localStorage.getItem('librum_fontSize')) || 17,
+      Number(localStorage.getItem('librum_lineSpacing')) || 1.9
+    )
+  );
 
   useEffect(() => {
     const loadContent = async () => {
       setLoading(true);
-      const data = await ReadingService.getSegmentContent(phaseId, segmentNumber);
-      setContent(data);
-      setLoading(false);
+      setErro(false);
+      try {
+        const data = await ReadingService.getSegmentContent(phaseId, segmentNumber);
+        setContent(data);
+      } catch (e) {
+        console.error(e);
+        setErro(true);
+      } finally {
+        setLoading(false);
+      }
     };
     loadContent();
   }, [phaseId, segmentNumber]);
@@ -61,8 +65,11 @@ export default function ReadingPage() {
   };
 
   const handleNext = async () => {
-    await ReadingService.markProgress(phaseId, segmentNumber);
-
+    try {
+      await ReadingService.markProgress(phaseId, segmentNumber);
+    } catch (e) {
+      console.error(e);
+    }
     if (Number(segmentNumber) >= content.totalSegments) {
       navigate(`/quiz/${phaseId}`);
     } else {
@@ -70,7 +77,8 @@ export default function ReadingPage() {
     }
   };
 
-  if (loading || !content) return <div>Carregando trecho...</div>;
+  if (loading) return <div>Carregando trecho...</div>;
+  if (erro || !content) return <div>Não foi possível carregar o trecho.</div>;
 
   const paragraphs = content.content.split('\n').filter(p => p.trim() !== '');
 
@@ -78,10 +86,10 @@ export default function ReadingPage() {
     <div className="reading-container">
       <header className="reading-header">
         <div className="header-left">
-          <button onClick={() => navigate(`/genres/${content?.genreSlug || 'aventura'}`)} className="btn-logo">
+          <button onClick={() => navigate('/genres')} className="btn-logo">
             <img src={logoLivro} alt="Logo Librum" style={{ width: '56px', height: '56px', objectFit: 'contain', padding: '0px' }} />
           </button>
-          <span className="breadcrumb">← <span className="highlight">{content?.bookTitle || 'A Ilha do Tesouro'}</span> · Fase {phaseId}</span>
+          <span className="breadcrumb">← <span className="highlight">{content?.bookTitle}</span> · Fase {phaseId}</span>
         </div>
         <div className="header-center">
           Trecho {segmentNumber} de {content.totalSegments}
@@ -103,7 +111,7 @@ export default function ReadingPage() {
           </div>
           <div className="sidebar-section">
             <div className="label">GÊNERO</div>
-            <div className="value highlight">⛵ {content.genreName}</div>
+            <div className="value highlight">{content.genreName}</div>
           </div>
           <div className="sidebar-section">
             <div className="label">TEMPO ESTIMADO</div>
@@ -165,7 +173,7 @@ export default function ReadingPage() {
               </label>
             </div>
 
-            <p className="save-status">✓ preferências salvas no perfil</p>
+            <p className="save-status">Preferências salvas neste dispositivo</p>
           </div>
         </aside>
       </div>

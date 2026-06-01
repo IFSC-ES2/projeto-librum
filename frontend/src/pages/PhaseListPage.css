@@ -1,194 +1,103 @@
-.phase-list-container {
-  display: flex;
-  max-width: 1200px;
+.trilha-page {
+  max-width: 760px;
   margin: 0 auto;
-  min-height: 80vh;
-  font-family: 'Inter', sans-serif;
+  padding: 2rem 1.5rem;
 }
 
-.phase-list-sidebar {
-  width: 350px;
-  padding: 40px;
-  background: #FAF8F5;
-  border-right: 1px solid #EAEAEA;
+.trilha-header {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
 }
 
-.phase-list-sidebar h2 {
-  font-size: 1.5rem;
-  color: #D9530F;
-  margin-bottom: 10px;
+.trilha-header h1 {
+  margin: 0;
 }
 
-.btn-back {
-  background: none;
-  border: none;
-  color: #F97316;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 30px;
+.trilha-autor {
+  color: var(--color-text-muted);
+  margin: 0.25rem 0 1rem;
 }
 
-.book-cover-card {
-  background: #F97316;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.book-cover-image {
-  background: white;
-  width: 120px;
-  height: 180px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: relative;
-}
-
-.book-mascot {
-  position: absolute;
-  right: -40px;
-  bottom: -20px;
-  width: 100px;
-}
-
-.book-meta {
-  color: #666;
-  font-size: 0.875rem;
-  margin-bottom: 30px;
-}
-
-.progress-section {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #EAEAEA;
-  margin-bottom: 20px;
-}
-
-.progress-section h3 {
-  font-size: 0.75rem;
-  color: #666;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
-}
-
-.progress-bar-container {
-  height: 8px;
-  background: #EAEAEA;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  height: 100%;
-  background: #F97316;
-  border-radius: 4px;
-}
-
-.progress-text {
-  font-size: 0.875rem;
-  color: #666;
-}
-
-.btn-continue {
-  width: 100%;
-  background: #D9530F;
-  color: white;
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.phase-list-content {
-  flex: 1;
-  padding: 40px;
-  background: white;
-}
-
-.phase-list-header h3 {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 5px;
-  letter-spacing: 1px;
-}
-
-.phase-list-header p {
-  color: #999;
-  font-size: 0.875rem;
-  margin-bottom: 40px;
-}
-
-.phase-path {
-  position: relative;
-  min-height: 600px;
-}
-
-.phase-node {
-  position: absolute;
+.trilha-progresso {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.2s;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
 }
 
-.phase-node:hover {
-  transform: scale(1.1);
+.trilha-progresso span {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
-.phase-node.locked {
-  cursor: not-allowed;
-  opacity: 0.5;
+.trilha-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.phase-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.trilha-no {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-  background: #EAEAEA;
-  color: #666;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
 }
 
-.phase-node.completed .phase-circle {
-  background: #D9530F;
-  color: white;
-}
-
-.phase-node.active .phase-circle {
-  background: white;
-  border: 4px solid #D9530F;
-  color: #D9530F;
-  box-shadow: 0 0 0 10px rgba(217, 83, 15, 0.2);
-}
-
-.phase-label {
-  font-size: 0.875rem;
-  color: #666;
-  font-weight: 500;
-}
-
-.phase-connector {
+.trilha-no:not(:last-child)::before {
+  content: '';
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 32px;
-  color: #EAEAEA;
+  left: 27px;
+  top: 56px;
+  width: 2px;
+  height: calc(100% - 8px);
+  background: var(--color-border);
 }
 
-.phase-connector-arrow {
-  font-size: 1.4rem;
-  line-height: 1;
+.trilha-no__circulo {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trilha-no--concluida .trilha-no__circulo {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.trilha-no--ativa .trilha-no__circulo {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(58, 47, 128, 0.18);
+}
+
+.trilha-no--bloqueada .trilha-no__circulo {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+}
+
+.trilha-no__titulo {
+  font-weight: 600;
+}
+
+.trilha-no--bloqueada .trilha-no__titulo {
+  color: var(--color-text-muted);
 }

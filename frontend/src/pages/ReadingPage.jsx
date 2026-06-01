@@ -7,6 +7,8 @@ import mascote from '../assets/librum-mascote-principal.png';
 import logoLivro from '../assets/logo-livro.png';
 import XpBadge from '../components/XpBadge';
 import '../components/XpBadge.css';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
 
 export default function ReadingPage() {
   const { phaseId, segmentNumber } = useParams();
@@ -77,8 +79,8 @@ export default function ReadingPage() {
     }
   };
 
-  if (loading) return <div>Carregando trecho...</div>;
-  if (erro || !content) return <div>Não foi possível carregar o trecho.</div>;
+  if (loading) return <LoadingState message="Carregando trecho..." />;
+  if (erro || !content) return <ErrorState message="Não foi possível carregar o trecho." />;
 
   const paragraphs = content.content.split('\n').filter(p => p.trim() !== '');
 

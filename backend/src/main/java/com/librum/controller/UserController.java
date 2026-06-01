@@ -1,8 +1,10 @@
 package com.librum.controller;
 
 import com.librum.dto.UserProfileResponse;
+import com.librum.dto.UserProgressSummaryResponse;
 import com.librum.model.User;
 import com.librum.repository.UserRepository;
+import com.librum.service.ProgressSummaryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final ProgressSummaryService progressSummaryService;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, ProgressSummaryService progressSummaryService) {
         this.userRepository = userRepository;
+        this.progressSummaryService = progressSummaryService;
     }
 
     @GetMapping("/me")
@@ -29,5 +33,11 @@ public class UserController {
                 user.getXp(),
                 user.getLevel()
         ));
+    }
+
+    @GetMapping("/me/progress")
+    public ResponseEntity<UserProgressSummaryResponse> getProgress(@AuthenticationPrincipal String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        return ResponseEntity.ok(progressSummaryService.getSummary(user.getId()));
     }
 }

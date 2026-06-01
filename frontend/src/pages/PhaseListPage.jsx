@@ -1,104 +1,84 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
+import ProgressBar from '../components/ui/ProgressBar';
+import Button from '../components/ui/Button';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
 import './PhaseListPage.css';
-import mascote from '../assets/librum-mascote-principal.png';
-import livro from '../assets/books/ilha-do-tesouro.png';
 
 export default function PhaseListPage() {
   const { genreId } = useParams();
   const navigate = useNavigate();
   const [phases, setPhases] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(false);
+
+  const [retry, setRetry] = useState(0);
 
   useEffect(() => {
-    const loadPhases = async () => {
-      const data = await ReadingService.getPhases(genreId);
-      setPhases(data);
-      setLoading(false);
+    let cancelled = false;
+    const carregar = async () => {
+      setLoading(true);
+      setErro(false);
+      try {
+        const data = await ReadingService.getPhases(genreId);
+        if (!cancelled) setPhases(data);
+      } catch (e) {
+        console.error(e);
+        if (!cancelled) setErro(true);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
     };
-    loadPhases();
-  }, [genreId]);
+    carregar();
+    return () => { cancelled = true; };
+  }, [genreId, retry]);
 
-  const handlePhaseClick = (phase) => {
-    if (phase.isUnlocked) {
-      navigate(`/reading/${phase.id}/1`);
-    }
-  };
-
-  if (loading) return <div>Carregando fases...</div>;
+  if (loading) return <LoadingState message="Carregando fases..." />;
+  if (erro) return <ErrorState message="Não foi possível carregar as fases." onRetry={() => setRetry(r => r + 1)} />;
+  if (phases.length === 0) return <LoadingState message="Nenhuma fase disponível." />;
 
   const completedCount = phases.filter(p => p.isCompleted).length;
   const totalCount = phases.length;
-  const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-  const nextPhase = phases.find(p => p.isUnlocked && !p.isCompleted);
-  const continueTarget = nextPhase || phases[0];
-  const pathHeight = Math.max(phases.length * 80 + 120, 600);
+  const progressPercent = Math.round((completedCount / totalCount) * 100);
+  const nextPhase = phases.find(p => p.isUnlocked && !p.isCompleted) || phases[0];
+
+  const irParaFase = (phase) => {
+    if (phase.isUnlocked) navigate(`/reading/${phase.id}/1`);
+  };
 
   return (
-    <div className="phase-list-container">
-      <div className="phase-list-sidebar">
-        <button onClick={() => navigate('/genres')} className="btn-back">← Livros</button>
-
-        <div className="book-cover-card">
-          <div className="book-cover-image">
-            <img src={livro} alt="A Ilha do Tesouro" width="100%" />
-            <img src={mascote} alt="Mascote" className="book-mascot" />
-          </div>
+    <div className="trilha-page">
+      <header className="trilha-header">
+        <h1>{phases[0]?.bookTitle}</h1>
+        <p className="trilha-autor">{phases[0]?.bookAuthor} - domínio público</p>
+        <div className="trilha-progresso">
+          <ProgressBar value={progressPercent} />
+          <span>{completedCount} de {totalCount} fases concluídas</span>
         </div>
+        <Button variant="secondary" onClick={() => irParaFase(nextPhase)}>
+          Continuar na Fase {nextPhase?.phaseNumber}
+        </Button>
+      </header>
 
-        <h2>A Ilha do Tesouro</h2>
-        <p className="book-meta">Robert Louis Stevenson · domínio público · Aventura</p>
-
-        <div className="progress-section">
-          <h3>PROGRESSO GERAL</h3>
-          <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
-          </div>
-          <p className="progress-text">Fase {completedCount} de {totalCount} concluída - {progressPercent}% do livro lido</p>
-        </div>
-
-        <button className="btn-continue" onClick={() => handlePhaseClick(continueTarget)}>
-          ▶ Continuar - Fase {continueTarget?.phaseNumber}
-        </button>
-      </div>
-
-      <div className="phase-list-content">
-        <div className="phase-list-header">
-          <h3>TRILHA DE FASES · AVENTURA</h3>
-          <p>Complete cada fase para desbloquear a próxima</p>
-        </div>
-
-        <div className="phase-path" style={{ height: `${pathHeight}px` }}>
-          {phases.map((phase, index) => (
-            <React.Fragment key={phase.id}>
-              <div
-                className={`phase-node ${phase.isCompleted ? 'completed' : ''} ${phase.isUnlocked && !phase.isCompleted ? 'active' : ''} ${!phase.isUnlocked ? 'locked' : ''}`}
-                onClick={() => handlePhaseClick(phase)}
-                style={{ top: `${index * 80}px`, left: `${(index % 2 === 0 ? 20 : 60)}%` }}
+      <ol className="trilha-lista">
+        {phases.map((phase) => {
+          const estado = phase.isCompleted ? 'concluida' : phase.isUnlocked ? 'ativa' : 'bloqueada';
+          return (
+            <li key={phase.id} className={`trilha-no trilha-no--${estado}`}>
+              <button
+                className="trilha-no__circulo"
+                onClick={() => irParaFase(phase)}
+                disabled={!phase.isUnlocked}
               >
-                <div className="phase-circle">
-                  {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
-                </div>
-                <span className="phase-label">Fase {phase.phaseNumber}</span>
-              </div>
-              {index < phases.length - 1 && (
-                <div
-                  className="phase-connector"
-                  style={{
-                    position: 'absolute',
-                    top: `${index * 80 + 55}px`,
-                    left: `${(index % 2 === 0 ? 20 : 60) + 2.5}%`,
-                    width: '60px'
-                  }}
-                >
-                  <span className="phase-connector-arrow">↓</span>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
+                {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
+              </button>
+              <span className="trilha-no__titulo">{phase.title}</span>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

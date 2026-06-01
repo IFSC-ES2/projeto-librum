@@ -4,7 +4,6 @@ export const themes = {
     label: 'Padrão',
     contentBackground: '#FAF8F5',
     contentColor: '#333333',
-    fontFamily: 'Georgia, serif',
     dropCapColor: '#F97316',
     sidebarBg: '#FFFFFF',
     controlsBg: '#FFFFFF'
@@ -14,7 +13,6 @@ export const themes = {
     label: 'Noturno',
     contentBackground: '#1E1E2E',
     contentColor: '#CDCDD6',
-    fontFamily: 'Georgia, serif',
     dropCapColor: '#FBAF7B',
     sidebarBg: '#2A2A3C',
     controlsBg: '#2A2A3C'
@@ -24,7 +22,6 @@ export const themes = {
     label: 'Ampliado',
     contentBackground: '#FAF8F5',
     contentColor: '#000000',
-    fontFamily: 'Georgia, serif',
     dropCapColor: '#D9530F',
     sidebarBg: '#FFFFFF',
     controlsBg: '#FFFFFF'
@@ -44,7 +41,6 @@ export const applyTheme = (themeId, fontSize, lineSpacing) => {
   return {
     backgroundColor: theme.contentBackground,
     color: theme.contentColor,
-    fontFamily: theme.fontFamily,
     fontSize: `${fontSize}px`,
     lineHeight: lineSpacing,
   };

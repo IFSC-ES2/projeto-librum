@@ -26,27 +26,22 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class ReadingServiceTest {
 
-    @Mock
-    private BookRepository bookRepository;
+    @Mock private BookRepository bookRepository;
+    @Mock private PhaseRepository phaseRepository;
+    @Mock private PhaseSegmentRepository phaseSegmentRepository;
+    @Mock private UserProgressRepository userProgressRepository;
+    @Mock private PhaseUnlockService phaseUnlockService;
 
-    @Mock
-    private PhaseRepository phaseRepository;
-
-    @Mock
-    private PhaseSegmentRepository phaseSegmentRepository;
-
-    @Mock
-    private UserProgressRepository userProgressRepository;
-
-    @InjectMocks
-    private ReadingService readingService;
+    @InjectMocks private ReadingService readingService;
 
     private UUID userId;
     private Genre genre;
@@ -62,6 +57,7 @@ public class ReadingServiceTest {
 
         genre = mock(Genre.class);
         when(genre.getName()).thenReturn("Aventura");
+        when(genre.getSlug()).thenReturn("aventura");
 
         book = mock(Book.class);
         when(book.getId()).thenReturn(100L);
@@ -78,13 +74,13 @@ public class ReadingServiceTest {
         fase2 = new Phase();
         fase2.setId(2L);
         fase2.setPhaseNumber(2);
-        fase2.setTitle("Fase 2: A Tempestade");
+        fase2.setTitle("Fase 2: A Bordo do Hispaniola");
         fase2.setBook(book);
 
         fase3 = new Phase();
         fase3.setId(3L);
         fase3.setPhaseNumber(3);
-        fase3.setTitle("Fase 3: A Ilha");
+        fase3.setTitle("Fase 3: Segredos da Ilha");
         fase3.setBook(book);
 
         segmento1 = new PhaseSegment();
@@ -97,6 +93,7 @@ public class ReadingServiceTest {
 
     @Test
     void getPhaseSegment_faseDestravada_retornaSegmentoCorreto() {
+        when(phaseUnlockService.isPhaseUnlocked(any(), any())).thenReturn(true);
         when(phaseRepository.findById(1L)).thenReturn(Optional.of(fase1));
         when(phaseSegmentRepository.findByPhaseIdAndSegmentNumber(1L, 1)).thenReturn(Optional.of(segmento1));
         when(phaseSegmentRepository.countByPhaseId(1L)).thenReturn(4);
@@ -115,8 +112,7 @@ public class ReadingServiceTest {
     @Test
     void getPhaseSegment_faseTravada_lancaAccessDeniedException() {
         when(phaseRepository.findById(2L)).thenReturn(Optional.of(fase2));
-        when(phaseRepository.findByBookIdOrderByPhaseNumber(any())).thenReturn(List.of(fase1, fase2, fase3));
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 1L)).thenReturn(false);
+        when(phaseUnlockService.isPhaseUnlocked(any(), any())).thenReturn(false);
 
         assertThrows(AccessDeniedException.class, () ->
                 readingService.getPhaseSegment(userId, 2L, 1));
@@ -126,6 +122,7 @@ public class ReadingServiceTest {
 
     @Test
     void getPhaseSegment_segmentoInexistente_lancaEntityNotFoundException() {
+        when(phaseUnlockService.isPhaseUnlocked(any(), any())).thenReturn(true);
         when(phaseRepository.findById(1L)).thenReturn(Optional.of(fase1));
         when(phaseSegmentRepository.findByPhaseIdAndSegmentNumber(1L, 99)).thenReturn(Optional.empty());
 
@@ -139,16 +136,19 @@ public class ReadingServiceTest {
         when(phaseRepository.findByBookIdOrderByPhaseNumber(any())).thenReturn(List.of(fase1, fase2, fase3));
         when(phaseSegmentRepository.countByPhaseId(anyLong())).thenReturn(4);
 
-        // quiz da fase 1 concluído → fase 2 destravada; quiz da fase 2 não concluído → fase 3 travada
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 1L)).thenReturn(true);
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndQuizCompletedTrue(userId, 2L)).thenReturn(false);
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase1)).thenReturn(true);
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase2)).thenReturn(true);
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase3)).thenReturn(false);
+
+        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 1L)).thenReturn(true);
+        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 2L)).thenReturn(false);
 
         List<PhaseReadingResponse> fases = readingService.getPhasesForGenre(userId, 10L);
 
         assertEquals(3, fases.size());
-        assertTrue(fases.get(0).isUnlocked(),  "Fase 1 deve estar sempre destravada");
-        assertTrue(fases.get(1).isUnlocked(),  "Fase 2 deve estar destravada pois fase 1 foi concluida");
-        assertFalse(fases.get(2).isUnlocked(), "Fase 3 deve estar travada pois fase 2 nao foi concluida");
+        assertTrue(fases.get(0).isUnlocked(), "Fase 1 deve estar destravada");
+        assertTrue(fases.get(1).isUnlocked(), "Fase 2 deve estar destravada");
+        assertFalse(fases.get(2).isUnlocked(), "Fase 3 deve estar travada");
     }
 
     @Test
@@ -156,13 +156,16 @@ public class ReadingServiceTest {
         when(bookRepository.findByGenreId(10L)).thenReturn(Optional.of(book));
         when(phaseRepository.findByBookIdOrderByPhaseNumber(any())).thenReturn(List.of(fase1, fase2, fase3));
         when(phaseSegmentRepository.countByPhaseId(anyLong())).thenReturn(4);
-        when(userProgressRepository.existsByUserIdAndPhaseIdAndIsCompletedTrue(userId, 1L)).thenReturn(false);
+
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase1)).thenReturn(true);
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase2)).thenReturn(false);
+        when(phaseUnlockService.isPhaseUnlocked(userId, fase3)).thenReturn(false);
 
         List<PhaseReadingResponse> fases = readingService.getPhasesForGenre(userId, 10L);
 
         assertEquals(3, fases.size());
-        assertTrue(fases.get(0).isUnlocked(),  "Fase 1 sempre destravada");
-        assertFalse(fases.get(1).isUnlocked(), "Fase 2 travada sem progresso");
-        assertFalse(fases.get(2).isUnlocked(), "Fase 3 travada sem progresso");
+        assertTrue(fases.get(0).isUnlocked());
+        assertFalse(fases.get(1).isUnlocked());
+        assertFalse(fases.get(2).isUnlocked());
     }
 }

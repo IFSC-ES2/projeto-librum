@@ -1,11 +1,5 @@
-import React from 'react';
-import Navbar from './Navbar';
+import AppShell from './AppShell';
 
 export default function Layout({ children }) {
-  return (
-    <div className="app-layout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Navbar />
-      <main style={{ flex: 1 }}>{children}</main>
-    </div>
-  );
+  return <AppShell>{children}</AppShell>;
 }

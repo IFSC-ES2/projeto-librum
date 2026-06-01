@@ -101,13 +101,16 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 
 ### Backend
 ```bash
-docker-compose up -d
+docker compose up -d
 cd backend && ./mvnw spring-boot:run
 ```
 
 ### Frontend
 ```bash
-cd frontend && npm install && npm run dev
+cd frontend
+cp .env.example .env  # E configure a variável VITE_API_URL conforme necessário
+npm install
+npm run dev
 ```
 
 ## Como rodar os testes
@@ -115,7 +118,10 @@ cd frontend && npm install && npm run dev
 cd backend && ./mvnw test
 ```
 
-## O que já funciona (v0.1.0)
+## O que já funciona (v0.2.0)
 - Cadastro de usuário com validação e hash bcrypt
 - Login com autenticação JWT
 - Redirecionamento automático baseado em estado de autenticação
+- Seleção de gêneros literários
+- Leitura estruturada em fases e segmentos
+- Desbloqueio progressivo de fases conforme o avanço

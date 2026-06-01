@@ -3,21 +3,18 @@
   align-items: center;
   gap: 10px;
   padding: 6px 12px 6px 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary-700);
   border-radius: 20px;
-  backdrop-filter: blur(6px);
   cursor: default;
   transition: background 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
 
 .xp-badge:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(249, 115, 22, 0.5);
+  background: var(--color-primary-700);
 }
 
-/* Avatar circular com inicial do nome */
 .xp-badge__avatar {
   width: 26px;
   height: 26px;
@@ -49,7 +46,7 @@
 
 .xp-badge__level {
   font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1;
 }
 
@@ -58,25 +55,17 @@
   font-weight: 600;
 }
 
-/* Estado de carregamento com pulso */
 .xp-badge--loading {
   padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary-700);
   border-radius: 20px;
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   animation: xp-pulse 1.4s ease-in-out infinite;
 }
 
 @keyframes xp-pulse {
-
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 0.9;
-  }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
 }

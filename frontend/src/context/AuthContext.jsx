@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  // Lazy initializer: localStorage é síncrono, então o valor já está disponível na primeira renderização — sem necessidade de useEffect
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('user');
     return saved ? JSON.parse(saved) : null;
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, loading: false, isAuthenticated, token }}>
+    <AuthContext.Provider value={{ user, loginUser, logoutUser, loading: false /* leitura do localStorage é síncrona: o estado já está pronto na primeira renderização, nunca há carregamento assíncrono */, isAuthenticated, token }}>
       {children}
     </AuthContext.Provider>
   );

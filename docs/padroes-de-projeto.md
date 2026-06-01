@@ -42,6 +42,25 @@ Cada tema é um objeto JavaScript com a mesma interface (`label`, `contentBackgr
 
 ---
 
+## Command em QuizService
+
+### Problema
+
+A submissão de um quiz dispara várias operações em sequência: validar as respostas contra o banco, contar acertos, calcular o XP ganho, subir o nível do usuário quando for o caso e persistir tudo. Deixar essa sequência no controller o tornaria grande, cheio de regra de negócio e difícil de testar.
+
+### Solução
+
+`QuizService` encapsula toda a submissão no método `submitQuiz(userId, phaseId, answers)`. O controller chama só esse método e devolve o resultado, sem conhecer os passos internos. É uma adaptação do Command: não há um objeto Command separado com `execute()` (cerimônia desnecessária para o MVP), mas a operação completa fica encapsulada num único ponto, isolando o controller das regras de negócio.
+
+### Arquivos
+
+- `backend/src/main/java/com/librum/service/QuizService.java` (encapsula a submissão)
+- `backend/src/main/java/com/librum/controller/QuizController.java` (consome o service)
+
+**Registro:** ADR-0008
+
+---
+
 ## Template Method em isPhaseUnlocked
 
 ### Problema

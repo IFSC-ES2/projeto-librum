@@ -6,7 +6,7 @@ A página de leitura oferece três modos visuais: Padrão, Noturno e Ampliado. S
 
 ## Decisão
 
-Representar cada tema como um objeto JavaScript com a mesma interface (`label`, `contentBackground`, `contentColor`, `fontFamily`) em `readingThemes.js`. A função `applyTheme(themeId, fontSize, lineSpacing)` seleciona e executa a estratégia, retornando um objeto de estilo, sem condicional no componente.
+Representar cada tema como um objeto JavaScript com a mesma interface em `readingThemes.js`. Cada tema expõe `id` (chave de seleção), `label` (rótulo exibido na UI) e os campos visuais `contentBackground`, `contentColor`, `fontFamily`, `dropCapColor`, `sidebarBg` e `controlsBg`. A função `applyTheme(themeId, fontSize, lineSpacing)` seleciona o tema, grava as cores nas variáveis CSS de leitura (`--reading-bg`, `--reading-text`, `--reading-dropcap`, `--reading-sidebar-bg`, `--reading-controls-bg`) e retorna um objeto de estilo com `backgroundColor`, `color`, `fontFamily`, `fontSize` e `lineHeight`, sem condicional no componente.
 
 ## Alternativas consideradas
 

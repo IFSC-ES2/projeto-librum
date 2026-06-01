@@ -22,9 +22,24 @@ export default function Sidebar() {
       </div>
 
       <nav className="sidebar__nav">
-        <NavLink to="/inicio" className="sidebar__link">Início</NavLink>
-        <NavLink to="/genres" className="sidebar__link">Livros</NavLink>
-        <NavLink to="/perfil" className="sidebar__link">Perfil</NavLink>
+        <NavLink
+          to="/inicio"
+          className={({ isActive }) => isActive ? 'sidebar__link active' : 'sidebar__link'}
+        >
+          Inicio
+        </NavLink>
+        <NavLink
+          to="/genres"
+          className={({ isActive }) => isActive ? 'sidebar__link active' : 'sidebar__link'}
+        >
+          Livros
+        </NavLink>
+        <NavLink
+          to="/perfil"
+          className={({ isActive }) => isActive ? 'sidebar__link active' : 'sidebar__link'}
+        >
+          Perfil
+        </NavLink>
       </nav>
 
       <div className="sidebar__footer">

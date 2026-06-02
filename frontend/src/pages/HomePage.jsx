@@ -18,32 +18,37 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  const fetchDados = async () => {
-    try {
-      const [rPerfil, rProgresso, rGeneros] = await Promise.all([
-        fetch(`${API_BASE_URL}/users/me`, { headers: { ...authHeader() } }),
-        fetch(`${API_BASE_URL}/users/me/progress`, { headers: { ...authHeader() } }),
-        fetch(`${API_BASE_URL}/genres`, { headers: { ...authHeader() } })
-      ]);
-      if (!rPerfil.ok || !rProgresso.ok || !rGeneros.ok) throw new Error('Falha ao carregar');
-      setPerfil(await rPerfil.json());
-      setProgresso(await rProgresso.json());
-      setGeneros(await rGeneros.json());
-    } catch (e) {
-      console.error(e);
-      setErro(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [retryCount, setRetryCount] = useState(0);
 
-  useEffect(() => { fetchDados(); }, []);
+  useEffect(() => {
+    const carregar = async () => {
+      try {
+        const [rPerfil, rProgresso, rGeneros] = await Promise.all([
+          fetch(`${API_BASE_URL}/users/me`, { headers: { ...authHeader() } }),
+          fetch(`${API_BASE_URL}/users/me/progress`, { headers: { ...authHeader() } }),
+          fetch(`${API_BASE_URL}/genres`, { headers: { ...authHeader() } })
+        ]);
+        if (!rPerfil.ok || !rProgresso.ok || !rGeneros.ok) throw new Error('Falha ao carregar');
+        setPerfil(await rPerfil.json());
+        setProgresso(await rProgresso.json());
+        setGeneros(await rGeneros.json());
+      } catch (e) {
+        console.error(e);
+        setErro(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    carregar();
+  }, [retryCount]);
 
   const handleRetry = () => {
     setLoading(true);
     setErro(false);
-    fetchDados();
+    setRetryCount(c => c + 1);
   };
+
+
 
   if (loading) return <LoadingState message="Carregando início..." />;
   if (erro || !perfil || !progresso) return <ErrorState message="Não foi possível carregar o início." onRetry={handleRetry} />;

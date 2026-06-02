@@ -15,28 +15,33 @@ export default function GenresPage() {
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  const fetchDados = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/genres`, {
-        headers: { ...authHeader() },
-      });
-      if (!response.ok) throw new Error('Falha ao carregar generos');
-      setGenres(await response.json());
-    } catch (e) {
-      console.error(e);
-      setErro(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [retryCount, setRetryCount] = useState(0);
 
-  useEffect(() => { fetchDados(); }, []);
+  useEffect(() => {
+    const carregar = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/genres`, {
+          headers: { ...authHeader() },
+        });
+        if (!response.ok) throw new Error('Falha ao carregar generos');
+        setGenres(await response.json());
+      } catch (e) {
+        console.error(e);
+        setErro(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    carregar();
+  }, [retryCount]);
 
   const handleRetry = () => {
     setLoading(true);
     setErro(false);
-    fetchDados();
+    setRetryCount(c => c + 1);
   };
+
+
 
   if (loading) return <LoadingState message="Carregando generos..." />;
   if (erro) return <ErrorState message="Nao foi possivel carregar os generos." onRetry={handleRetry} />;

@@ -10,6 +10,7 @@ import PhaseCompletedPage from '../pages/PhaseCompletedPage';
 import PrivateRoute from "./PrivateRoute";
 import Layout from '../components/Layout';
 import ProfilePage from '../pages/ProfilePage';
+import HomePage from '../pages/HomePage';
 
 export const AppRoutes = () => {
   return (
@@ -17,6 +18,17 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        <Route
+          path="/inicio"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <HomePage />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/genres"
@@ -87,6 +99,7 @@ export const AppRoutes = () => {
           }
         />
 
+        <Route path="/" element={<Navigate to="/inicio" />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

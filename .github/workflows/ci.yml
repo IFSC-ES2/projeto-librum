@@ -48,6 +48,9 @@ jobs:
       - name: Instalar dependências
         working-directory: ./frontend
         run: npm install
+      - name: Rodar lint
+        working-directory: ./frontend
+        run: npm run lint
       - name: Verificar build
         working-directory: ./frontend
         run: npm run build
@@ -80,6 +83,7 @@ jobs:
             ".github/workflows/ci.yml"
             "docs/riscos.md"
             ".github/PULL_REQUEST_TEMPLATE.md"
+            "docs/padroes-de-projeto.md"
           )
           MISSING=0
           for f in "${FILES[@]}"; do

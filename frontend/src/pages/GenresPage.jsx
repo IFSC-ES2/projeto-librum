@@ -15,9 +15,7 @@ export default function GenresPage() {
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  const carregar = async () => {
-    setLoading(true);
-    setErro(false);
+  const fetchDados = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/genres`, {
         headers: { ...authHeader() },
@@ -32,10 +30,16 @@ export default function GenresPage() {
     }
   };
 
-  useEffect(() => { carregar(); }, []);
+  useEffect(() => { fetchDados(); }, []);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setErro(false);
+    fetchDados();
+  };
 
   if (loading) return <LoadingState message="Carregando generos..." />;
-  if (erro) return <ErrorState message="Nao foi possivel carregar os generos." onRetry={carregar} />;
+  if (erro) return <ErrorState message="Nao foi possivel carregar os generos." onRetry={handleRetry} />;
 
   return (
     <div className="genres-page">

@@ -18,9 +18,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(false);
 
-  const carregar = async () => {
-    setLoading(true);
-    setErro(false);
+  const fetchDados = async () => {
     try {
       const [rPerfil, rProgresso, rGeneros] = await Promise.all([
         fetch(`${API_BASE_URL}/users/me`, { headers: { ...authHeader() } }),
@@ -39,10 +37,16 @@ export default function HomePage() {
     }
   };
 
-  useEffect(() => { carregar(); }, []);
+  useEffect(() => { fetchDados(); }, []);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setErro(false);
+    fetchDados();
+  };
 
   if (loading) return <LoadingState message="Carregando início..." />;
-  if (erro || !perfil || !progresso) return <ErrorState message="Não foi possível carregar o início." onRetry={carregar} />;
+  if (erro || !perfil || !progresso) return <ErrorState message="Não foi possível carregar o início." onRetry={handleRetry} />;
 
   const emProgresso = progresso.byGenre.find(g => g.totalPhases > 0 && g.completedPhases < g.totalPhases)
     || progresso.byGenre.find(g => g.totalPhases > 0);

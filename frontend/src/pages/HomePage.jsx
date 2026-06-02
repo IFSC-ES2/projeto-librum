@@ -29,9 +29,14 @@ export default function HomePage() {
           fetch(`${API_BASE_URL}/genres`, { headers: { ...authHeader() } })
         ]);
         if (!rPerfil.ok || !rProgresso.ok || !rGeneros.ok) throw new Error('Falha ao carregar');
-        setPerfil(await rPerfil.json());
-        setProgresso(await rProgresso.json());
-        setGeneros(await rGeneros.json());
+        const [dadosPerfil, dadosProgresso, dadosGeneros] = await Promise.all([
+          rPerfil.json(),
+          rProgresso.json(),
+          rGeneros.json()
+        ]);
+        setPerfil(dadosPerfil);
+        setProgresso(dadosProgresso);
+        setGeneros(dadosGeneros);
       } catch (e) {
         console.error(e);
         setErro(true);

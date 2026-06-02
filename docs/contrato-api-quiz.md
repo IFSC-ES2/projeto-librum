@@ -148,3 +148,39 @@ Retorna o perfil do usuário autenticado com XP e nível atual.
 - `level` (int): nível atual entre 1 e 10.
 
 **Resposta 401:** token ausente ou inválido.
+
+---
+
+## GET /users/me/progress
+
+Retorna o resumo de progresso do usuário autenticado, agregado por gênero. Usado pela página de Perfil e pela Home para exibir XP, nível e fases concluídas.
+
+**Autenticação:** `Authorization: Bearer <token>` (obrigatório).
+
+**Resposta 200:**
+
+```json
+{
+  "xp": 60,
+  "level": 2,
+  "totalCompletedPhases": 3,
+  "byGenre": [
+    {
+      "genreId": 1,
+      "genreName": "Aventura",
+      "slug": "aventura",
+      "completedPhases": 3,
+      "totalPhases": 7
+    }
+  ]
+}
+```
+
+- `xp` (int): XP acumulado total do usuário.
+- `level` (int): nível atual entre 1 e 10.
+- `totalCompletedPhases` (int): total de fases concluídas em todos os gêneros.
+- `byGenre` (lista): progresso por gênero. Inclui todos os gêneros cadastrados, mesmo os sem livro (nesses casos `completedPhases` e `totalPhases` são 0).
+- `completedPhases` (int): fases cujo quiz foi concluído naquele gênero.
+- `totalPhases` (int): total de fases do livro do gênero.
+
+**Resposta 401:** token ausente ou inválido.

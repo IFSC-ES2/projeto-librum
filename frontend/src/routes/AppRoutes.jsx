@@ -9,6 +9,7 @@ import QuizResultPage from '../pages/QuizResultPage';
 import PhaseCompletedPage from '../pages/PhaseCompletedPage';
 import PrivateRoute from "./PrivateRoute";
 import Layout from '../components/Layout';
+import ProfilePage from '../pages/ProfilePage';
 
 export const AppRoutes = () => {
   return (
@@ -70,6 +71,17 @@ export const AppRoutes = () => {
             <PrivateRoute>
               <Layout>
                 <PhaseListPage />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/perfil"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <ProfilePage />
               </Layout>
             </PrivateRoute>
           }

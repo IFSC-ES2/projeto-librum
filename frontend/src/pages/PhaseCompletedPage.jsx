@@ -33,7 +33,7 @@ const PhaseCompletedPage = () => {
     if (hasNextPhase) {
       navigate(`/reading/${nextPhaseId}/1`);
     } else {
-      navigate(`/genres/${genreSlug || 'aventura'}`);
+      navigate('/genres');
     }
   };
 
@@ -85,7 +85,7 @@ const PhaseCompletedPage = () => {
               </button>
               <button
                 className="btn-phase-secondary"
-                onClick={() => navigate(`/genres/${genreSlug || 'aventura'}`)}
+                onClick={() => navigate('/genres')}
               >
                 Voltar ao início
               </button>
@@ -108,7 +108,7 @@ const PhaseCompletedPage = () => {
               </button>
               <button
                 className="btn-phase-secondary"
-                onClick={() => navigate(`/genres/${genreSlug || 'aventura'}`)}
+                onClick={() => navigate('/genres')}
               >
                 Voltar ao início
               </button>

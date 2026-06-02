@@ -21,7 +21,6 @@ const PhaseCompletedPage = () => {
     newLevel = 1,
     leveledUp = false,
     nextPhaseId = null,
-    genreSlug = 'aventura',
     passed = false
   } = result;
 

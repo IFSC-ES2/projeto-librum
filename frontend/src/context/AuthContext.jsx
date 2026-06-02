@@ -1,21 +1,26 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState } from 'react';
 
 const AuthContext = createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => useContext(AuthContext);
+function carregarSessao() {
+  const saved = localStorage.getItem('user');
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+export { AuthContext };
 
 export const AuthProvider = ({ children }) => {
-  // Lazy initializer: localStorage é síncrono, então o valor já está disponível na primeira renderização — sem necessidade de useEffect
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [user, setUser] = useState(() => carregarSessao());
   const [token, setToken] = useState(() => {
-    const saved = localStorage.getItem('user');
-    if (!saved) return null;
-    const parsed = JSON.parse(saved);
-    return parsed.token ?? null;
+    const saved = carregarSessao();
+    return saved ? (saved.token ?? null) : null;
   });
 
   const loginUser = (userData) => {
@@ -33,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, loading: false /* leitura do localStorage é síncrona: o estado já está pronto na primeira renderização, nunca há carregamento assíncrono */, isAuthenticated, token }}>
+    <AuthContext.Provider value={{ user, loginUser, logoutUser, isAuthenticated, token }}>
       {children}
     </AuthContext.Provider>
   );

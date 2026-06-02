@@ -1,99 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authHeader } from '../utils/auth';
+import Button from '../components/ui/Button';
+import GenreBadge from '../components/ui/GenreBadge';
+import LoadingState from '../components/ui/LoadingState';
+import ErrorState from '../components/ui/ErrorState';
 import './GenresPage.css';
 
-const genres = [
-  {
-    id: 'aventura',
-    title: 'Aventura',
-    bookTitle: 'A Ilha do Tesouro',
-    author: 'Robert Louis Stevenson',
-    phases: 8,
-    active: true,
-    emoji: '⛵',
-  },
-  {
-    id: 'terror',
-    title: 'Terror',
-    bookTitle: 'O Médico e o Monstro',
-    author: 'Robert Louis Stevenson',
-    phases: 8,
-    active: false,
-    emoji: '🕷️',
-  },
-  {
-    id: 'fantasia',
-    title: 'Fantasia',
-    bookTitle: 'Dom Quixote (I)',
-    author: 'Miguel de Cervantes',
-    phases: 6,
-    active: false,
-    emoji: '✨',
-  },
-  {
-    id: 'romance',
-    title: 'Romance',
-    bookTitle: 'Orgulho e Preconceito',
-    author: 'Jane Austen',
-    phases: 8,
-    active: false,
-    emoji: '🌸',
-  },
-  {
-    id: 'suspense',
-    title: 'Suspense',
-    bookTitle: 'A definir',
-    author: 'A definir',
-    phases: 0,
-    active: false,
-    emoji: '🕵️',
-  }
-];
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 export default function GenresPage() {
   const navigate = useNavigate();
+  const [genres, setGenres] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(false);
 
-  const handleGenreClick = (genre) => {
-    if (genre.active) {
-      navigate(`/genres/${genre.id}`);
+  const carregar = async () => {
+    setLoading(true);
+    setErro(false);
+    try {
+      const response = await fetch(`${API_BASE_URL}/genres`, {
+        headers: { ...authHeader() },
+      });
+      if (!response.ok) throw new Error('Falha ao carregar generos');
+      setGenres(await response.json());
+    } catch (e) {
+      console.error(e);
+      setErro(true);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => { carregar(); }, []);
+
+  if (loading) return <LoadingState message="Carregando generos..." />;
+  if (erro) return <ErrorState message="Nao foi possivel carregar os generos." onRetry={carregar} />;
+
   return (
-    <div className="genres-container">
-      <div className="genres-header">
-        <h1>Escolha um gênero para ler</h1>
-        <p>1 livro disponível por gênero · domínio público · sem custo</p>
-      </div>
+    <div className="genres-page">
+      <header className="genres-header">
+        <h1>Escolha um genero para ler</h1>
+        <p>Livros de dominio publico, sem custo</p>
+      </header>
 
       <div className="genres-grid">
-        {genres.map(genre => (
-          <div
-            key={genre.id}
-            className={`genre-card ${genre.active ? 'active' : 'disabled'}`}
-          >
-            <div className="genre-card-header">
-              <span className="genre-icon">{genre.emoji}</span>
-              <span className={`genre-badge ${genre.active ? 'active' : ''}`}>
-                {genre.active ? 'Em andamento' : 'Em breve'}
-              </span>
+        {genres.map((genre) => (
+          <article key={genre.id} className="genre-card">
+            <div className="genre-card__top">
+              <GenreBadge slug={genre.slug}>{genre.name}</GenreBadge>
             </div>
-
-            <div className="genre-info">
-              <h2>{genre.title}</h2>
-              <p>{genre.bookTitle}<br />{genre.author}{genre.phases > 0 ? ` · ${genre.phases} fases` : ''}</p>
-            </div>
-
-            <div className="genre-action">
-              <button
-                className={`btn-genre ${genre.active ? 'active' : 'disabled'}`}
-                onClick={() => handleGenreClick(genre)}
-                disabled={!genre.active}
-              >
-                {genre.active ? 'Continuar ▶' : 'Em breve'}
-              </button>
-            </div>
-          </div>
+            <p className="genre-card__desc">{genre.description}</p>
+            <Button variant="secondary" onClick={() => navigate(`/genres/${genre.id}`)}>
+              Abrir
+            </Button>
+          </article>
         ))}
       </div>
     </div>

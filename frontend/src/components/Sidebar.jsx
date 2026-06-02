@@ -18,7 +18,6 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar__brand">
         <img src={logo} alt="Librum" className="sidebar__logo" />
-        <span>Librum</span>
       </div>
 
       <nav className="sidebar__nav">

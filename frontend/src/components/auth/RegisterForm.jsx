@@ -26,7 +26,7 @@ const RegisterForm = () => {
     try {
       const response = await register(data.name, data.email, data.password);
       loginUser({ userId: response.userId, token: response.token });
-      navigate('/genres');
+      navigate('/inicio');
     } catch (err) {
       setError(err.message || 'Erro no cadastro');
     }

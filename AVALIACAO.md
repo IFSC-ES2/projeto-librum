@@ -14,15 +14,23 @@
 | 6       | Bernardo Silva Bombazaro | ba0013e | 15/05/26 | 27/05/26 | 7,2  | 10   |
 | 6       | Giuliano Marcus Bianco   | ba0013e | 15/05/26 | 27/05/26 | 7,4  | 10   |
 | 6       | Maria Carolina Hammes    | ba0013e | 15/05/26 | 27/05/26 | 6,4  | 10   |
+| 7       | Antonio Marcos da Silva  | dfadb07 | 29/05/26 | 03/06/26 | 8,0  | 10   |
+| 7       | Bernardo Silva Bombazaro | dfadb07 | 29/05/26 | 03/06/26 | 7,5  | 10   |
+| 7       | Giuliano Marcus Bianco   | dfadb07 | 29/05/26 | 03/06/26 | 7,8  | 10   |
+| 7       | Maria Carolina Hammes    | dfadb07 | 29/05/26 | 03/06/26 | 6,8  | 10   |
+| 8       |                          |         |          |          |      | 10   |
+| 9       |                          |         |          |          |      | 10   |
+| 10      |                          |         |          |          |      | 10   |
+| 11/12   |                          |         |          |          |      | 30   |
 
 ## Nota parcial
 
 | aluno                    | nota parcial |
 | ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8,5          |
-| Bernardo Silva Bombazaro | 8,3          |
-| Giuliano Marcus Bianco   | 8,4          |
-| Maria Carolina Hammes    | 7,9          |
+| Antonio Marcos da Silva  | 8,4          |
+| Bernardo Silva Bombazaro | 8,1          |
+| Giuliano Marcus Bianco   | 8,3          |
+| Maria Carolina Hammes    | 7,7          |
 
 ## Comentários
 
@@ -118,20 +126,20 @@
    - Faltam instruções explícitas no README para criar o `.env`/configurar `VITE_API_URL`, apesar de existir `.env.example`.
    - A documentação não concentra em um único relatório da sprint todas as evidências obrigatórias da Entrega 5.
 8. Release do marco: atendido com atraso.
-    - A tag `v0.1.0` existe e aponta para `b3c2151`.
-    - A release `v0.1.0 - Sprint 1: Cadastro e Login` foi publicada no GitHub.
+   - A tag `v0.1.0` existe e aponta para `b3c2151`.
+   - A release `v0.1.0 - Sprint 1: Cadastro e Login` foi publicada no GitHub.
 
 ### Entrega 6
 
 1. Incremento funcional do MVP: parcial.
    - Funcionalidade declaradas para entrega na Sprint 2:
-      - US02 - Seleção de gêneros literários 
-      - US04 - Leitura em fases 
-      - US05 - Desbloqueio progressivo de fases
+     - US02 - Seleção de gêneros literários
+     - US04 - Leitura em fases
+     - US05 - Desbloqueio progressivo de fases
    - O backend evoluiu de forma relevante: migrations `V2` e `V3`, entidades/repositories de gêneros, livros, fases, segmentos e progresso, endpoints `GET /genres`, `GET /genres/{genreId}/phases`, `GET /reading/{phaseId}/{segmentNumber}` e `POST /progress/mark-read`, com controle de desbloqueio por usuário.
    - O backend iniciou com PostgreSQL via Docker Compose e `./mvnw test` passou com 21 testes após recriar o container com a porta publicada corretamente.
    - O frontend tem telas para seleção de gêneros, lista de fases e leitura, mas a integração final está incompleta: `ReadingService.js` chama `http://localhost:8080/api/...`, enquanto o backend não usa prefixo `/api`; `GenresPage.jsx` usa dados hardcoded e navega por slug (`aventura`), enquanto o backend espera `genreId` numérico.
-   - Como o serviço frontend possui fallbacks com dados fictícios quando a API falha, a interface pode aparentar funcionamento mesmo sem integração real com o backend. 
+   - Como o serviço frontend possui fallbacks com dados fictícios quando a API falha, a interface pode aparentar funcionamento mesmo sem integração real com o backend.
    - As issues principais têm critérios de aceitação, mas vários checkboxes permaneceram desmarcados mesmo após o fechamento.
 2. Testes automatizados: atendido.
    - A cobertura é concentrada no backend; não há testes automatizados de frontend, mas documentação registra essa pendência para a Sprint 3.
@@ -157,10 +165,49 @@
 9. Registro das contribuições individuais: parcial.
    - O registro das contribuições apresenta divergências: o documento atribui a Maria a criação das issues US02, US04 e US05, mas no GitHub as issues centrais verificadas são `#15`, `#16`, `#17` e `#18`; também atribui a Giuliano a criação de `pradroes-de-projeto.md`, arquivo ausente na entrega.
    - Contribuições individuais:
-      - Antonio: contribuiu de forma central nos contratos, ADRs, entidades de fase/segmento/progresso, `ReadingService`, controllers, segurança e correções de integração. Protagonismo no backend e arquitetura, mas limitado pela integração frontend/backend ainda quebrada e documentação de padrões incompleta.
-      - Bernardo: contribuiu com migrations, seed de dados, entidades de gênero/livro, CI e publicação da tag. A contribuição é relevante para infraestrutura e persistência, mas parte do backend central foi de Antonio e o CI não cobre lint nem integração real do frontend.
-      - Giuliano: contribuiu com os testes unitários e de integração do backend, coerente com o papel de qualidade. A participação é forte na qualidade backend, mas não houve testes frontend e algumas métricas sob sua responsabilidade não foram atualizadas com valores da Sprint 2.
-      - Maria: contribuiu com as telas e documentação da sprint, mas o frontend entregue é o ponto mais frágil: dados hardcoded, chamadas para rotas com prefixo `/api` inexistente, navegação por slug incompatível com o backend e fallback que mascara falhas de API. 
+     - Antonio: contribuiu de forma central nos contratos, ADRs, entidades de fase/segmento/progresso, `ReadingService`, controllers, segurança e correções de integração. Protagonismo no backend e arquitetura, mas limitado pela integração frontend/backend ainda quebrada e documentação de padrões incompleta.
+     - Bernardo: contribuiu com migrations, seed de dados, entidades de gênero/livro, CI e publicação da tag. A contribuição é relevante para infraestrutura e persistência, mas parte do backend central foi de Antonio e o CI não cobre lint nem integração real do frontend.
+     - Giuliano: contribuiu com os testes unitários e de integração do backend, coerente com o papel de qualidade. A participação é forte na qualidade backend, mas não houve testes frontend e algumas métricas sob sua responsabilidade não foram atualizadas com valores da Sprint 2.
+     - Maria: contribuiu com as telas e documentação da sprint, mas o frontend entregue é o ponto mais frágil: dados hardcoded, chamadas para rotas com prefixo `/api` inexistente, navegação por slug incompatível com o backend e fallback que mascara falhas de API.
 10. Documentação atualizada: parcial.
     - A documentação superestima a integração do frontend e cita arquivo de padrões inexistente na tag.
     - O README não foi atualizado para resumir o que funciona na `v0.2.0`, mantendo a seção “O que já funciona” apenas para `v0.1.0`.
+
+### Entrega 7
+
+1. Incremento funcional do MVP: parcial.
+   - Funcionalidade declaradas para entrega na Sprint 3:
+     - US06 - Quiz ao final de cada fase
+     - US07 - Sistema de XP e gamificação
+     - US08 - Progresso visível por fase e gênero
+     - US09 - Página de fase concluída
+   - O backend implementa endpoints compatíveis com o incremento, incluindo `GET /quiz/{phaseId}`, `POST /quiz/{phaseId}/submit` e `GET /users/me`, com migrations e seed de quizzes/fases.
+   - O backend iniciou com PostgreSQL via Docker Compose e `./mvnw test` passou com 42 testes.
+   - O frontend compila (`npm run build`) e o servidor Vite inicia, mas a qualidade do incremento frontend ficou limitada por teste automatizado quebrado e lint com erros.
+2. Documentação de arquitetura: não atendido.
+   - Não foi encontrada documentação C4 ou equivalente para contexto, contêineres/componentes ou visão arquitetural atualizada da solução.
+   - As ADRs ajudam a justificar decisões locais, mas não substituem a visão arquitetural solicitada para a entrega.
+3. ADRs consolidados: parcial.
+   - Há ADRs específicas para decisões da Sprint 3: `ADR-0008-command-quiz-service.md` e `ADR-0009-template-method-phase-unlock.md`.
+   - A documentação melhorou em relação à entrega anterior, mas ainda fica mais forte na descrição de classes e intenções do que na conexão explícita com trade-offs arquiteturais do sistema completo.
+4. Métricas do projeto: parcial.
+   - `entregas/sprint-3.md` registra 18 SP entregues na Sprint 3 e MVP 100% concluído, e `m5-velocity.md` também registra velocity de 18 SP.
+   - `m1-cobertura-testes.md` registra aproximadamente 75% no backend, mas a própria release cita 13 testes backend e 4 frontend, enquanto a execução local encontrou 42 testes backend; há inconsistência entre documentos e evidência executada.
+   - `m2`, `m3` e `m4` têm atualização incompleta para a Sprint 3, com pouca análise objetiva de tendência e impacto nas decisões do projeto.
+5. Testes automatizados no pipeline: parcial.
+   - O CI executa testes backend e build frontend.
+   - O CI não executa `npm test` no frontend, embora existam testes de componente.
+   - `npm test -- --run` falhou localmente: 1 teste falhou em `ReadingPage.test.jsx`, procurando o texto `Ir ao quiz`.
+   - O CI também não executa `npm run lint`, que falhou localmente com 3 erros, principalmente em `AuthContext.jsx`.
+6. Integração contínua: parcial.
+   - `.github/workflows/ci.yml` contém jobs para backend, frontend build, validação YAML e arquivos obrigatórios.
+   - PRs relevantes foram revisados e aprovados, e os PRs `#117`, `#118` e `#119` tiveram checks verdes.
+   - A cobertura do pipeline ainda é insuficiente para detectar os problemas de frontend observados localmente.
+7. Release do marco: atendido.
+   - A release `v0.3.0 - Sprint 3: Quiz e Sistema de XP` foi publicada com descrição do incremento, endpoints, testes e limitações conhecidas.
+8. Registro das contribuições individuais: parcial.
+   - A documentação da Sprint 3 registra responsáveis, histórias entregues e contribuições, e o histórico de commits/PRs confirma participação dos quatro integrantes.
+   - Antonio: participação mais forte no backend, contratos, ADRs e implementação do quiz/desbloqueio. A nota é limitada por lacunas de arquitetura sistêmica e pelos problemas de qualidade que chegaram à release.
+   - Bernardo: contribuiu com XP/frontend, testes/configuração e revisão. A participação é relevante, mas menos central no incremento principal e não eliminou as falhas de teste/lint frontend.
+   - Giuliano: concentrou documentação, métricas, testes, reviews e PR final da entrega. A nota reconhece esse papel de sustentação e qualidade, mas as métricas ficaram incompletas e o pipeline não cobre testes/lint frontend.
+   - Maria: há contribuição rastreável em correções/frontend da Sprint 3, mas o volume de commits/PRs é menor e o frontend é justamente o ponto mais frágil da entrega avaliada.

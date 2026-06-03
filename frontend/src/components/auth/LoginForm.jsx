@@ -16,7 +16,7 @@ const LoginForm = () => {
     try {
       const data = await login(credentials.email, credentials.password);
       loginUser(data);
-      navigate('/genres');
+      navigate('/inicio');
     } catch (err) {
       setError(err.message || 'E-mail ou senha incorretos');
     }

@@ -33,31 +33,35 @@
   color: var(--color-text-muted);
 }
 
-.trilha-lista {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.trilha-mapa {
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.trilha-conector {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.trilha-conector polyline {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 2;
+  stroke-dasharray: 5 7;
+  stroke-linecap: round;
 }
 
 .trilha-no {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  position: relative;
-}
-
-.trilha-no:not(:last-child)::before {
-  content: '';
   position: absolute;
-  left: 27px;
-  top: 56px;
-  width: 2px;
-  height: calc(100% - 8px);
-  background: var(--color-border);
+  transform: translateX(-50%);
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: center;
 }
 
 .trilha-no__circulo {

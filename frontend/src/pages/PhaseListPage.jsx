@@ -48,6 +48,17 @@ export default function PhaseListPage() {
     if (phase.isUnlocked) navigate(`/reading/${phase.id}/1`);
   };
 
+  const larguraTrilha = 300;
+  const alturaLinha = 112;
+  const raioCirculo = 28;
+  const margemTopo = 16;
+  const faixaX = [88, 212];
+  const centroX = (i) => faixaX[i % 2];
+  const topoNo = (i) => margemTopo + i * alturaLinha;
+  const centroY = (i) => topoNo(i) + raioCirculo;
+  const alturaTrilha = margemTopo + phases.length * alturaLinha + 48;
+  const pontos = phases.map((_, i) => `${centroX(i)},${centroY(i)}`).join(' ');
+
   return (
     <div className="trilha-page">
       <header className="trilha-header">
@@ -62,11 +73,24 @@ export default function PhaseListPage() {
         </Button>
       </header>
 
-      <ol className="trilha-lista">
-        {phases.map((phase) => {
+      <div className="trilha-mapa" style={{ width: larguraTrilha, height: alturaTrilha }}>
+        <svg
+          className="trilha-conector"
+          viewBox={`0 0 ${larguraTrilha} ${alturaTrilha}`}
+          width={larguraTrilha}
+          height={alturaTrilha}
+          aria-hidden="true"
+        >
+          <polyline points={pontos} />
+        </svg>
+        {phases.map((phase, i) => {
           const estado = phase.isCompleted ? 'concluida' : phase.isUnlocked ? 'ativa' : 'bloqueada';
           return (
-            <li key={phase.id} className={`trilha-no trilha-no--${estado}`}>
+            <div
+              key={phase.id}
+              className={`trilha-no trilha-no--${estado}`}
+              style={{ left: centroX(i), top: topoNo(i) }}
+            >
               <button
                 className="trilha-no__circulo"
                 onClick={() => irParaFase(phase)}
@@ -75,10 +99,10 @@ export default function PhaseListPage() {
                 {phase.isCompleted ? '✓' : phase.isUnlocked ? phase.phaseNumber : '🔒'}
               </button>
               <span className="trilha-no__titulo">{phase.title}</span>
-            </li>
+            </div>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 }

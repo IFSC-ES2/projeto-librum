@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import ReadingPage from './ReadingPage';
 import { ReadingService } from '../services/ReadingService';
@@ -56,6 +56,7 @@ describe('ReadingPage', () => {
       estimatedMinutes: 3,
       genreName: 'Aventura',
     });
+    ReadingService.markProgress.mockResolvedValue();
   });
 
   it('caso 1: renderiza o texto do segmento retornado pela API', async () => {
@@ -66,13 +67,15 @@ describe('ReadingPage', () => {
   });
 
   it('caso 2: botão "Ir ao quiz" aparece no rodapé e navega para /quiz/:phaseId', async () => {
-    renderReadingPage('1', '1');
+    renderReadingPage('1', '4');
 
     const botao = await screen.findByText(/Ir ao quiz/i);
     expect(botao).toBeInTheDocument();
 
     fireEvent.click(botao);
-    expect(mockNavigate).toHaveBeenCalledWith('/quiz/1');
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('/quiz/1');
+    });
   });
 
   it('caso 3: clicar em "Noturno" aplica o tema noturno na área de conteúdo', async () => {

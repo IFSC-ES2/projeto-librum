@@ -25,3 +25,4 @@
 | Sprint 1 | 23/04/2026     | 8 SP                   | US01 entregue completa.                          |
 | Sprint 2 | 07/05/2026     | 13 SP                  | US02 (3SP) + US04 (5SP) + US05 (5SP) entregues. |
 | Sprint 3 | 28/05/2026     | 18 SP                  | US06 (8SP) + US07 (5SP) + US08 (3SP) + US09 (2SP) entregues. Maior velocity do projeto. |
+| Sprint 4 | 08/06/2026     | a confirmar            | Sprint 4 em fechamento. Entregas previstas: US03 (design system e app shell), reestilizacao de quiz e fase concluida, assets em SVG, extracao do PhaseUnlockService, deploy de staging e cobertura de testes de frontend. Velocity final a ser calculada apos todas as PRs mergeadas e issues movidas para Done no board. |

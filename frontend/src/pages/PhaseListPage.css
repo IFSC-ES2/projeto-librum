@@ -12,6 +12,15 @@
   margin-bottom: 2rem;
 }
 
+.trilha-capa {
+  width: 80px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  float: right;
+  margin: 0 0 0.75rem 1rem;
+}
+
 .trilha-header h1 {
   margin: 0;
 }

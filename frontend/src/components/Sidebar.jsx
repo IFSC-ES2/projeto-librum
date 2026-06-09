@@ -1,8 +1,8 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import XpBadge from './XpBadge';
-import logo from '../assets/logo.png';
-import mascote from '../assets/librum-mascote-principal.png';
+import logo from '../assets/brand/logo.svg';
+import mascote from '../assets/mascots/librum-mascote-principal.svg';
 import './AppShell.css';
 
 export default function Sidebar() {

@@ -4,7 +4,7 @@ import { QuizService } from '../services/QuizService';
 import MascotBubble from '../components/ui/MascotBubble';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
-import mascotePensativo from '../assets/librum-pensativo.png';
+import mascotePensativo from '../assets/mascots/librum-pensativo.svg';
 import './QuizPage.css';
 
 const MASCOT_MESSAGES = {

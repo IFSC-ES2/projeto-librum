@@ -1,7 +1,7 @@
 import LoginForm from '../components/auth/LoginForm';
 import '../pages/auth.css';
-import mascote from '../assets/librum-mascote-principal.png';
-import logo from '../assets/logo-branca.png';
+import mascote from '../assets/mascots/librum-mascote-principal.svg';
+import logo from '../assets/brand/logo-branca.svg';
 
 const LoginPage = () => {
   return (

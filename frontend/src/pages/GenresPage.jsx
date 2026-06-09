@@ -5,7 +5,14 @@ import Button from '../components/ui/Button';
 import GenreBadge from '../components/ui/GenreBadge';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
+import aventura from '../assets/genres/librum-aventura.svg';
+import terror from '../assets/genres/librum-terror.svg';
+import fantasia from '../assets/genres/librum-fantasia.svg';
+import romance from '../assets/genres/librum-romance.svg';
+import suspense from '../assets/genres/librum-suspense.svg';
 import './GenresPage.css';
+
+const genreImages = { aventura, terror, fantasia, romance, suspense };
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
@@ -43,19 +50,22 @@ export default function GenresPage() {
 
 
 
-  if (loading) return <LoadingState message="Carregando generos..." />;
-  if (erro) return <ErrorState message="Nao foi possivel carregar os generos." onRetry={handleRetry} />;
+  if (loading) return <LoadingState message="Carregando gêneros..." />;
+  if (erro) return <ErrorState message="Não foi possível carregar os gêneros." onRetry={handleRetry} />;
 
   return (
     <div className="genres-page">
       <header className="genres-header">
-        <h1>Escolha um genero para ler</h1>
-        <p>Livros de dominio publico, sem custo</p>
+        <h1>Escolha um gênero para ler</h1>
+        <p>Livros de domínio público, sem custo</p>
       </header>
 
       <div className="genres-grid">
         {genres.map((genre) => (
           <article key={genre.id} className="genre-card">
+            {genreImages[genre.slug] && (
+              <img src={genreImages[genre.slug]} alt={genre.name} className="genre-card__image" />
+            )}
             <div className="genre-card__top">
               <GenreBadge slug={genre.slug}>{genre.name}</GenreBadge>
             </div>

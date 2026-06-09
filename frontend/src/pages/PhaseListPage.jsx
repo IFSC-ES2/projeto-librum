@@ -5,7 +5,12 @@ import ProgressBar from '../components/ui/ProgressBar';
 import Button from '../components/ui/Button';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
+import ilhaDoTesouro from '../assets/books/ilha-do-tesouro.png';
 import './PhaseListPage.css';
+
+const bookCovers = {
+  'A Ilha do Tesouro': ilhaDoTesouro,
+};
 
 export default function PhaseListPage() {
   const { genreId } = useParams();
@@ -62,6 +67,9 @@ export default function PhaseListPage() {
   return (
     <div className="trilha-page">
       <header className="trilha-header">
+        {bookCovers[phases[0]?.bookTitle] && (
+          <img src={bookCovers[phases[0]?.bookTitle]} alt={phases[0]?.bookTitle} className="trilha-capa" />
+        )}
         <h1>{phases[0]?.bookTitle}</h1>
         <p className="trilha-autor">{phases[0]?.bookAuthor} - domínio público</p>
         <div className="trilha-progresso">

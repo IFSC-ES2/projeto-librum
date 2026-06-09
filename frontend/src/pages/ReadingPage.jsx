@@ -4,7 +4,7 @@ import { ReadingService } from '../services/ReadingService';
 import { applyTheme } from '../utils/readingThemes';
 import './ReadingPage.css';
 import mascote from '../assets/mascots/librum-mascote-principal.svg';
-import logoLivro from '../assets/brand/logo-livro.svg';
+import logoLivro from '../assets/brand/logo-branca-icone.svg';
 import XpBadge from '../components/XpBadge';
 import '../components/XpBadge.css';
 import LoadingState from '../components/ui/LoadingState';

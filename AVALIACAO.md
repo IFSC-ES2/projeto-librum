@@ -18,7 +18,10 @@
 | 7       | Bernardo Silva Bombazaro | dfadb07 | 29/05/26 | 03/06/26 | 7,5  | 10   |
 | 7       | Giuliano Marcus Bianco   | dfadb07 | 29/05/26 | 03/06/26 | 7,8  | 10   |
 | 7       | Maria Carolina Hammes    | dfadb07 | 29/05/26 | 03/06/26 | 6,8  | 10   |
-| 8       |                          |         |          |          |      | 10   |
+| 8       | Antonio Marcos da Silva  | b5739de | 08/06/26 | 11/06/26 | 7,8  | 10   |
+| 8       | Bernardo Silva Bombazaro | b5739de | 08/06/26 | 11/06/26 | 7,4  | 10   |
+| 8       | Giuliano Marcus Bianco   | b5739de | 08/06/26 | 11/06/26 | 7,9  | 10   |
+| 8       | Maria Carolina Hammes    | b5739de | 08/06/26 | 11/06/26 | 7,5  | 10   |
 | 9       |                          |         |          |          |      | 10   |
 | 10      |                          |         |          |          |      | 10   |
 | 11/12   |                          |         |          |          |      | 30   |
@@ -27,10 +30,10 @@
 
 | aluno                    | nota parcial |
 | ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8,4          |
-| Bernardo Silva Bombazaro | 8,1          |
-| Giuliano Marcus Bianco   | 8,3          |
-| Maria Carolina Hammes    | 7,7          |
+| Antonio Marcos da Silva  | 8,2          |
+| Bernardo Silva Bombazaro | 7,9          |
+| Giuliano Marcus Bianco   | 8,2          |
+| Maria Carolina Hammes    | 7,6          |
 
 ## Comentários
 
@@ -207,7 +210,54 @@
    - A release `v0.3.0 - Sprint 3: Quiz e Sistema de XP` foi publicada com descrição do incremento, endpoints, testes e limitações conhecidas.
 8. Registro das contribuições individuais: parcial.
    - A documentação da Sprint 3 registra responsáveis, histórias entregues e contribuições, e o histórico de commits/PRs confirma participação dos quatro integrantes.
-   - Antonio: participação mais forte no backend, contratos, ADRs e implementação do quiz/desbloqueio. A nota é limitada por lacunas de arquitetura sistêmica e pelos problemas de qualidade que chegaram à release.
-   - Bernardo: contribuiu com XP/frontend, testes/configuração e revisão. A participação é relevante, mas menos central no incremento principal e não eliminou as falhas de teste/lint frontend.
-   - Giuliano: concentrou documentação, métricas, testes, reviews e PR final da entrega. A nota reconhece esse papel de sustentação e qualidade, mas as métricas ficaram incompletas e o pipeline não cobre testes/lint frontend.
-   - Maria: há contribuição rastreável em correções/frontend da Sprint 3, mas o volume de commits/PRs é menor e o frontend é justamente o ponto mais frágil da entrega avaliada.
+    - Antonio: participação mais forte no backend, contratos, ADRs e implementação do quiz/desbloqueio. A nota é limitada por lacunas de arquitetura sistêmica e pelos problemas de qualidade que chegaram à release.
+    - Bernardo: contribuiu com XP/frontend, testes/configuração e revisão. A participação é relevante, mas menos central no incremento principal e não eliminou as falhas de teste/lint frontend.
+    - Giuliano: concentrou documentação, métricas, testes, reviews e PR final da entrega. A nota reconhece esse papel de sustentação e qualidade, mas as métricas ficaram incompletas e o pipeline não cobre testes/lint frontend.
+    - Maria: há contribuição rastreável em correções/frontend da Sprint 3, mas o volume de commits/PRs é menor e o frontend é justamente o ponto mais frágil da entrega avaliada.
+
+### Entrega 8
+
+1. Ambiente de staging ou equivalente acessível: parcial.
+   - `docs/DEPLOY.md` informa backend em `https://projeto-librum.onrender.com` e frontend em `https://librum-frontend.onrender.com`.
+   - O frontend de staging respondeu e carregou a aplicação.
+   - A API retornou 503 em requisições GET simples para `/`, `/auth/login` e `/genres`, mas respondeu corretamente ao `POST /auth/register` com HTTP 201 e token. Portanto o backend está acessível para fluxo funcional, mas há ressalvas de disponibilidade/validação de rotas públicas.
+2. Manutenção e atualização da integração contínua: atendido.
+   - `.github/workflows/ci.yml` executa testes backend com PostgreSQL, lint e build do frontend, validação YAML e checagem de arquivos obrigatórios.
+   - O pipeline passou a incluir `npm run lint`, corrigindo uma lacuna importante da Entrega 7.
+   - Backend: `./mvnw test` passou com 44 testes, 0 falhas, e gerou relatório JaCoCo.
+   - Frontend: após `npm install`, `npm run lint` passou.
+   - Frontend: `npm run build` passou.
+   - Frontend: `npm test -- --run` passou com 3 arquivos e 11 testes.
+   - O `npm install` reportou 3 vulnerabilidades high em dependências, o que deve ser acompanhado, mas não impediu build/testes.
+3. Documentação de deploy: parcial.
+   - `docs/DEPLOY.md` descreve Render, variáveis de ambiente e passos para backend/frontend.
+   - O documento é curto e não registra comandos concretos de build/start do backend, comandos locais equivalentes, validação por `curl` nem credenciais/fluxo de teste completo.
+   - Não há relatório específico `docs/entregas/sprint-4.md` consolidando deploy, CI, refatoração, métricas e contribuições da Sprint 4.
+4. Atualização das métricas do projeto: parcial.
+   - `m1-cobertura-testes.md` foi atualizado com evidência objetiva de JaCoCo e testes frontend.
+   - `m2-taxa-erros-producao.md` registra 0% em staging, mas sem dados formais de logs e com observação de acesso pendente à URL.
+   - `m3-tempo-resposta.md` permanece pendente para staging.
+   - `m4-taxa-aprovacao-prs.md` permanece `a confirmar` para Sprint 3 e Sprint 4.
+   - `m5-velocity.md` mantém Sprint 4 como `a confirmar`, sem velocity final.
+5. Manutenção/reengenharia: atendido.
+   - `ADR-0010` registra a extração de `PhaseUnlockService`, tratando um problema real de coesão do `ReadingService`.
+   - `ADR-0011` registra design system, tipografia e organização de assets.
+   - `ADR-0012` registra Strategy para temas de leitura.
+   - `docs/padroes-de-projeto.md` foi corrigido e agora registra Facade, Strategy, Command e Template Method com arquivos e ADRs associados.
+   - Como evidência funcional associada, há evolução real de produto e UX: app shell, design system, assets SVG, reestilização de autenticação/gêneros/home, trilha de fases, quiz, fase concluída, perfil do usuário e progresso por gênero.
+   - Há correções importantes de integração e qualidade, como remoção de mocks enganosos, ajustes de rotas, imports, CORS e loading/error states.
+   - A entrega é majoritariamente de estabilização, experiência visual e perfil/progresso; não há documento de Sprint 4 que explicite o escopo planejado, concluído, parcial e replanejado com issues e critérios de aceitação.
+6. Comparação de métrica antes/depois: parcial.
+   - A refatoração de `PhaseUnlockService` é justificada tecnicamente, mas não há comparação objetiva antes/depois com métrica mensurada, como linhas, responsabilidades, dependências ou cobertura específica do serviço.
+   - A documentação de métricas registra cobertura e algumas medições gerais, mas não mede diretamente a melhoria da reengenharia exigida pela entrega.
+7. Release/tag do marco: não atendido.
+   - Não existe tag `v0.4.0` nem qualquer tag `v0.4.x` no repositório; as tags existentes são `v0.1.0`, `v0.2.0` e `v0.3.0`.
+   - Como havia evidências de Sprint 4 em `main`, a avaliação considerou o commit `b5739de`, mas isso não substitui a tag/release obrigatória do marco.
+8. Registro de contribuição individual: parcial.
+   - Não há seção consolidada de contribuições individuais da Sprint 4 em um relatório de entrega.
+   - A análise precisou ser feita pelo histórico `v0.3.0..main`, que confirma participação dos quatro integrantes, mas com aliases diferentes (`anthyer`, `bombazaro`, `Maria Hammes`, etc.).
+   - Contribuições individuais:
+      - Antonio: contribuição relevante em backend/perfil/progresso, extração de `PhaseUnlockService`, correções de conteúdo e documentação de padrões. Nota limitada pela ausência de tag/release e por não haver comparação objetiva antes/depois da refatoração.
+      - Bernardo: contribuição relevante em deploy/staging, CORS, CI com lint e reestilização/rotas de frontend. Nota limitada porque a entrega falhou justamente na publicação da tag obrigatória e a documentação de deploy ficou pouco operacional.
+      - Giuliano: contribuição forte em testes, métricas de cobertura, assets, PRs de integração e reestilização de quiz/fase concluída. Nota limitada porque várias métricas sob responsabilidade de qualidade permaneceram pendentes ou `a confirmar`.
+      - Maria: contribuição importante no design system, app shell, trilha/leitura e documentação de decisões de UI. Nota limitada pelo menor volume relativo de commits na Sprint 4 e pela ausência de relatório consolidado de contribuições/escopo.

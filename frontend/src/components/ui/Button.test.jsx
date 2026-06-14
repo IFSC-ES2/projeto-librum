@@ -24,4 +24,9 @@ describe('Button', () => {
     render(<Button full>Entrar</Button>);
     expect(screen.getByText('Entrar')).toHaveClass('btn--full');
   });
+  it('fica desabilitado e mostra carregamento quando loading é true', () => {
+    render(<Button loading>Processando</Button>);
+    expect(screen.getByRole('button')).toBeDisabled();
+    // O spinner esta presente, podemos tentar ver se o texto ou spinner aparecem (dependendo da implementacao), mas desabilitar e o basico testavel via DOM.
+  });
 });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authHeader } from '../utils/auth';
+import { mensagemDoTinta } from '../utils/tintaMessages';
 import Button from '../components/ui/Button';
 import GenreBadge from '../components/ui/GenreBadge';
 import LoadingState from '../components/ui/LoadingState';
@@ -20,7 +21,7 @@ export default function GenresPage() {
   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState('');
 
   const [retryCount, setRetryCount] = useState(0);
 
@@ -30,11 +31,15 @@ export default function GenresPage() {
         const response = await fetch(`${API_BASE_URL}/genres`, {
           headers: { ...authHeader() },
         });
-        if (!response.ok) throw new Error('Falha ao carregar generos');
+        if (!response.ok) {
+          const err = new Error('falha ao carregar generos');
+          err.status = response.status;
+          throw err;
+        }
         setGenres(await response.json());
       } catch (e) {
         console.error(e);
-        setErro(true);
+        setErro(mensagemDoTinta(e));
       } finally {
         setLoading(false);
       }
@@ -44,14 +49,14 @@ export default function GenresPage() {
 
   const handleRetry = () => {
     setLoading(true);
-    setErro(false);
+    setErro('');
     setRetryCount(c => c + 1);
   };
 
 
 
   if (loading) return <LoadingState message="Carregando gêneros..." />;
-  if (erro) return <ErrorState message="Não foi possível carregar os gêneros." onRetry={handleRetry} />;
+  if (erro) return <ErrorState message={erro} onRetry={handleRetry} />;
 
   return (
     <div className="genres-page">

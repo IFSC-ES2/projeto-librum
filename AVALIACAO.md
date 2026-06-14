@@ -22,7 +22,10 @@
 | 8       | Bernardo Silva Bombazaro | b5739de | 08/06/26 | 11/06/26 | 7,4  | 10   |
 | 8       | Giuliano Marcus Bianco   | b5739de | 08/06/26 | 11/06/26 | 7,9  | 10   |
 | 8       | Maria Carolina Hammes    | b5739de | 08/06/26 | 11/06/26 | 7,5  | 10   |
-| 9       |                          |         |          |          |      | 10   |
+| 9       | Antonio Marcos da Silva  | 882cbeb | 13/06/26 | 14/06/26 | 7,1  | 10   |
+| 9       | Bernardo Silva Bombazaro | 882cbeb | 13/06/26 | 14/06/26 | 7,2  | 10   |
+| 9       | Giuliano Marcus Bianco   | 882cbeb | 13/06/26 | 14/06/26 | 7,4  | 10   |
+| 9       | Maria Carolina Hammes    | 882cbeb | 13/06/26 | 14/06/26 | 6,9  | 10   |
 | 10      |                          |         |          |          |      | 10   |
 | 11/12   |                          |         |          |          |      | 30   |
 
@@ -30,10 +33,10 @@
 
 | aluno                    | nota parcial |
 | ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8,2          |
-| Bernardo Silva Bombazaro | 7,9          |
-| Giuliano Marcus Bianco   | 8,2          |
-| Maria Carolina Hammes    | 7,6          |
+| Antonio Marcos da Silva  | 8,1          |
+| Bernardo Silva Bombazaro | 7,8          |
+| Giuliano Marcus Bianco   | 8,1          |
+| Maria Carolina Hammes    | 7,5          |
 
 ## Comentários
 
@@ -218,7 +221,7 @@
 ### Entrega 8
 
 1. Ambiente de staging ou equivalente acessível: parcial.
-   - `docs/DEPLOY.md` informa backend em `https://projeto-librum.onrender.com` e frontend em `https://librum-frontend.onrender.com`.
+   - `DEPLOY.md` informa backend em `https://projeto-librum.onrender.com` e frontend em `https://librum-frontend.onrender.com`.
    - O frontend de staging respondeu e carregou a aplicação.
    - A API retornou 503 em requisições GET simples para `/`, `/auth/login` e `/genres`, mas respondeu corretamente ao `POST /auth/register` com HTTP 201 e token. Portanto o backend está acessível para fluxo funcional, mas há ressalvas de disponibilidade/validação de rotas públicas.
 2. Manutenção e atualização da integração contínua: atendido.
@@ -230,9 +233,9 @@
    - Frontend: `npm test -- --run` passou com 3 arquivos e 11 testes.
    - O `npm install` reportou 3 vulnerabilidades high em dependências, o que deve ser acompanhado, mas não impediu build/testes.
 3. Documentação de deploy: parcial.
-   - `docs/DEPLOY.md` descreve Render, variáveis de ambiente e passos para backend/frontend.
+   - `DEPLOY.md` descreve Render, variáveis de ambiente e passos para backend/frontend.
    - O documento é curto e não registra comandos concretos de build/start do backend, comandos locais equivalentes, validação por `curl` nem credenciais/fluxo de teste completo.
-   - Não há relatório específico `docs/entregas/sprint-4.md` consolidando deploy, CI, refatoração, métricas e contribuições da Sprint 4.
+   - Não há relatório específico `entregas/sprint-4.md` consolidando deploy, CI, refatoração, métricas e contribuições da Sprint 4.
 4. Atualização das métricas do projeto: parcial.
    - `m1-cobertura-testes.md` foi atualizado com evidência objetiva de JaCoCo e testes frontend.
    - `m2-taxa-erros-producao.md` registra 0% em staging, mas sem dados formais de logs e com observação de acesso pendente à URL.
@@ -243,7 +246,7 @@
    - `ADR-0010` registra a extração de `PhaseUnlockService`, tratando um problema real de coesão do `ReadingService`.
    - `ADR-0011` registra design system, tipografia e organização de assets.
    - `ADR-0012` registra Strategy para temas de leitura.
-   - `docs/padroes-de-projeto.md` foi corrigido e agora registra Facade, Strategy, Command e Template Method com arquivos e ADRs associados.
+   - `padroes-de-projeto.md` foi corrigido e agora registra Facade, Strategy, Command e Template Method com arquivos e ADRs associados.
    - Como evidência funcional associada, há evolução real de produto e UX: app shell, design system, assets SVG, reestilização de autenticação/gêneros/home, trilha de fases, quiz, fase concluída, perfil do usuário e progresso por gênero.
    - Há correções importantes de integração e qualidade, como remoção de mocks enganosos, ajustes de rotas, imports, CORS e loading/error states.
    - A entrega é majoritariamente de estabilização, experiência visual e perfil/progresso; não há documento de Sprint 4 que explicite o escopo planejado, concluído, parcial e replanejado com issues e critérios de aceitação.
@@ -256,8 +259,55 @@
 8. Registro de contribuição individual: parcial.
    - Não há seção consolidada de contribuições individuais da Sprint 4 em um relatório de entrega.
    - A análise precisou ser feita pelo histórico `v0.3.0..main`, que confirma participação dos quatro integrantes, mas com aliases diferentes (`anthyer`, `bombazaro`, `Maria Hammes`, etc.).
-   - Contribuições individuais:
-      - Antonio: contribuição relevante em backend/perfil/progresso, extração de `PhaseUnlockService`, correções de conteúdo e documentação de padrões. Nota limitada pela ausência de tag/release e por não haver comparação objetiva antes/depois da refatoração.
-      - Bernardo: contribuição relevante em deploy/staging, CORS, CI com lint e reestilização/rotas de frontend. Nota limitada porque a entrega falhou justamente na publicação da tag obrigatória e a documentação de deploy ficou pouco operacional.
-      - Giuliano: contribuição forte em testes, métricas de cobertura, assets, PRs de integração e reestilização de quiz/fase concluída. Nota limitada porque várias métricas sob responsabilidade de qualidade permaneceram pendentes ou `a confirmar`.
-      - Maria: contribuição importante no design system, app shell, trilha/leitura e documentação de decisões de UI. Nota limitada pelo menor volume relativo de commits na Sprint 4 e pela ausência de relatório consolidado de contribuições/escopo.
+Notas individuais:
+   - Antonio: contribuição relevante em backend/perfil/progresso, extração de `PhaseUnlockService`, correções de conteúdo e documentação de padrões. Nota limitada pela ausência de tag/release e por não haver comparação objetiva antes/depois da refatoração.
+   - Bernardo: contribuição relevante em deploy/staging, CORS, CI com lint e reestilização/rotas de frontend. Nota limitada porque a entrega falhou justamente na publicação da tag obrigatória e a documentação de deploy ficou pouco operacional.
+    - Giuliano: contribuição forte em testes, métricas de cobertura, assets, PRs de integração e reestilização de quiz/fase concluída. Nota limitada porque várias métricas sob responsabilidade de qualidade permaneceram pendentes ou `a confirmar`.
+    - Maria: contribuição importante no design system, app shell, trilha/leitura e documentação de decisões de UI. Nota limitada pelo menor volume relativo de commits na Sprint 4 e pela ausência de relatório consolidado de contribuições/escopo.
+
+### Entrega 9
+
+1. MVP completo e integrado: parcial.
+   - A versão avaliada foi a maior tag disponível, `v0.4.0` (`882cbeb`). Não há tag de Release Candidate no formato solicitado `v1.0.0-rc.1`.
+   - O MVP está integrado em boa parte do fluxo principal: cadastro/login com JWT, seleção de gêneros, fases de leitura, desbloqueio progressivo, quiz, XP, home, perfil, progresso por gênero, frontend React e backend Spring Boot com PostgreSQL/Flyway.
+   - A execução local confirmou integração mínima: `docker compose up -d`, backend iniciado e `GET /genres` retornou os 5 gêneros cadastrados.
+   - O frontend publicado respondeu HTTP 200 em `https://librum-frontend.onrender.com`.
+   - A API publicada respondeu após aquecimento: `POST /auth/register` com payload válido retornou HTTP 201 e token JWT. A primeira chamada a `/genres` esgotou timeout de 90s, coerente com cold start/hibernação do Render, mas ainda é uma ressalva de disponibilidade.
+   - O escopo final tem limitações relevantes: somente o gênero Aventura possui livro/conteúdo completo; os demais aparecem como “em breve”. Isso é documentado na release, mas reduz a completude do MVP frente à proposta de catálogo/recomendações por gêneros.
+   - O backlog é parcialmente fechado: `entregas/sprint-4.md` lista issues e PRs, mas ainda registra `#147 - Publicar release v0.4.0` como “Em aberto”, mesmo a release existindo posteriormente.
+2. Hardening do sistema: atendido em grande parte.
+   - A Sprint 4 foi corretamente focada em estabilização: remoção de mocks enganosos no frontend, correções de lint, correções de CORS, reescrita de fases/quizzes repetidos, tratamento de estados de loading/erro, ajuste de rotas, design system e melhoria visual do fluxo.
+   - Houve refatoração real do backend com extração de `PhaseUnlockService` a partir do `ReadingService`, além da correção de N+1 em `ProgressSummaryService`.
+   - A análise estática mostra uma base organizada em camadas, com DTOs, controllers, services, repositories, migrations Flyway e testes cobrindo serviços centrais.
+   - Ressalvas: `GET /quiz/{phaseId}` retorna `correctOption` e `explanation` junto das perguntas, expondo as respostas antes da submissão; isso compromete a integridade do quiz em um produto gamificado. O `npm install` também reportou 3 vulnerabilidades high em dependências frontend.
+3. Integração contínua obrigatória: atendido.
+   - `.github/workflows/ci.yml` executa em `push` para `main` e branches `feat/**`/`ci/**`, e em `pull_request` para `main`.
+   - O pipeline possui jobs de backend (`./mvnw test` com PostgreSQL), frontend (`npm install`, `npm run lint`, `npm test -- --run`, `npm run build`), validação YAML e checagem de arquivos obrigatórios.
+   - Verificação local na tag: backend passou com 44 testes, 0 falhas, e relatório JaCoCo; frontend passou em `npm run lint`, `npm test -- --run` com 3 arquivos/11 testes, e `npm run build`.
+   - Evidência no GitHub: PR `#150` teve aprovação e checks verdes (`backend-tests`, `frontend-build`, `validate-yaml`, `check-required-files`); PR `#149` também teve checks verdes e aprovação.
+4. Testes de aceitação: não atendido.
+   - Há testes automatizados de backend e frontend, além de DoD/checklists genéricos, mas não encontrei definição específica de testes de aceitação finais para o MVP.
+   - Não há associação clara entre testes de aceitação e critérios de aceitação das histórias/issues, nem registro de execução com resultado aprovado/reprovado/aprovado com ressalvas.
+   - Também não há evidências finais como checklist de aceite, roteiro manual documentado, screenshots, logs de execução ou automação e2e dedicada ao fluxo de usuário do MVP.
+5. Ambiente de execução acessível: atendido com ressalvas.
+   - `DEPLOY.md` informa backend em `https://projeto-librum.onrender.com` e frontend em `https://librum-frontend.onrender.com`.
+   - O frontend publicado está acessível e a API pública aceitou cadastro funcional com HTTP 201 após aquecimento.
+   - Não há credenciais de teste documentadas, mas o cadastro público permite criar usuário para avaliação.
+   - Há dados mínimos de demonstração para Aventura via migrations; os outros gêneros não têm conteúdo completo.
+   - O README permite execução local com Docker Compose, backend Maven e frontend Vite. A execução local foi validada.
+6. Revisão final da documentação: parcial.
+   - Há documentação relevante: README, `DEPLOY.md`, `arquitetura.md` com C4 contexto/contêineres, ADRs atualizadas, métricas, padrões de projeto e relatório `entregas/sprint-4.md`.
+   - O README ainda está desatualizado na seção “O que já funciona”, marcada como `v0.2.0`, não refletindo o estado `v0.4.0`/RC.
+   - `riscos.md` ainda informa “Última atualização: abril de 2026 (Entrega 4)” e não registra fechamento final dos riscos na entrega 9.
+   - Algumas métricas permanecem pendentes ou incompletas: `m3` registra medição de staging pendente, e `m5` mantém a velocity da Sprint 4 como “a confirmar”.
+   - `DEPLOY.md` é útil, mas curto: não traz comandos concretos de build/start do backend no Render, validações por `curl` nem roteiro operacional completo.
+7. Release Candidate: não atendido.
+   - Existe tag e release `v0.4.0 - Sprint 4: Estabilização, refatoração, identidade visual e staging`, publicada em 13/06/2026, com resumo, melhorias, limitações conhecidas e links de staging.
+   - Entretanto, a entrega 9 exige explicitamente tag de release candidate no formato `v1.0.0-rc.1`, que não existe.
+   - A release publicada é uma release de Sprint 4, não um RC final do MVP, embora sua descrição tenha vários elementos esperados de release.
+
+Notas individuais:
+   - Antonio: contribuição forte em backend, arquitetura C4, relatório final, refatoração do `PhaseUnlockService`, endpoint de progresso, correção de conteúdo e documentação de padrões. Nota limitada pela ausência de RC no formato exigido, ausência de testes de aceitação e pendências documentais finais.
+   - Bernardo: contribuição relevante em DevOps/deploy, CORS, CI com lint/testes frontend e reestilização de auth/gêneros/home. Nota um pouco maior que a média pela centralidade em ambiente e CI, mas limitada por documentação de deploy ainda curta e ausência do RC formal.
+   - Giuliano: contribuição forte em qualidade, JaCoCo, testes frontend, assets, reestilização do quiz/fase concluída, inclusão de `npm test` no CI e publicação da release/tag `v0.4.0`. Maior nota da entrega pela atuação direta nos itens de qualidade/CI/release, limitada por métricas ainda pendentes e ausência de testes de aceitação.
+   - Maria: contribuição importante no design system, app shell, trilha de fases/leitura e remoção de mock enganoso. Nota menor pelo menor volume relativo no fechamento da entrega 9 e menor atuação direta nos itens críticos de RC, testes de aceitação, deploy e CI final.

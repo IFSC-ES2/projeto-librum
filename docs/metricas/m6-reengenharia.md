@@ -18,9 +18,11 @@
 |-----------|----------------|---------------|
 | LOC do ReadingService | 108 | 93 |
 | Responsabilidades do ReadingService | Facade da leitura mais a regra de desbloqueio (isPhaseUnlocked) | So Facade da leitura, delegando o desbloqueio |
+| Dependencias do ReadingService | BookRepository, PhaseRepository, PhaseSegmentRepository, UserProgressRepository (4 repositorios; PhaseRepository e UserProgressRepository serviam a dois fins distintos na mesma classe) | BookRepository, PhaseRepository, PhaseSegmentRepository, UserProgressRepository, PhaseUnlockService (5 dependencias; cada uma com papel unico) |
+| Dependencias da regra de desbloqueio | acopladas ao ReadingService; PhaseRepository e UserProgressRepository usados para leitura e desbloqueio ao mesmo tempo | isoladas no PhaseUnlockService: apenas PhaseRepository e UserProgressRepository, com responsabilidade unica |
 | Regra de desbloqueio | metodo privado dentro do ReadingService | classe propria PhaseUnlockService (39 LOC) |
 | Testabilidade da regra | so via ReadingService | direta, em PhaseUnlockServiceTest |
-| Cobertura do PhaseUnlockService | nao aplicavel | a confirmar (evidencia JaCoCo do Bloco G3) |
+| Cobertura do PhaseUnlockService | nao aplicavel | 94% (instrucoes; relatorio JaCoCo gerado em 14/06/2026) |
 
 ## Analise
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
+import { mensagemDoTinta } from '../utils/tintaMessages';
 import { applyTheme } from '../utils/readingThemes';
 import './ReadingPage.css';
 import mascote from '../assets/mascots/librum-mascote-principal.svg';
@@ -15,7 +16,8 @@ export default function ReadingPage() {
   const navigate = useNavigate();
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
   // Fix lint: inicializa a partir do localStorage diretamente no useState (sem useEffect)
   const [theme, setTheme] = useState(() => localStorage.getItem('librum_theme') || 'padrao');
@@ -32,13 +34,13 @@ export default function ReadingPage() {
   useEffect(() => {
     const loadContent = async () => {
       setLoading(true);
-      setErro(false);
+      setErro(null);
       try {
         const data = await ReadingService.getSegmentContent(phaseId, segmentNumber);
         setContent(data);
       } catch (e) {
         console.error(e);
-        setErro(true);
+        setErro(mensagemDoTinta(e));
       } finally {
         setLoading(false);
       }
@@ -67,10 +69,13 @@ export default function ReadingPage() {
   };
 
   const handleNext = async () => {
+    setEnviando(true);
     try {
       await ReadingService.markProgress(phaseId, segmentNumber);
     } catch (e) {
       console.error(e);
+    } finally {
+      setEnviando(false);
     }
     if (Number(segmentNumber) >= content.totalSegments) {
       navigate(`/quiz/${phaseId}`);
@@ -80,7 +85,8 @@ export default function ReadingPage() {
   };
 
   if (loading) return <LoadingState message="Carregando trecho..." />;
-  if (erro || !content) return <ErrorState message="Não foi possível carregar o trecho." />;
+  if (erro) return <ErrorState message={erro} />;
+  if (!content) return <ErrorState message="Não foi possível carregar o trecho." />;
 
   const paragraphs = content.content.split('\n').filter(p => p.trim() !== '');
 
@@ -149,8 +155,8 @@ export default function ReadingPage() {
 
           <div className="content-footer">
             <span>~{content.estimatedMinutes} min · Trecho {segmentNumber}/{content.totalSegments}</span>
-            <button className="btn-next" onClick={handleNext}>
-              {Number(segmentNumber) >= content.totalSegments ? 'Ir ao quiz →' : 'Próximo trecho →'}
+            <button className="btn-next" onClick={handleNext} disabled={enviando}>
+              {enviando ? 'Carregando...' : (Number(segmentNumber) >= content.totalSegments ? 'Ir ao quiz →' : 'Próximo trecho →')}
             </button>
           </div>
         </main>

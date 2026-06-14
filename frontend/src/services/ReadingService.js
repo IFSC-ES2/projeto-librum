@@ -7,7 +7,11 @@ export const ReadingService = {
     const response = await fetch(`${API_BASE_URL}/genres/${genreId}/phases`, {
       headers: { ...authHeader() }
     });
-    if (!response.ok) throw new Error('Falha ao carregar as fases');
+    if (!response.ok) {
+      const err = new Error('falha ao carregar as fases');
+      err.status = response.status;
+      throw err;
+    }
     return await response.json();
   },
 
@@ -15,7 +19,11 @@ export const ReadingService = {
     const response = await fetch(`${API_BASE_URL}/reading/${phaseId}/${segmentNumber}`, {
       headers: { ...authHeader() }
     });
-    if (!response.ok) throw new Error('Falha ao carregar o trecho');
+    if (!response.ok) {
+      const err = new Error('falha ao carregar o trecho');
+      err.status = response.status;
+      throw err;
+    }
     return await response.json();
   },
 
@@ -28,7 +36,11 @@ export const ReadingService = {
       },
       body: JSON.stringify({ phaseId, segmentNumber }),
     });
-    if (!response.ok) throw new Error('Falha ao salvar o progresso');
+    if (!response.ok) {
+      const err = new Error('falha ao salvar o progresso');
+      err.status = response.status;
+      throw err;
+    }
     return await response.json();
   }
 };

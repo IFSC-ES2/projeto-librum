@@ -95,33 +95,65 @@ Os itens abaixo são previstos no conceito completo do produto, mas estão exclu
 ## Como executar localmente
 
 ### Requisitos
-- Docker e Docker Compose
-- Java 17
-- Node.js 20
 
-### Backend
+- Java 17
+- Docker e Docker Compose
+- Node.js 20 e npm
+
+### Backend e banco
+
 ```bash
 docker compose up -d
-cd backend && ./mvnw spring-boot:run
+cd backend
+./mvnw spring-boot:run
 ```
 
+O backend sobe em `http://localhost:8080`. O Flyway aplica as migrations automaticamente.
+
 ### Frontend
+
 ```bash
 cd frontend
-cp .env.example .env  # E configure a variável VITE_API_URL conforme necessário
+cp .env.example .env
+```
+
+Edite o `.env` gerado e defina `VITE_API_URL=http://localhost:8080`. Em seguida:
+
+```bash
 npm install
 npm run dev
 ```
 
+O frontend fica disponivel em `http://localhost:5173`.
+
 ## Como rodar os testes
+
+Backend:
+
 ```bash
-cd backend && ./mvnw test
+cd backend
+./mvnw test
 ```
 
-## O que já funciona (v0.2.0)
-- Cadastro de usuário com validação e hash bcrypt
-- Login com autenticação JWT
-- Redirecionamento automático baseado em estado de autenticação
-- Seleção de gêneros literários
+Frontend:
+
+```bash
+cd frontend
+npm test -- --run
+```
+
+## Staging e deploy
+
+Para instrucoes detalhadas de staging (Render), variaveis de ambiente, validacao por curl, credenciais de teste e comportamento de hibernacao, consulte o [`docs/DEPLOY.md`](./docs/DEPLOY.md).
+
+## O que esta no MVP
+
+- Cadastro de usuario com validacao e hash bcrypt
+- Login com autenticacao JWT
+- Redirecionamento automatico baseado em estado de autenticacao
+- Selecao de generos literarios
 - Leitura estruturada em fases e segmentos
-- Desbloqueio progressivo de fases conforme o avanço
+- Desbloqueio progressivo de fases conforme o avanco
+- Quiz de compreensao ao final de cada fase
+- Ganho de XP e progressao de nivel do personagem
+- Perfil do leitor com nivel, XP e biblioteca pessoal

@@ -2,23 +2,27 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/authService';
 import { useAuth } from '../../context/useAuth';
+import { mensagemDoTinta, carregandoTinta } from '../../utils/tintaMessages';
 
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-
   const [error, setError] = useState('');
+  const [carregando, setCarregando] = useState(false);
   const { loginUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setCarregando(true);
     try {
       const data = await login(credentials.email, credentials.password);
       loginUser(data);
       navigate('/inicio');
     } catch (err) {
-      setError(err.message || 'E-mail ou senha incorretos');
+      setError(mensagemDoTinta(err));
+    } finally {
+      setCarregando(false);
     }
   };
 
@@ -48,7 +52,9 @@ const LoginForm = () => {
 
       {error && <p className="auth-error">{error}</p>}
 
-      <button className="auth-btn-primary" type="submit">Entrar</button>
+      <button className="auth-btn-primary" type="submit" disabled={carregando}>
+        {carregando ? carregandoTinta.login : 'Entrar'}
+      </button>
       <Link to="/register">
         <button className="auth-btn-secondary" type="button">Criar conta</button>
       </Link>

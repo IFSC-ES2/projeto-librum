@@ -1,5 +1,20 @@
 const API_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
+const lerCorpo = async (response) => {
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    return {};
+  }
+};
+
+const erroComStatus = (status) => {
+  const err = new Error('falha na autenticacao');
+  err.status = status;
+  return err;
+};
+
 export const register = async (name, email, password) => {
   const response = await fetch(`${API_URL}/register`, {
     method: 'POST',
@@ -7,13 +22,8 @@ export const register = async (name, email, password) => {
     body: JSON.stringify({ name, email, password }),
   });
 
-  const text = await response.text();
-  const data = text ? JSON.parse(text) : {};
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Erro ao cadastrar');
-  }
-
+  const data = await lerCorpo(response);
+  if (!response.ok) throw erroComStatus(response.status);
   return data;
 };
 
@@ -24,11 +34,7 @@ export const login = async (email, password) => {
     body: JSON.stringify({ email, password }),
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Erro ao fazer login');
-  }
-
+  const data = await lerCorpo(response);
+  if (!response.ok) throw erroComStatus(response.status);
   return data;
 };

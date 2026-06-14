@@ -146,7 +146,7 @@ npm test -- --run
 
 Para instrucoes detalhadas de staging (Render), variaveis de ambiente, validacao por curl, credenciais de teste e comportamento de hibernacao, consulte o [`docs/DEPLOY.md`](./docs/DEPLOY.md).
 
-## O que esta no MVP (v1.0.0-rc.1)
+## O que esta no MVP
 
 - Cadastro de usuario com validacao e hash bcrypt
 - Login com autenticacao JWT
@@ -157,4 +157,3 @@ Para instrucoes detalhadas de staging (Render), variaveis de ambiente, validacao
 - Quiz de compreensao ao final de cada fase
 - Ganho de XP e progressao de nivel do personagem
 - Perfil do leitor com nivel, XP e biblioteca pessoal
-- Feedback de carregamento e mensagens de erro na voz do mascote Tinta

@@ -202,7 +202,7 @@ Auditoria executada em 2026-06-13 com `npm audit` e `npm audit fix` no diretorio
 - 0 vulnerabilidades restantes — todas foram corrigidas pela atualizacao de versao minor.
 - `npm run build` passou sem erros.
 - `npm test -- --run` passou: 11 testes em 3 arquivos.
-- `package.json` e `package-lock.json` foram atualizados.
+- `package-lock.json` foi atualizado.
 
 Nao foi necessario `npm audit fix --force` (nenhuma correcao exigiu major version bump).
 

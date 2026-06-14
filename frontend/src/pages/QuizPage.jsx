@@ -4,6 +4,7 @@ import { QuizService } from '../services/QuizService';
 import MascotBubble from '../components/ui/MascotBubble';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
+import { mensagemDoTinta, carregandoTinta } from '../utils/tintaMessages';
 import mascotePensativo from '../assets/mascots/librum-pensativo.svg';
 import './QuizPage.css';
 
@@ -17,7 +18,7 @@ const QuizPage = () => {
   const { phaseId } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [results, setResults] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -34,7 +35,7 @@ const QuizPage = () => {
         setQuestionsData(data);
       } catch (error) {
         console.error('Erro ao carregar o quiz:', error);
-        setErro(true);
+        setErro(mensagemDoTinta(error));
       } finally {
         setLoading(false);
       }
@@ -43,7 +44,7 @@ const QuizPage = () => {
   }, [phaseId]);
 
   if (loading) return <LoadingState message="Carregando quiz..." />;
-  if (erro) return <ErrorState message="Não foi possível carregar o quiz." />;
+  if (erro) return <ErrorState message={erro} />;
   if (!questionsData || questionsData.length === 0) {
     return <ErrorState message="Nenhuma questão encontrada para esta fase." />;
   }
@@ -81,7 +82,8 @@ const QuizPage = () => {
       navigate(`/quiz/${phaseId}/fase-concluida`, { state: result });
     } catch (error) {
       console.error('Erro ao enviar quiz:', error);
-      alert('Houve um erro ao enviar suas respostas.');
+      setErro(mensagemDoTinta(error));
+    } finally {
       setSubmitting(false);
     }
   };
@@ -153,9 +155,11 @@ const QuizPage = () => {
                   onClick={handleNext}
                   disabled={submitting}
                 >
-                  {currentQuestionIndex < questionsData.length - 1
-                    ? 'Próxima questão →'
-                    : 'Ver resultado →'}
+                  {submitting
+                    ? carregandoTinta.quiz
+                    : currentQuestionIndex < questionsData.length - 1
+                      ? 'Próxima questão →'
+                      : 'Ver resultado →'}
                 </button>
               )}
             </div>

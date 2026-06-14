@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authHeader } from '../utils/auth';
+import { mensagemDoTinta } from '../utils/tintaMessages';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import GenreBadge from '../components/ui/GenreBadge';
@@ -16,7 +17,7 @@ export default function HomePage() {
   const [progresso, setProgresso] = useState(null);
   const [generos, setGeneros] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState('');
 
   const [retryCount, setRetryCount] = useState(0);
 
@@ -28,7 +29,12 @@ export default function HomePage() {
           fetch(`${API_BASE_URL}/users/me/progress`, { headers: { ...authHeader() } }),
           fetch(`${API_BASE_URL}/genres`, { headers: { ...authHeader() } })
         ]);
-        if (!rPerfil.ok || !rProgresso.ok || !rGeneros.ok) throw new Error('Falha ao carregar');
+        if (!rPerfil.ok || !rProgresso.ok || !rGeneros.ok) {
+          const resposta = [rPerfil, rProgresso, rGeneros].find(r => !r.ok);
+          const err = new Error('falha ao carregar inicio');
+          err.status = resposta.status;
+          throw err;
+        }
         const [dadosPerfil, dadosProgresso, dadosGeneros] = await Promise.all([
           rPerfil.json(),
           rProgresso.json(),
@@ -39,7 +45,7 @@ export default function HomePage() {
         setGeneros(dadosGeneros);
       } catch (e) {
         console.error(e);
-        setErro(true);
+        setErro(mensagemDoTinta(e));
       } finally {
         setLoading(false);
       }
@@ -49,14 +55,14 @@ export default function HomePage() {
 
   const handleRetry = () => {
     setLoading(true);
-    setErro(false);
+    setErro('');
     setRetryCount(c => c + 1);
   };
 
 
 
   if (loading) return <LoadingState message="Carregando início..." />;
-  if (erro || !perfil || !progresso) return <ErrorState message="Não foi possível carregar o início." onRetry={handleRetry} />;
+  if (erro || !perfil || !progresso) return <ErrorState message={erro || mensagemDoTinta({})} onRetry={handleRetry} />;
 
   const emProgresso = progresso.byGenre.find(g => g.totalPhases > 0 && g.completedPhases < g.totalPhases)
     || progresso.byGenre.find(g => g.totalPhases > 0);

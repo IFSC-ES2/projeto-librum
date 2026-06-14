@@ -180,8 +180,7 @@ O cadastro ja faz login automaticamente, sem etapa extra.
 **Como proceder antes de avaliar ou demonstrar:**
 1. Acesse o link do frontend e tente fazer login (isso acorda o backend).
 2. Aguarde de 30 a 60 segundos caso a primeira tentativa falhe.
-3. A mensagem exibida sera "A biblioteca estava cochilando. O Tinta esta acordando ela, tente de novo em instantes." — comportamento intencional.
-4. Repita a acao; a partir dai o servico responde normalmente.
+3. Repita a acao; a partir dai o servico responde normalmente.
 
 ---
 

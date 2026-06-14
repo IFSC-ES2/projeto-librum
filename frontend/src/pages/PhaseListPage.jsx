@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReadingService } from '../services/ReadingService';
+import { mensagemDoTinta } from '../utils/tintaMessages';
 import ProgressBar from '../components/ui/ProgressBar';
 import Button from '../components/ui/Button';
 import LoadingState from '../components/ui/LoadingState';
@@ -17,7 +18,7 @@ export default function PhaseListPage() {
   const navigate = useNavigate();
   const [phases, setPhases] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(false);
+  const [erro, setErro] = useState(null);
 
   const [retry, setRetry] = useState(0);
 
@@ -25,13 +26,13 @@ export default function PhaseListPage() {
     let cancelled = false;
     const carregar = async () => {
       setLoading(true);
-      setErro(false);
+      setErro(null);
       try {
         const data = await ReadingService.getPhases(genreId);
         if (!cancelled) setPhases(data);
       } catch (e) {
         console.error(e);
-        if (!cancelled) setErro(true);
+        if (!cancelled) setErro(mensagemDoTinta(e));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -41,7 +42,7 @@ export default function PhaseListPage() {
   }, [genreId, retry]);
 
   if (loading) return <LoadingState message="Carregando fases..." />;
-  if (erro) return <ErrorState message="Não foi possível carregar as fases." onRetry={() => setRetry(r => r + 1)} />;
+  if (erro) return <ErrorState message={erro} onRetry={() => setRetry(r => r + 1)} />;
   if (phases.length === 0) return <LoadingState message="Nenhuma fase disponível." />;
 
   const completedCount = phases.filter(p => p.isCompleted).length;

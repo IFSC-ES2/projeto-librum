@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../services/authService';
 import { useAuth } from '../../context/useAuth';
+import { mensagemDoTinta, carregandoTinta } from '../../utils/tintaMessages';
 
 const RegisterForm = () => {
   const [data, setData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
+  const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
   const { loginUser } = useAuth();
 
@@ -23,12 +25,15 @@ const RegisterForm = () => {
       return;
     }
 
+    setCarregando(true);
     try {
       const response = await register(data.name, data.email, data.password);
       loginUser({ userId: response.userId, token: response.token });
       navigate('/inicio');
     } catch (err) {
-      setError(err.message || 'Erro no cadastro');
+      setError(mensagemDoTinta(err));
+    } finally {
+      setCarregando(false);
     }
   };
 
@@ -80,7 +85,9 @@ const RegisterForm = () => {
 
       {error && <p className="auth-error">{error}</p>}
 
-      <button className="auth-btn-primary" type="submit">Criar conta</button>
+      <button className="auth-btn-primary" type="submit" disabled={carregando}>
+        {carregando ? carregandoTinta.cadastro : 'Criar conta'}
+      </button>
     </form>
   );
 };

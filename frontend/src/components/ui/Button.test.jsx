@@ -24,4 +24,9 @@ describe('Button', () => {
     render(<Button full>Entrar</Button>);
     expect(screen.getByText('Entrar')).toHaveClass('btn--full');
   });
+  it('fica desabilitado e mostra carregamento quando loading é true', () => {
+    const { container } = render(<Button loading>Processando</Button>);
+    expect(screen.getByRole('button')).toBeDisabled();
+    expect(container.querySelector('.btn__spinner')).toBeInTheDocument();
+  });
 });

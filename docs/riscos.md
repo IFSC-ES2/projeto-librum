@@ -260,4 +260,4 @@ O staging roda no plano gratuito do Render, que hiberna após período de inativ
 
 ### Defeitos abertos no Release Candidate
 
-A execução dos testes de aceitação (Bloco G2) registrou quatro defeitos, listados nas limitações conhecidas do `release-candidate.md`: #172 (frontend do staging desatualizado), #173 (gêneros sem conteúdo levam a 404), #174 (fase reprovada conta como concluída e concede XP) e #175 (Perfil sem a voz do Tinta no erro). O #174 é o mais relevante por afetar a integridade do progresso; todos são tratados após a RC, em PRs dedicados.
+A execução dos testes de aceitação (Bloco G2) registrou quatro defeitos. O #172 (frontend do staging desatualizado) já foi resolvido com o redeploy do staging. Permanecem para tratamento após a RC, nas limitações conhecidas do `release-candidate.md`: #173 (gêneros sem conteúdo levam a 404), #174 (fase reprovada conta como concluída e concede XP) e #175 (Perfil sem a voz do Tinta no erro). O #174 é o mais relevante por afetar a integridade do progresso; são tratados em PRs dedicados.

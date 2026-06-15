@@ -31,6 +31,14 @@ Além das histórias, as páginas Início e Perfil (previstas nos wireframes) es
 
 ---
 
+## Estado do backlog
+
+- **Concluído:** as nove histórias do backlog inicial (US01 a US09) e as páginas Início e Perfil, totalizando 41 de 41 SP estimados.
+- **Removido:** nenhum item. O escopo do MVP (US01 a US09) foi mantido integralmente; itens fora do MVP (US10 e extras) já estavam fora do recorte desde a baseline.
+- **Pendente:** nenhuma história de produto. Permanecem para tratamento após a RC os defeitos #173, #174 e #175, registrados nas limitações conhecidas.
+
+---
+
 ## Correções e melhorias do Release Candidate
 
 - Hardening de feedback ao usuário: indicação de carregamento e mensagens do mascote Tinta no login, cadastro, gêneros, leitura, trilha, quiz e demais fluxos assíncronos, a partir de um catálogo único em `tintaMessages.js` (ADR-0013).
@@ -38,6 +46,7 @@ Além das histórias, as páginas Início e Perfil (previstas nos wireframes) es
 - Fechamento das métricas pendentes da Entrega 8: tempo de resposta (m3) medido no staging acordado, taxa de aprovação de PRs (m4) das Sprints 3 e 4, velocity (m5) e comparação antes/depois da reengenharia do PhaseUnlockService (m6), com evidência de cobertura do JaCoCo.
 - Testes de aceitação do MVP (TA-01 a TA-13) executados e documentados em `docs/testes-de-aceitacao.md`, com evidências em `docs/evidencias/aceitacao`.
 - Ambiente de staging documentado e operacional, com instruções de build, execução local e credenciais de teste em `docs/DEPLOY.md`.
+- Frontend do staging atualizado para refletir o Release Candidate, com as mensagens do mascote Tinta presentes no ambiente publicado (#172).
 
 ---
 
@@ -46,7 +55,6 @@ Além das histórias, as páginas Início e Perfil (previstas nos wireframes) es
 - Só o gênero Aventura tem conteúdo cadastrado; os demais aparecem como em breve.
 - O staging usa o plano gratuito do Render, que hiberna após inatividade; a primeira requisição depois da hibernação é mais lenta (cold start).
 - Defeitos abertos na execução dos testes de aceitação, registrados para tratamento após a RC:
-  - #172 - frontend do staging desatualizado, ainda não reflete o RC (mensagens do Tinta ausentes no staging).
   - #173 - gêneros sem conteúdo aparecem clicáveis e levam a 404 em vez de "em breve".
   - #174 - fase reprovada no quiz conta como concluída na trilha e concede XP (defeito de integridade de progresso; o desbloqueio da próxima fase continua respeitando a regra).
   - #175 - página de Perfil não usa a voz do Tinta no erro e não tem botão de tentar de novo.

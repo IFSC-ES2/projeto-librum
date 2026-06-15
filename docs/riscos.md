@@ -2,7 +2,7 @@
 
 Este documento registra os riscos identificados para o projeto Librum. É um artefato vivo e deve ser revisitado e atualizado a cada entrega.
 
-**Última atualização:** abril de 2026 (Entrega 4)
+**Última atualização:** junho de 2026 (Entrega 9 - Release Candidate)
 
 ---
 
@@ -233,3 +233,31 @@ Nenhum teste de componente foi implementado no frontend até o final da Sprint 2
 - R08: Antonio define a regra de aprovação do quiz e registra em ADR antes do desenvolvimento da US06 começar.
 - R05: Maria inicia a criação das questões de quiz assim que o livro e o formato de perguntas forem validados.
 - R01: Maria alinha com a equipe as semanas de maior carga acadêmica no início da sprint e ajusta o planejamento.
+
+---
+
+## Status da Sprint 5 — Release Candidate (14/06/2026)
+
+**R07 e R09 (Testes automatizados, backend e frontend): Mitigado.** O CI passou a executar `npm test -- --run` no job de frontend (antes o pipeline não rodava os testes de front), e foram adicionados testes dos componentes de feedback (Button em carregamento, ErrorState) e do catálogo do Tinta, somando-se aos testes de backend já existentes. A regressão de frontend deixa de passar despercebida no pipeline.
+
+**R01 (Sobrecarga acadêmica): Ativo.** No fechamento do semestre o risco permanece. A sprint foi organizada em três blocos de esforço equilibrado por integrante para diluir a carga.
+
+**R05 (Falta de questões de quiz): Encerrado para o MVP.** O gênero Aventura (A Ilha do Tesouro) tem o conjunto completo de questões via seed (migration V5). O MVP é demonstrado com um gênero completo; os demais aparecem como em breve.
+
+**Vulnerabilidades de dependências (npm audit): Encerrado.** A auditoria do frontend (13/06/2026) foi corrigida com `npm audit fix`, restando 0 vulnerabilidades, sem necessidade de major version bump. Registrado no `DEPLOY.md`.
+
+### Novo risco identificado
+
+**R10: Hibernação do ambiente de staging (plano gratuito do Render)**
+
+O staging roda no plano gratuito do Render, que hiberna após período de inatividade. A primeira requisição depois da hibernação tem cold start elevado (acima de 120s), o que pode dar a impressão de aplicação travada durante a demonstração.
+
+- Probabilidade: Alta
+- Impacto: Baixo
+- Prioridade: Médio
+- Responsável: Bernardo
+- Estratégia de mitigação: comportamento documentado no `DEPLOY.md`; a mensagem do Tinta de "biblioteca cochilando" cobre o 503 de cold start; aquecer a aplicação com uma requisição antes da demonstração; as medições de tempo de resposta (m3) foram feitas com a aplicação já acordada.
+
+### Defeitos abertos no Release Candidate
+
+A execução dos testes de aceitação (Bloco G2) registrou quatro defeitos, listados nas limitações conhecidas do `release-candidate.md`: #172 (frontend do staging desatualizado), #173 (gêneros sem conteúdo levam a 404), #174 (fase reprovada conta como concluída e concede XP) e #175 (Perfil sem a voz do Tinta no erro). O #174 é o mais relevante por afetar a integridade do progresso; todos são tratados após a RC, em PRs dedicados.

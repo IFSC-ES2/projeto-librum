@@ -7,7 +7,11 @@ export const QuizService = {
     const response = await fetch(`${API_BASE_URL}/quiz/${phaseId}`, {
       headers: { ...authHeader() }
     });
-    if (!response.ok) throw new Error('Falha ao carregar as questões');
+    if (!response.ok) {
+      const err = new Error('falha ao carregar as questoes');
+      err.status = response.status;
+      throw err;
+    }
     return await response.json();
   },
 
@@ -20,7 +24,11 @@ export const QuizService = {
       },
       body: JSON.stringify({ answers })
     });
-    if (!response.ok) throw new Error('Falha ao enviar o quiz');
+    if (!response.ok) {
+      const err = new Error('falha ao enviar o quiz');
+      err.status = response.status;
+      throw err;
+    }
     return await response.json();
   }
 };

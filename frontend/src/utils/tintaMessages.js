@@ -26,3 +26,7 @@ export const carregandoTinta = {
   quiz: 'O Tinta esta corrigindo suas respostas...',
   generico: 'So um instante, o Tinta esta buscando...',
 };
+
+export const vazioTinta = {
+  quiz: 'O Tinta nao achou questoes para esta fase. Tente novamente mais tarde.',
+};

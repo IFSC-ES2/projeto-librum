@@ -201,6 +201,15 @@
   cursor: not-allowed;
 }
 
+.quiz-erro-envio {
+  align-self: flex-end;
+  margin: 0;
+  color: var(--color-danger, #c2483d);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+}
+
 .quiz-reference {
   border-radius: var(--radius-md, 14px);
   padding: 1rem 1.25rem;

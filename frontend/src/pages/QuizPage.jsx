@@ -4,7 +4,7 @@ import { QuizService } from '../services/QuizService';
 import MascotBubble from '../components/ui/MascotBubble';
 import LoadingState from '../components/ui/LoadingState';
 import ErrorState from '../components/ui/ErrorState';
-import { mensagemDoTinta, carregandoTinta } from '../utils/tintaMessages';
+import { mensagemDoTinta, carregandoTinta, vazioTinta } from '../utils/tintaMessages';
 import mascotePensativo from '../assets/mascots/librum-pensativo.svg';
 import './QuizPage.css';
 
@@ -26,6 +26,7 @@ const QuizPage = () => {
   const [feedback, setFeedback] = useState(null);
   const [questionsData, setQuestionsData] = useState([]);
   const [submitting, setSubmitting] = useState(false);
+  const [erroEnvio, setErroEnvio] = useState(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -43,10 +44,10 @@ const QuizPage = () => {
     fetchQuestions();
   }, [phaseId]);
 
-  if (loading) return <LoadingState message="Carregando quiz..." />;
+  if (loading) return <LoadingState message={carregandoTinta.generico} />;
   if (erro) return <ErrorState message={erro} />;
   if (!questionsData || questionsData.length === 0) {
-    return <ErrorState message="Nenhuma questão encontrada para esta fase." />;
+    return <ErrorState message={vazioTinta.quiz} />;
   }
 
   const currentQuestion = questionsData[currentQuestionIndex];
@@ -78,11 +79,12 @@ const QuizPage = () => {
   const submitFinalQuiz = async (finalAnswers) => {
     try {
       setSubmitting(true);
+      setErroEnvio(null);
       const result = await QuizService.submitQuiz(phaseId, finalAnswers);
       navigate(`/quiz/${phaseId}/fase-concluida`, { state: result });
     } catch (error) {
       console.error('Erro ao enviar quiz:', error);
-      setErro(mensagemDoTinta(error));
+      setErroEnvio(mensagemDoTinta(error));
     } finally {
       setSubmitting(false);
     }
@@ -161,6 +163,10 @@ const QuizPage = () => {
                       ? 'Próxima questão →'
                       : 'Ver resultado →'}
                 </button>
+              )}
+
+              {erroEnvio && (
+                <p className="quiz-erro-envio" role="alert">{erroEnvio}</p>
               )}
             </div>
 

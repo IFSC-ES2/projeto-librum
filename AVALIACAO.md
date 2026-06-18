@@ -26,17 +26,17 @@
 | 9       | Bernardo Silva Bombazaro | 882cbeb | 13/06/26 | 14/06/26 | 7,2  | 10   |
 | 9       | Giuliano Marcus Bianco   | 882cbeb | 13/06/26 | 14/06/26 | 7,4  | 10   |
 | 9       | Maria Carolina Hammes    | 882cbeb | 13/06/26 | 14/06/26 | 6,9  | 10   |
-| 10      |                          |         |          |          |      | 10   |
+| 10      | equipe                   | --      | 15/06/26 | 15/06/26 | 8    | 10   |
 | 11/12   |                          |         |          |          |      | 30   |
 
 ## Nota parcial
 
 | aluno                    | nota parcial |
 | ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8,1          |
+| Antonio Marcos da Silva  | 8            |
 | Bernardo Silva Bombazaro | 7,8          |
 | Giuliano Marcus Bianco   | 8,1          |
-| Maria Carolina Hammes    | 7,5          |
+| Maria Carolina Hammes    | 7,6          |
 
 ## Comentários
 
@@ -213,10 +213,10 @@
    - A release `v0.3.0 - Sprint 3: Quiz e Sistema de XP` foi publicada com descrição do incremento, endpoints, testes e limitações conhecidas.
 8. Registro das contribuições individuais: parcial.
    - A documentação da Sprint 3 registra responsáveis, histórias entregues e contribuições, e o histórico de commits/PRs confirma participação dos quatro integrantes.
-    - Antonio: participação mais forte no backend, contratos, ADRs e implementação do quiz/desbloqueio. A nota é limitada por lacunas de arquitetura sistêmica e pelos problemas de qualidade que chegaram à release.
-    - Bernardo: contribuiu com XP/frontend, testes/configuração e revisão. A participação é relevante, mas menos central no incremento principal e não eliminou as falhas de teste/lint frontend.
-    - Giuliano: concentrou documentação, métricas, testes, reviews e PR final da entrega. A nota reconhece esse papel de sustentação e qualidade, mas as métricas ficaram incompletas e o pipeline não cobre testes/lint frontend.
-    - Maria: há contribuição rastreável em correções/frontend da Sprint 3, mas o volume de commits/PRs é menor e o frontend é justamente o ponto mais frágil da entrega avaliada.
+   - Antonio: participação mais forte no backend, contratos, ADRs e implementação do quiz/desbloqueio. A nota é limitada por lacunas de arquitetura sistêmica e pelos problemas de qualidade que chegaram à release.
+   - Bernardo: contribuiu com XP/frontend, testes/configuração e revisão. A participação é relevante, mas menos central no incremento principal e não eliminou as falhas de teste/lint frontend.
+   - Giuliano: concentrou documentação, métricas, testes, reviews e PR final da entrega. A nota reconhece esse papel de sustentação e qualidade, mas as métricas ficaram incompletas e o pipeline não cobre testes/lint frontend.
+   - Maria: há contribuição rastreável em correções/frontend da Sprint 3, mas o volume de commits/PRs é menor e o frontend é justamente o ponto mais frágil da entrega avaliada.
 
 ### Entrega 8
 
@@ -259,11 +259,11 @@
 8. Registro de contribuição individual: parcial.
    - Não há seção consolidada de contribuições individuais da Sprint 4 em um relatório de entrega.
    - A análise precisou ser feita pelo histórico `v0.3.0..main`, que confirma participação dos quatro integrantes, mas com aliases diferentes (`anthyer`, `bombazaro`, `Maria Hammes`, etc.).
-Notas individuais:
+     Notas individuais:
    - Antonio: contribuição relevante em backend/perfil/progresso, extração de `PhaseUnlockService`, correções de conteúdo e documentação de padrões. Nota limitada pela ausência de tag/release e por não haver comparação objetiva antes/depois da refatoração.
    - Bernardo: contribuição relevante em deploy/staging, CORS, CI com lint e reestilização/rotas de frontend. Nota limitada porque a entrega falhou justamente na publicação da tag obrigatória e a documentação de deploy ficou pouco operacional.
-    - Giuliano: contribuição forte em testes, métricas de cobertura, assets, PRs de integração e reestilização de quiz/fase concluída. Nota limitada porque várias métricas sob responsabilidade de qualidade permaneceram pendentes ou `a confirmar`.
-    - Maria: contribuição importante no design system, app shell, trilha/leitura e documentação de decisões de UI. Nota limitada pelo menor volume relativo de commits na Sprint 4 e pela ausência de relatório consolidado de contribuições/escopo.
+   - Giuliano: contribuição forte em testes, métricas de cobertura, assets, PRs de integração e reestilização de quiz/fase concluída. Nota limitada porque várias métricas sob responsabilidade de qualidade permaneceram pendentes ou `a confirmar`.
+   - Maria: contribuição importante no design system, app shell, trilha/leitura e documentação de decisões de UI. Nota limitada pelo menor volume relativo de commits na Sprint 4 e pela ausência de relatório consolidado de contribuições/escopo.
 
 ### Entrega 9
 
@@ -307,7 +307,18 @@ Notas individuais:
    - A release publicada é uma release de Sprint 4, não um RC final do MVP, embora sua descrição tenha vários elementos esperados de release.
 
 Notas individuais:
-   - Antonio: contribuição forte em backend, arquitetura C4, relatório final, refatoração do `PhaseUnlockService`, endpoint de progresso, correção de conteúdo e documentação de padrões. Nota limitada pela ausência de RC no formato exigido, ausência de testes de aceitação e pendências documentais finais.
-   - Bernardo: contribuição relevante em DevOps/deploy, CORS, CI com lint/testes frontend e reestilização de auth/gêneros/home. Nota um pouco maior que a média pela centralidade em ambiente e CI, mas limitada por documentação de deploy ainda curta e ausência do RC formal.
-   - Giuliano: contribuição forte em qualidade, JaCoCo, testes frontend, assets, reestilização do quiz/fase concluída, inclusão de `npm test` no CI e publicação da release/tag `v0.4.0`. Maior nota da entrega pela atuação direta nos itens de qualidade/CI/release, limitada por métricas ainda pendentes e ausência de testes de aceitação.
-   - Maria: contribuição importante no design system, app shell, trilha de fases/leitura e remoção de mock enganoso. Nota menor pelo menor volume relativo no fechamento da entrega 9 e menor atuação direta nos itens críticos de RC, testes de aceitação, deploy e CI final.
+
+- Antonio: contribuição forte em backend, arquitetura C4, relatório final, refatoração do `PhaseUnlockService`, endpoint de progresso, correção de conteúdo e documentação de padrões. Nota limitada pela ausência de RC no formato exigido, ausência de testes de aceitação e pendências documentais finais.
+- Bernardo: contribuição relevante em DevOps/deploy, CORS, CI com lint/testes frontend e reestilização de auth/gêneros/home. Nota um pouco maior que a média pela centralidade em ambiente e CI, mas limitada por documentação de deploy ainda curta e ausência do RC formal.
+- Giuliano: contribuição forte em qualidade, JaCoCo, testes frontend, assets, reestilização do quiz/fase concluída, inclusão de `npm test` no CI e publicação da release/tag `v0.4.0`. Maior nota da entrega pela atuação direta nos itens de qualidade/CI/release, limitada por métricas ainda pendentes e ausência de testes de aceitação.
+- Maria: contribuição importante no design system, app shell, trilha de fases/leitura e remoção de mock enganoso. Nota menor pelo menor volume relativo no fechamento da entrega 9 e menor atuação direta nos itens críticos de RC, testes de aceitação, deploy e CI final.
+
+### Entrega 10
+
+| critério                  | peso | nota |
+| ------------------------- | ---- | ---- |
+| Identificação do projeto  | 1    | 7    |
+| Resumo do MVP             | 2    | 7    |
+| Demonstração do sistema   | 4    | 10   |
+| Situação final do projeto | 1,5  | 4    |
+| Objetividade e perguntas  | 0,5  | 10   |

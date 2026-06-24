@@ -27,16 +27,19 @@
 | 9       | Giuliano Marcus Bianco   | 882cbeb | 13/06/26 | 14/06/26 | 7,4  | 10   |
 | 9       | Maria Carolina Hammes    | 882cbeb | 13/06/26 | 14/06/26 | 6,9  | 10   |
 | 10      | equipe                   | --      | 15/06/26 | 15/06/26 | 8    | 10   |
-| 11/12   |                          |         |          |          |      | 30   |
+| 11/12   | Antonio Marcos da Silva  | --      | 22/06/26 | 24/06/26 | 9    | 30   |
+| 11/12   | Bernardo Silva Bombazaro | --      | 22/06/26 | 24/06/26 | 6,5  | 30   |
+| 11/12   | Giuliano Marcus Bianco   | --      | 22/06/26 | 24/06/26 | 7,5  | 30   |
+| 11/12   | Maria Carolina Hammes    | --      | 22/06/26 | 24/06/26 | 6,5  | 30   |
 
-## Nota parcial
+## Nota final
 
-| aluno                    | nota parcial |
-| ------------------------ | ------------ |
-| Antonio Marcos da Silva  | 8            |
-| Bernardo Silva Bombazaro | 7,8          |
-| Giuliano Marcus Bianco   | 8,1          |
-| Maria Carolina Hammes    | 7,6          |
+| aluno                    | nota |
+| ------------------------ | ---- |
+| Antonio Marcos da Silva  | 8,3  |
+| Bernardo Silva Bombazaro | 7,4  |
+| Giuliano Marcus Bianco   | 7,9  |
+| Maria Carolina Hammes    | 7,3  |
 
 ## Comentários
 
@@ -322,3 +325,59 @@ Notas individuais:
 | Demonstração do sistema   | 4    | 10   |
 | Situação final do projeto | 1,5  | 4    |
 | Objetividade e perguntas  | 0,5  | 10   |
+
+### Entrega 11/12 — Defesa do trabalho
+
+1. **Produto e MVP: parcial.** O MVP final entrega as 9 histórias de usuário (US01-US09), totalizando 41 SP, com fluxo completo de cadastro/login JWT, seleção de gêneros, leitura em fases com desbloqueio progressivo, quiz, XP e perfil. O backlog fechou 100% na Sprint 3. Limitações relevantes: apenas o gênero Aventura tem conteúdo completo (7 fases); os demais aparecem como "em breve"; os defeitos #173 (gêneros sem conteúdo levam a 404), #174 (fase reprovada conta como concluída na trilha) e #175 (Perfil sem voz do Tinta no erro) permanecem abertos. O GET /quiz/{phaseId} expõe correctOption e explanation antes da submissão, comprometendo a integridade do quiz.
+
+2. **Arquitetura e decisões técnicas: atendido.** Arquitetura documentada em `docs/arquitetura.md` com diagramas C4 de contexto e contêineres (React + Vite no frontend, Java 17 + Spring Boot 3 no backend, PostgreSQL 15, todos publicados no Render). 13 ADRs registradas (ADR-0001 a ADR-0013) cobrindo stack, banco (PostgreSQL + Flyway), autenticação (JWT + bcrypt), modelagem de conteúdo, padrões OO e feedback do mascote Tinta. Decisões de arquitetura com alternativas consideradas e trade-offs explícitos.
+
+3. **Projeto orientado a objetos e padrões: atendido.** Quatro padrões de projeto aplicados e documentados: Facade (ReadingService, ADR-0007), Command (QuizService, ADR-0008), Template Method (PhaseUnlockService, ADR-0009/0010) e Strategy (readingThemes, ADR-0012). `docs/padroes-de-projeto.md` consolida os 4 padrões com arquivos e ADRs associados. ADR-0013 documenta o catálogo unificado de mensagens do Tinta como padrão de feedback. A extração do PhaseUnlockService (M6) demonstra aplicação prática de refatoração orientada a design com métricas antes/depois.
+
+4. **Qualidade, testes e pipeline: atendido com ressalvas.** CI pipeline com 6 jobs: backend-tests (44 testes, JaCoCo 85,6% linhas, 84,1% instruções, 76,9% branches), frontend-lint (npm run lint), frontend-test (11 testes em 3 arquivos), frontend-build, validate-yaml e check-required-files. Testes de aceitação manuais (TA-01 a TA-13) documentados com 9 aprovados e 4 aprovados com ressalvas, com screenshots em `docs/evidencias/aceitacao/`. Ressalvas: GET /quiz/{phaseId} expõe respostas antes da submissão; o defeito #174 (integridade de progresso) não foi corrigido antes do RC; cold start do Render não tem keep-alive automatizado.
+
+5. **Deploy, staging e reprodutibilidade: atendido com ressalvas.** Staging funcional no Render (frontend `librum-frontend.onrender.com`, backend `projeto-librum.onrender.com`). `docs/DEPLOY.md` com Docker Compose para ambiente local, variáveis de ambiente, validação por curl, credenciais de teste e comportamento de hibernação do Render. Ressalvas: plano gratuito hiberna após inatividade (cold start até 120s); a imagem/serviço não tem tag versionada imutável.
+
+6. **Métricas, riscos e acompanhamento: atendido.** 6 métricas fichadas (M1-M6) com histórico por sprint: M1 (cobertura 85,6%), M2 (taxa erros 0%), M3 (tempo resposta ~245ms GET /genres, ~280ms POST /login — dentro do RNF02 < 2000ms), M4 (taxa aprovação PRs 100%), M5 (velocity: 8, 13, 18, 2, 0 SP), M6 (reengenharia PhaseUnlockService com comparação LOC/dependências/cobertura 94%). 10 riscos registrados (R01-R10) com análise probabilidade x impacto, plano de resposta e acompanhamento por sprint. Baseline com previsão de 8 SP/sprint e plano de contingência para desvios.
+
+7. **Manutenção e reengenharia: atendido.** Extração do PhaseUnlockService (ADR-0010) com comparação objetiva: ReadingService reduziu de 108 para 93 LOC, responsabilidades separadas, regra de domínio testável isoladamente com 94% de cobertura (M6). Correção de conteúdo duplicado (migrations V9/V10). Design system com tokens CSS e temas Strategy (ADR-0011/0012). Catálogo unificado do Tinta (ADR-0013).
+
+8. **Colaboração e contribuição individual: parcial.** 283 commits totais (~82% seguindo Conventional Commits). Distribuição: Giuliano (88), Bernardo (82), Antonio (71), Maria (~32). Mapa de aliases git documentado no RC para rastreabilidade (anthyer, bombazaro, Maria0912204, giuliano-marcus-bianco). Observação: a documentação da Sprint 2 continha divergências (issues atribuídas a Maria mas criadas por outros; `pradroes-de-projeto.md` citado mas ausente na tag), corrigidas nas sprints seguintes.
+
+#### Perguntas para a defesa
+
+Antonio:
+
+1. O ADR-0009 registra a aplicação do padrão Template Method em `ReadingService.isPhaseUnlocked()`, e o ADR-0010 documenta a extração dessa regra para `PhaseUnlockService`. Explique por que o Template Method foi escolhido em vez de Strategy nesse contexto, e o que motivou a extração posterior.
+   - Resposta esperada: Template Method foi escolhido porque a regra tem esqueleto fixo (verificar fase 1, localizar fase anterior, consultar repositório) com apenas um passo variável (critério de conclusão). Não havia previsão de múltiplas políticas, então Strategy seria cerimônia excessiva. A extração foi motivada pelo alerta do ADR-0007: ReadingService crescia em responsabilidade. Melhorou coesão (108→93 LOC) e testabilidade (94% cobertura isolada).
+2. A métrica M6 mostra a comparação antes/depois da extração do PhaseUnlockService. Como você decidiu o que medir, e por que LOC, responsabilidades e dependências são mais relevantes do que medir apenas cobertura?
+   - Resposta esperada: o objetivo era coesão e testabilidade, não só cobertura. LOC mostra redução de tamanho, responsabilidades mostram separação de preocupações, dependências mostram propósito único (4→5, mas sem acoplamento misto). Cobertura (94%) complementa demonstrando testabilidade isolada.
+3. O risco R03 (dificuldade técnica com modelagem do conteúdo literário) foi prioridade Alta e encerrado na Sprint 2. Que decisão de arquitetura o mitigou, e como está documentada?
+   - Resposta esperada: modelagem em 5 tabelas (genres, books, phases, phase_segments, user_progress) registrada no ADR-0006. Conteúdo dividido em fases/segmentos com progresso rastreado por par (usuário, fase). Um único livro completo como prova de conceito reduziu risco de sobrecarga.
+
+Bernardo:
+
+1. O staging usa Render com plano gratuito, que hiberna. Que estratégias você usou para mitigar o cold start, e como isso está documentado?
+   - Resposta esperada: documentação no `DEPLOY.md` (seção "Comportamento de hibernação") com instruções de aquecimento, validação por curl e descarte da primeira requisição nas medições M3. Frontend exibe mensagem do Tinta ("biblioteca cochilando") via catálogo unificado (ADR-0013). Keep-alive automatizado não implementado por custo do plano pago.
+2. O CI foi incrementado ao longo das sprints (backend-tests → lint → frontend-test → validate-yaml). Que critério você usou para decidir o que adicionar em cada sprint?
+   - Resposta esperada: baseado nas avaliações das entregas anteriores. Entrega 6 → lint (npm run lint) adicionado e erros corrigidos. Entrega 7 → npm test no frontend adicionado ao CI (PR #149). Check de arquivos obrigatórios para evitar ausência de `docs/padroes-de-projeto.md` (v0.2.0). CI evolui conforme lacunas de qualidade são identificadas.
+3. Seu alias git (`bombazaro`) é diferente do seu nome real, dificultando rastreabilidade na Entrega 8. Como a equipe resolveu?
+   - Resposta esperada: mapa de aliases git documentado no `docs/entregas/release-candidate.md` mapeando cada alias ao nome real. Permitiu conferir autoria por PR em vez de nome do commit. Lição: configurar `user.name` no git com nome completo desde o início.
+
+Giuliano:
+
+1. Os testes de aceitação (TA-01 a TA-13) tiveram 9 aprovados e 4 aprovados com ressalvas. O defeito #174 (fase reprovada conta como concluída) é o mais severo. Por que não foi corrigido antes do RC, e como justifica "aprovado com ressalvas" para o TA-08?
+   - Resposta esperada: o desbloqueio (`quiz_completed`) funcionava corretamente; o problema era no campo `is_completed` marcado indevidamente, com XP concedido. Como a regra principal do negócio estava correta, classifiquei como ressalva em vez de reprovação. Idealmente deveria ter sido corrigido, mas a sprint de RC já estava fechada — a prioridade foi documentar a limitação.
+2. A métrica M1 começou com valores estimados (~70%, ~75%) e só na Sprint 4 teve evidência objetiva com JaCoCo. Qual o problema de usar valores estimados?
+   - Resposta esperada: valores estimados não são verificáveis — o avaliador não pode confirmar se o valor é real ou otimista. Sem ferramenta no pipeline, a cobertura pode regredir silenciosamente. Com JaCoCo configurado, a métrica passou a ser objetiva (85,6% linhas) e rastreável. Métrica sem evidência automatizada é opinião.
+3. Você é o membro com mais commits (88), cobrindo SVGs, reestilização, testes e métricas. Como distribuiu seu tempo entre qualidade e desenvolvimento?
+   - Resposta esperada: QE não significa "só testa". O foco foi triplo: (1) infraestrutura de qualidade (Vitest, JaCoCo, npm test no CI); (2) evidências (relatório de cobertura, backfill de métricas); (3) desenvolvimento pontual onde a qualidade era impactada (SVGs substituindo PNGs de baixa resolução, remoção de mocks enganosos). Qualidade não é fase separada — cada PR inclui funcionalidade + testes + métrica.
+
+Maria Carolina:
+
+1. O ADR-0012 registra o padrão Strategy para temas de leitura. Por que Strategy foi mais adequado que classes CSS ou if/else?
+   - Resposta esperada: (1) temas têm fontFamily, fontSize e lineSpacing calculados em runtime — classes CSS não permitem esse dinamismo. (2) if/else violaria Open/Closed Principle: novo tema exigiria modificar ReadingPage. Com Strategy, cada tema é um objeto independente em readingThemes.js com interface comum. (3) Adicionar tema novo é só criar outro objeto, sem alterar o componente.
+2. O backlog fechou 41 SP, mas apenas Aventura tem conteúdo. É limitação ou decisão de escopo?
+   - Resposta esperada: decisão deliberada, registrada na baseline: "1 livro por gênero". A estrutura de dados já suporta múltiplos gêneros. A limitação é de conteúdo, não de arquitetura. MVP valida fluxo completo com um gênero — suficiente para demonstrar o conceito.
+3. Você criou o catálogo Tinta e os componentes de feedback (ADR-0013). Como interagem com o staging e erros offline?
+   - Resposta esperada: `tintaMessages.js` centraliza mensagens; cada componente chama `mensagemDoTinta(erro)` traduzindo status HTTP. Erro de rede retorna "Parece que a biblioteca está dormindo", cobrindo cold start e falta de conexão. TA-13 passou na maioria das telas, mas Perfil (#175) ficou com ressalvas por mensagem fixa sem voz do Tinta.
